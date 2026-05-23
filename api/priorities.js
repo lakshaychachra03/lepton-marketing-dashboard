@@ -17,17 +17,23 @@ export default async function handler(req, res) {
   }
 
   const auth = Buffer.from(`${JIRA_EMAIL}:${JIRA_TOKEN}`).toString('base64');
-  const url = `https://${JIRA_BASE_URL}/rest/api/3/search?` +
-    `jql=${encodeURIComponent(JQL)}` +
-    `&fields=summary,priority,assignee,duedate,status` +
-    `&maxResults=20`;
+  // New Jira Cloud endpoint (POST) — old GET /rest/api/3/search returns 410.
+  // See: https://developer.atlassian.com/changelog/#CHANGE-2046
+  const url = `https://${JIRA_BASE_URL}/rest/api/3/search/jql`;
 
   try {
     const jiraRes = await fetch(url, {
+      method: 'POST',
       headers: {
         'Authorization': `Basic ${auth}`,
-        'Accept': 'application/json'
-      }
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        jql: JQL,
+        fields: ['summary', 'priority', 'assignee', 'duedate', 'status'],
+        maxResults: 20
+      })
     });
 
     if (!jiraRes.ok) {
