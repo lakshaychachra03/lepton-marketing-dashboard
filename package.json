@@ -1,0 +1,13 @@
+{
+  "name": "lepton-marketing-dashboard",
+  "version": "1.0.0",
+  "description": "Live Lepton Marketing dashboard. Pulls priority tickets from Jira every 30 seconds. Hosted on Vercel.",
+  "private": true,
+  "engines": {
+    "node": ">=18"
+  },
+  "scripts": {
+    "dev": "vercel dev",
+    "deploy": "vercel --prod"
+  }
+}
