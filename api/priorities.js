@@ -5,7 +5,10 @@
 const JQL = 'project = LMR AND priority in (Highest, High) AND statusCategory != Done AND duedate is not EMPTY ORDER BY duedate ASC, priority DESC';
 
 export default async function handler(req, res) {
-  const { JIRA_EMAIL, JIRA_TOKEN, JIRA_BASE_URL } = process.env;
+  // Trim env vars defensively — copy-paste into Vercel often picks up whitespace.
+  const JIRA_EMAIL = (process.env.JIRA_EMAIL || '').trim();
+  const JIRA_TOKEN = (process.env.JIRA_TOKEN || '').trim();
+  const JIRA_BASE_URL = (process.env.JIRA_BASE_URL || '').trim().replace(/^https?:\/\//, '').replace(/\/$/, '');
 
   if (!JIRA_EMAIL || !JIRA_TOKEN || !JIRA_BASE_URL) {
     return res.status(500).json({
