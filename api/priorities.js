@@ -27,7 +27,8 @@ export default async function handler(req, res) {
     return res.status(400).json({ error: 'Invalid level. Use p0, p1, p2, p3, or p4.' });
   }
 
-  const jql = `project = LMR AND priority = "${jiraPriority}" AND statusCategory != Done ORDER BY duedate ASC NULLS LAST, updated DESC`;
+  // JQL puts nulls last by default for ASC sort
+  const jql = `project = LMR AND priority = "${jiraPriority}" AND statusCategory != Done ORDER BY duedate ASC, updated DESC`;
 
   const auth = Buffer.from(`${JIRA_EMAIL}:${JIRA_TOKEN}`).toString('base64');
 
