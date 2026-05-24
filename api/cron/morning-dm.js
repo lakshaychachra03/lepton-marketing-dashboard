@@ -121,10 +121,11 @@ function buildMorningMessage(name, tickets) {
   return `Good morning ${name} :sunny:\n\n` +
     `You have ${tickets.length} top-priority ${taskWord} today:\n\n` +
     `${lines}\n\n` +
-    `:arrows_counterclockwise: *How to update — type these in any Slack channel (including this DM):*\n` +
+    `:arrows_counterclockwise: *How to update — type these in #lepton-marketing channel:*\n` +
     `• To add a comment:   \`/jira comment ${firstKey} finished the design draft\`\n` +
     `• To change status:   \`/jira transition ${firstKey}\`  (a picker pops up: To Do / In Progress / Done)\n` +
     `• To reassign:        \`/jira assign ${firstKey} @teammate\`\n\n` +
+    `:warning: Slash commands won't work in this DM (no Jira subscription here). Use #lepton-marketing or click the ticket link to open in Jira.\n\n` +
     `All updates are real-time — they appear in #lakshay-jira-alerts and refresh the live dashboard within 30 seconds.\n\n` +
     `:bar_chart: Team dashboard: https://lepton-marketing-dashboard.vercel.app`;
 }
