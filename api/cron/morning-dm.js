@@ -120,7 +120,9 @@ function buildMorningMessage(name, tickets) {
   return `Good morning ${name} :sunny:\n\n` +
     `You have ${tickets.length} top-priority ${taskWord} today:\n\n` +
     `${lines}\n\n` +
-    `Update from Slack: /jira transition LMR-XX  OR  /jira comment LMR-XX <your update>\n\n` +
+    `Update options:\n` +
+    `• Bulk (paste all updates at once): https://lepton-marketing-dashboard.vercel.app/update\n` +
+    `• Per ticket from Slack: /jira transition LMR-XX  or  /jira comment LMR-XX <update>\n\n` +
     `Team dashboard: https://lepton-marketing-dashboard.vercel.app`;
 }
 
