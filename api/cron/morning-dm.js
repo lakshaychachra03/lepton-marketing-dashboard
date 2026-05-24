@@ -100,18 +100,20 @@ export default async function handler(req, res) {
   });
 }
 
+const PRIORITY_REMAP = { 'Highest': 'P0', 'High': 'P1', 'Medium': 'P2', 'Low': 'P3', 'Lowest': 'P4' };
+
 function buildMorningMessage(name, tickets) {
   if (tickets.length === 0) {
     return `Good morning ${name} :sunny:\n\n` +
-      `Nothing on your HIGHEST/HIGH priority list today — clear plate.\n` +
-      `Use the time for medium-priority backlog or get ahead on next week.\n\n` +
+      `Nothing on your P0/P1 priority list today — clear plate.\n` +
+      `Use the time for P2/P3 backlog or get ahead on next week.\n\n` +
       `Team dashboard: https://lepton-marketing-dashboard.vercel.app`;
   }
 
   const lines = tickets.map(t => {
     const due = formatDue(t.duedate);
-    const priority = t.priority.toUpperCase();
-    return `• ${t.key} — ${t.summary} (Due ${due}, ${priority})\n  ${t.url}`;
+    const priority = PRIORITY_REMAP[t.priority] || t.priority;
+    return `• ${t.key} (${priority}) — ${t.summary} — Due ${due}\n  ${t.url}`;
   }).join('\n');
 
   const taskWord = tickets.length === 1 ? 'task' : 'tasks';

@@ -49,12 +49,27 @@
 
 
 <div style="background: linear-gradient(135deg, #fef2f2 0%, #fee2e2 100%); border: 3px solid #dc2626; border-radius: 12px; padding: 20px 24px; margin-bottom: 28px; box-shadow: 0 4px 12px rgba(220,38,38,0.15);">
-  <h2 style="color: #991b1b; margin-top: 0; margin-bottom: 14px; border: none; padding: 0; font-size: 22px;">🔥 TOP PRIORITY TASKS — Live from Jira</h2>
-  <p style="color: #7f1d1d; margin: 0 0 6px 0; font-size: 13px;">All HIGHEST/HIGH priority open tickets with due dates. Click any ticket ID to open in Jira.</p>
+  <h2 style="color: #991b1b; margin-top: 0; margin-bottom: 6px; border: none; padding: 0; font-size: 22px;">🔥 Priority Tasks — Live from Jira</h2>
+  <p style="color: #7f1d1d; margin: 0 0 12px 0; font-size: 13px;">Click a tab to switch priority level. P0 = most urgent. Click any ticket ID to open in Jira.</p>
+  <div id="priority-tabs" style="display: flex; gap: 6px; margin-bottom: 12px; flex-wrap: wrap;">
+    <button data-level="p0" class="prio-tab active" style="padding: 6px 14px; border-radius: 6px; font-size: 13px; font-weight: 600; border: 1px solid #dc2626; cursor: pointer;">P0 — Critical</button>
+    <button data-level="p1" class="prio-tab" style="padding: 6px 14px; border-radius: 6px; font-size: 13px; font-weight: 600; border: 1px solid #f97316; cursor: pointer; background: white; color: #f97316;">P1 — High</button>
+    <button data-level="p2" class="prio-tab" style="padding: 6px 14px; border-radius: 6px; font-size: 13px; font-weight: 600; border: 1px solid #eab308; cursor: pointer; background: white; color: #ca8a04;">P2 — Medium</button>
+    <button data-level="p3" class="prio-tab" style="padding: 6px 14px; border-radius: 6px; font-size: 13px; font-weight: 600; border: 1px solid #22c55e; cursor: pointer; background: white; color: #16a34a;">P3 — Low</button>
+    <button data-level="p4" class="prio-tab" style="padding: 6px 14px; border-radius: 6px; font-size: 13px; font-weight: 600; border: 1px solid #94a3b8; cursor: pointer; background: white; color: #64748b;">P4 — Backlog</button>
+  </div>
   <p style="color: #7f1d1d; margin: 0 0 14px 0; font-size: 11px; font-style: italic;">
     <span id="refresh-status">Loading from Jira&hellip;</span>
     <span style="margin-left: 12px;">Auto-refreshes every 30 seconds.</span>
   </p>
+  <style>
+    .prio-tab.active[data-level="p0"] { background: #dc2626; color: white; }
+    .prio-tab.active[data-level="p1"] { background: #f97316; color: white; }
+    .prio-tab.active[data-level="p2"] { background: #eab308; color: white; }
+    .prio-tab.active[data-level="p3"] { background: #22c55e; color: white; }
+    .prio-tab.active[data-level="p4"] { background: #94a3b8; color: white; }
+    .prio-tab:hover { opacity: 0.85; }
+  </style>
   <table style="width: 100%; border-collapse: collapse; background: white; border-radius: 8px; overflow: hidden;">
     <thead>
       <tr style="background: #dc2626; color: white;">
@@ -326,29 +341,31 @@
   const tbody = document.getElementById('priority-tbody');
   const statusEl = document.getElementById('refresh-status');
   const REFRESH_MS = 30000;
+  let currentLevel = 'p0';
+
+  const LEVEL_COLORS = {
+    p0: { bg: '#dc2626', label: 'P0' },
+    p1: { bg: '#f97316', label: 'P1' },
+    p2: { bg: '#eab308', label: 'P2' },
+    p3: { bg: '#22c55e', label: 'P3' },
+    p4: { bg: '#94a3b8', label: 'P4' }
+  };
 
   function formatDue(iso) {
-    if (!iso) return '';
+    if (!iso) return '—';
     const d = new Date(iso + 'T00:00:00');
     const days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
     const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
     return days[d.getDay()] + ' ' + d.getDate() + ' ' + months[d.getMonth()] + ' ' + d.getFullYear();
   }
 
-  function priorityBadge(name) {
-    const colors = {
-      'Highest': '#dc2626',
-      'High': '#f97316',
-      'Medium': '#eab308',
-      'Low': '#22c55e',
-      'Lowest': '#94a3b8'
-    };
-    const color = colors[name] || '#64748b';
-    return '<span style="background: ' + color + '; color: white; padding: 3px 8px; border-radius: 4px; font-size: 11px; font-weight: bold;">' + name.toUpperCase() + '</span>';
+  function priorityBadge(level) {
+    const cfg = LEVEL_COLORS[level] || { bg: '#64748b', label: level.toUpperCase() };
+    return '<span style="background: ' + cfg.bg + '; color: white; padding: 3px 8px; border-radius: 4px; font-size: 11px; font-weight: bold;">' + cfg.label + '</span>';
   }
 
   function dueColor(iso) {
-    if (!iso) return '#6b7280';
+    if (!iso) return '#9ca3af';
     const today = new Date();
     today.setHours(0, 0, 0, 0);
     const due = new Date(iso + 'T00:00:00');
@@ -359,9 +376,10 @@
     return '#0f766e';
   }
 
-  function renderRows(issues) {
+  function renderRows(issues, level) {
     if (!issues.length) {
-      tbody.innerHTML = '<tr><td colspan="5" style="padding: 18px; text-align: center; color: #16a34a; font-weight: 600;">No HIGHEST/HIGH priority open tickets with due dates. Great job!</td></tr>';
+      const labelTxt = (LEVEL_COLORS[level] || {}).label || level;
+      tbody.innerHTML = '<tr><td colspan="5" style="padding: 18px; text-align: center; color: #16a34a; font-weight: 600;">No ' + labelTxt + ' open tickets. Clear plate!</td></tr>';
       return;
     }
     const lastIdx = issues.length - 1;
@@ -371,7 +389,7 @@
         '<td style="padding: 10px 12px;"><a href="' + i.url + '" target="_blank" style="font-weight: bold; color: #0052cc;">' + i.key + '</a></td>' +
         '<td style="padding: 10px 12px; font-size: 13px;">' + escapeHtml(i.summary) + '</td>' +
         '<td style="padding: 10px 12px; font-size: 13px;">' + escapeHtml(i.assignee) + '</td>' +
-        '<td style="padding: 10px 12px;">' + priorityBadge(i.priority) + '</td>' +
+        '<td style="padding: 10px 12px;">' + priorityBadge(i.level || level) + '</td>' +
         '<td style="padding: 10px 12px; font-weight: bold; color: ' + dueColor(i.duedate) + ';">' + formatDue(i.duedate) + '</td>' +
         '</tr>';
     }).join('');
@@ -390,25 +408,43 @@
 
   async function refresh() {
     try {
-      const res = await fetch('/api/priorities', { cache: 'no-store' });
+      const res = await fetch('/api/priorities?level=' + currentLevel, { cache: 'no-store' });
       if (!res.ok) {
-        const errBody = await res.text();
         setStatus('Refresh failed (HTTP ' + res.status + '). Will retry.', '#991b1b');
-        console.error('Priorities fetch failed:', errBody);
         return;
       }
       const data = await res.json();
-      renderRows(data.issues || []);
+      renderRows(data.issues || [], currentLevel);
       const t = new Date();
       const hh = String(t.getHours()).padStart(2, '0');
       const mm = String(t.getMinutes()).padStart(2, '0');
       const ss = String(t.getSeconds()).padStart(2, '0');
-      setStatus('Last refreshed: ' + hh + ':' + mm + ':' + ss + ' — ' + (data.count || 0) + ' priority tickets', '#15803d');
+      const labelTxt = (LEVEL_COLORS[currentLevel] || {}).label || currentLevel;
+      setStatus('Last refreshed ' + hh + ':' + mm + ':' + ss + ' — ' + (data.count || 0) + ' ' + labelTxt + ' tickets', '#15803d');
     } catch (err) {
       setStatus('Network error. Will retry.', '#991b1b');
       console.error(err);
     }
   }
+
+  // Tab handlers
+  document.querySelectorAll('.prio-tab').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      document.querySelectorAll('.prio-tab').forEach(function (b) {
+        b.classList.remove('active');
+        b.style.background = 'white';
+        const lvl = b.getAttribute('data-level');
+        const c = LEVEL_COLORS[lvl];
+        if (c) b.style.color = c.bg;
+      });
+      btn.classList.add('active');
+      btn.style.background = '';
+      btn.style.color = '';
+      currentLevel = btn.getAttribute('data-level');
+      tbody.innerHTML = '<tr><td colspan="5" style="padding: 18px; text-align: center; color: #6b7280; font-style: italic;">Loading ' + ((LEVEL_COLORS[currentLevel] || {}).label || currentLevel) + ' tickets&hellip;</td></tr>';
+      refresh();
+    });
+  });
 
   refresh();
   setInterval(refresh, REFRESH_MS);
@@ -422,12 +458,20 @@
   const STATS_REFRESH_MS = 30000;
 
   const PRIORITY_COLORS = {
-    'Highest': '#dc2626',
-    'High': '#f97316',
-    'Medium': '#eab308',
-    'Low': '#22c55e',
-    'Lowest': '#94a3b8',
+    'P0': '#dc2626',
+    'P1': '#f97316',
+    'P2': '#eab308',
+    'P3': '#22c55e',
+    'P4': '#94a3b8',
     'None': '#64748b'
+  };
+
+  const PRIORITY_REMAP = {
+    'Highest': 'P0',
+    'High': 'P1',
+    'Medium': 'P2',
+    'Low': 'P3',
+    'Lowest': 'P4'
   };
 
   const STATUS_COLORS = {
@@ -485,7 +529,7 @@
       const data = await res.json();
 
       renderDoughnut('chart-priority',
-        data.byPriority.map(p => p.priority),
+        data.byPriority.map(p => PRIORITY_REMAP[p.priority] || p.priority),
         data.byPriority.map(p => p.count),
         PRIORITY_COLORS);
 
