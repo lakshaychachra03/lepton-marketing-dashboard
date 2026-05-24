@@ -117,11 +117,16 @@ function buildMorningMessage(name, tickets) {
   }).join('\n');
 
   const taskWord = tickets.length === 1 ? 'task' : 'tasks';
+  const firstKey = tickets[0].key;
   return `Good morning ${name} :sunny:\n\n` +
     `You have ${tickets.length} top-priority ${taskWord} today:\n\n` +
     `${lines}\n\n` +
-    `Update from Slack: /jira transition LMR-XX  or  /jira comment LMR-XX <your update>\n\n` +
-    `Team dashboard: https://lepton-marketing-dashboard.vercel.app`;
+    `:arrows_counterclockwise: *How to update — type these in any Slack channel (including this DM):*\n` +
+    `• To add a comment:   \`/jira comment ${firstKey} finished the design draft\`\n` +
+    `• To change status:   \`/jira transition ${firstKey}\`  (a picker pops up: To Do / In Progress / Done)\n` +
+    `• To reassign:        \`/jira assign ${firstKey} @teammate\`\n\n` +
+    `All updates are real-time — they appear in #lakshay-jira-alerts and refresh the live dashboard within 30 seconds.\n\n` +
+    `:bar_chart: Team dashboard: https://lepton-marketing-dashboard.vercel.app`;
 }
 
 function formatDue(iso) {
