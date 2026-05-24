@@ -71,6 +71,31 @@
   </table>
 </div>
 
+<div class="section" id="charts-section">
+  <h2 style="margin-top: 0;">📊 Live stats
+    <span id="stats-status" style="font-size: 12px; font-weight: normal; color: #6b778c; margin-left: 12px;">Loading&hellip;</span>
+  </h2>
+  <p style="color: #6b7280; font-size: 13px; margin: 0 0 16px 0;">Aggregated from all open LMR tickets. Auto-refreshes every 30 seconds.</p>
+  <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px;">
+    <div style="background: #f9fafb; padding: 14px; border-radius: 8px;">
+      <h3 style="margin: 0 0 10px 0; font-size: 14px; color: #374151;">By Priority</h3>
+      <div style="position: relative; height: 220px;"><canvas id="chart-priority"></canvas></div>
+    </div>
+    <div style="background: #f9fafb; padding: 14px; border-radius: 8px;">
+      <h3 style="margin: 0 0 10px 0; font-size: 14px; color: #374151;">By Status</h3>
+      <div style="position: relative; height: 220px;"><canvas id="chart-status"></canvas></div>
+    </div>
+    <div style="background: #f9fafb; padding: 14px; border-radius: 8px;">
+      <h3 style="margin: 0 0 10px 0; font-size: 14px; color: #374151;">By Track</h3>
+      <div style="position: relative; height: 220px;"><canvas id="chart-track"></canvas></div>
+    </div>
+    <div style="background: #f9fafb; padding: 14px; border-radius: 8px;">
+      <h3 style="margin: 0 0 10px 0; font-size: 14px; color: #374151;">By Assignee</h3>
+      <div style="position: relative; height: 220px;"><canvas id="chart-assignee"></canvas></div>
+    </div>
+  </div>
+</div>
+
 <div id="swadhin" class="person-flow" style="border-left-color: #dc2626; background: #fef2f2;">
 <h2 style="color: #dc2626;">🟢 Swadhin Saraf — Daily Flow</h2>
 <div class="flow-grid">
@@ -387,6 +412,111 @@
 
   refresh();
   setInterval(refresh, REFRESH_MS);
+})();
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+<script>
+(function () {
+  const charts = {};
+  const STATS_REFRESH_MS = 30000;
+
+  const PRIORITY_COLORS = {
+    'Highest': '#dc2626',
+    'High': '#f97316',
+    'Medium': '#eab308',
+    'Low': '#22c55e',
+    'Lowest': '#94a3b8',
+    'None': '#64748b'
+  };
+
+  const STATUS_COLORS = {
+    'To Do': '#3b82f6',
+    'In Progress': '#f59e0b',
+    'Done': '#10b981',
+    'Blocked': '#dc2626',
+    'In Review': '#8b5cf6'
+  };
+
+  function renderDoughnut(canvasId, labels, data, colorMap) {
+    const ctx = document.getElementById(canvasId);
+    if (!ctx) return;
+    if (charts[canvasId]) charts[canvasId].destroy();
+    const colors = labels.map(l => colorMap[l] || '#94a3b8');
+    charts[canvasId] = new Chart(ctx, {
+      type: 'doughnut',
+      data: { labels, datasets: [{ data, backgroundColor: colors, borderWidth: 1 }] },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: { legend: { position: 'bottom', labels: { font: { size: 11 }, boxWidth: 12 } } }
+      }
+    });
+  }
+
+  function renderBar(canvasId, labels, data, barColor) {
+    const ctx = document.getElementById(canvasId);
+    if (!ctx) return;
+    if (charts[canvasId]) charts[canvasId].destroy();
+    charts[canvasId] = new Chart(ctx, {
+      type: 'bar',
+      data: { labels, datasets: [{ data, backgroundColor: barColor, borderWidth: 0 }] },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        indexAxis: 'y',
+        plugins: { legend: { display: false } },
+        scales: {
+          x: { beginAtZero: true, ticks: { precision: 0, font: { size: 10 } } },
+          y: { ticks: { font: { size: 11 } } }
+        }
+      }
+    });
+  }
+
+  async function refreshStats() {
+    try {
+      const res = await fetch('/api/stats', { cache: 'no-store' });
+      if (!res.ok) {
+        document.getElementById('stats-status').textContent = 'Refresh failed (HTTP ' + res.status + ')';
+        document.getElementById('stats-status').style.color = '#991b1b';
+        return;
+      }
+      const data = await res.json();
+
+      renderDoughnut('chart-priority',
+        data.byPriority.map(p => p.priority),
+        data.byPriority.map(p => p.count),
+        PRIORITY_COLORS);
+
+      renderDoughnut('chart-status',
+        data.byStatus.map(s => s.status),
+        data.byStatus.map(s => s.count),
+        STATUS_COLORS);
+
+      renderBar('chart-track',
+        data.byTrack.map(t => t.track + '. ' + t.name),
+        data.byTrack.map(t => t.count),
+        '#0052cc');
+
+      renderBar('chart-assignee',
+        data.byAssignee.map(a => a.assignee),
+        data.byAssignee.map(a => a.count),
+        '#7c3aed');
+
+      const t = new Date();
+      const hh = String(t.getHours()).padStart(2, '0');
+      const mm = String(t.getMinutes()).padStart(2, '0');
+      const statusEl = document.getElementById('stats-status');
+      statusEl.textContent = 'Updated ' + hh + ':' + mm + ' • ' + (data.totalOpen || 0) + ' open tickets total';
+      statusEl.style.color = '#15803d';
+    } catch (err) {
+      console.error('Stats fetch failed:', err);
+    }
+  }
+
+  refreshStats();
+  setInterval(refreshStats, STATS_REFRESH_MS);
 })();
 </script>
 </body></html>
