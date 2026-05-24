@@ -34,7 +34,11 @@ export default async function handler(req, res) {
   const jiraAuth = Buffer.from(`${JIRA_EMAIL}:${JIRA_TOKEN}`).toString('base64');
   const results = [];
 
-  for (const person of PEOPLE) {
+  // Test mode: ?test=1 sends only to Lakshay for safe verification.
+  const isTest = req.query.test === '1';
+  const peopleToProcess = isTest ? PEOPLE.filter(p => p.name === 'Lakshay') : PEOPLE;
+
+  for (const person of peopleToProcess) {
     const webhookUrl = process.env[person.webhookEnv];
     if (!webhookUrl) {
       results.push({ name: person.name, skipped: true, reason: `${person.webhookEnv} not set` });
