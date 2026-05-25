@@ -31,7 +31,7 @@ export default async function handler(req, res) {
     do {
       const body = {
         jql,
-        fields: ['summary', 'priority', 'assignee', 'duedate', 'status', 'labels'],
+        fields: ['summary', 'priority', 'assignee', 'duedate', 'status', 'labels', 'parent', 'issuetype'],
         maxResults: 100
       };
       if (nextPageToken) body.nextPageToken = nextPageToken;
@@ -62,6 +62,23 @@ export default async function handler(req, res) {
           const m = String(l).match(/^(\d+)(?:$|\.)/);
           if (m) { track = parseInt(m[1], 10); break; }
         }
+
+        // Epic detection. In team-managed projects, parent IS the epic. In
+        // company-managed, parent might be a Story; we still surface it if no
+        // explicit epic is set. If the issue itself is an Epic, group it under
+        // its own title.
+        const issuetypeName = issue.fields.issuetype?.name || '';
+        const parent = issue.fields.parent;
+        let epicKey = null;
+        let epicSummary = null;
+        if (issuetypeName === 'Epic') {
+          epicKey = issue.key;
+          epicSummary = issue.fields.summary;
+        } else if (parent) {
+          epicKey = parent.key || null;
+          epicSummary = parent.fields?.summary || null;
+        }
+
         issues.push({
           key: issue.key,
           summary: issue.fields.summary,
@@ -70,6 +87,9 @@ export default async function handler(req, res) {
           duedate: issue.fields.duedate,
           status: issue.fields.status?.name || 'Unknown',
           done: issue.fields.status?.statusCategory?.key === 'done',
+          issuetype: issuetypeName,
+          epicKey,
+          epicSummary,
           track,
           url: `https://${JIRA_BASE_URL}/browse/${issue.key}`
         });
