@@ -30,7 +30,11 @@ export default async function handler(req, res) {
   const results = [];
   for (const person of peopleToProcess) {
     try {
-      const tickets = await fetchOpenTickets(env, person.accountId);
+      const tickets = await fetchEodTickets(env, person.accountId);
+      if (tickets.length === 0) {
+        results.push({ name: person.name, skipped: true, reason: 'no tickets due today or flagged eod-check' });
+        continue;
+      }
       const message = buildMessage(person.name, tickets);
       const slackUserId = await lookupSlackUser(env.botToken, person.email);
       if (!slackUserId) {
@@ -58,13 +62,15 @@ function readEnv() {
   return { JIRA_BASE_URL, jiraAuth, botToken };
 }
 
-async function fetchOpenTickets(env, accountId) {
+async function fetchEodTickets(env, accountId) {
+  const today = new Date().toLocaleDateString('en-CA', { timeZone: 'Asia/Kolkata' }); // YYYY-MM-DD in IST
+  const jql = `project = LMR AND assignee = "${accountId}" AND statusCategory != Done AND (duedate = "${today}" OR labels = "eod-check") ORDER BY priority DESC, duedate ASC`;
   const r = await fetch(`https://${env.JIRA_BASE_URL}/rest/api/3/search/jql`, {
     method: 'POST',
     headers: { 'Authorization': `Basic ${env.jiraAuth}`, 'Accept': 'application/json', 'Content-Type': 'application/json' },
     body: JSON.stringify({
-      jql: `project = LMR AND assignee = "${accountId}" AND statusCategory != Done ORDER BY priority DESC, duedate ASC`,
-      fields: ['summary', 'priority', 'duedate', 'status'],
+      jql,
+      fields: ['summary', 'priority', 'duedate', 'status', 'labels'],
       maxResults: 50
     })
   });
@@ -76,6 +82,7 @@ async function fetchOpenTickets(env, accountId) {
     priority: i.fields.priority?.name || 'None',
     duedate: i.fields.duedate,
     status: i.fields.status?.name,
+    flagged: (i.fields.labels || []).includes('eod-check'),
     url: `https://${env.JIRA_BASE_URL}/browse/${i.key}`
   }));
 }
@@ -99,34 +106,20 @@ async function sendBotDM(botToken, userId, text) {
 }
 
 function buildMessage(name, tickets) {
-  if (tickets.length === 0) {
-    return `Hi ${name} :wave:\n\n` +
-      `EOD check-in: you have no open tickets. Great work today — log off whenever you're done.\n\n` +
-      `:bar_chart: Team dashboard: https://lepton-marketing-dashboard.vercel.app`;
-  }
-
   // Sort by priority then due
   tickets.sort((a, b) => (PRIORITY_RANK[a.priority] ?? 9) - (PRIORITY_RANK[b.priority] ?? 9));
 
-  // Show only top 10 to keep DM scannable; mention overflow if more
-  const top = tickets.slice(0, 10);
-  const overflow = tickets.length - top.length;
-
-  const lines = top.map(t => {
+  const lines = tickets.map(t => {
     const due = formatDue(t.duedate);
     const priority = PRIORITY_REMAP[t.priority] || t.priority;
-    return `• ${t.key} (${priority}) — ${t.summary} — Due ${due}\n  ${t.url}`;
+    const tag = t.flagged ? ' :pushpin: (flagged by Lakshay)' : '';
+    return `• ${t.key} (${priority}) — ${t.summary} — Due ${due}${tag}\n  ${t.url}`;
   }).join('\n');
 
-  const firstKey = top[0].key;
-  const overflowNote = overflow > 0
-    ? `\n_(+ ${overflow} more — full list on the dashboard)_\n`
-    : '';
-
+  const firstKey = tickets[0].key;
   return `Hi ${name} :wave:\n\n` +
-    `:clock6: *EOD check-in* — please mark progress on your open tickets before logging off.\n\n` +
-    `You have ${tickets.length} open ticket${tickets.length === 1 ? '' : 's'}:\n\n` +
-    `${lines}${overflowNote}\n\n` +
+    `:clock6: *EOD check-in* — these need an update before EOD:\n\n` +
+    `${lines}\n\n` +
     `:speech_balloon: *Reply right here to update — just type:*\n` +
     `• \`${firstKey}: status update text\`  (adds comment)\n` +
     `• \`${firstKey}: done\`  (marks Done)\n` +
