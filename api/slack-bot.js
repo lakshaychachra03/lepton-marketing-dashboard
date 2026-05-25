@@ -56,10 +56,10 @@ export default async function handler(req, res) {
     }
   }
 
-  // Acknowledge Slack quickly (3-second timeout). Process event async.
-  res.status(200).json({ ok: true });
-
-  // Handle event (don't await in response — let it run after ack)
+  // Process event synchronously THEN respond.
+  // (Vercel serverless kills the function after response is sent,
+  // so post-response async work doesn't reliably execute.)
+  // Slack tolerates up to 3 sec for ack; our processing is typically <2 sec.
   if (body.type === 'event_callback' && body.event) {
     try {
       await handleEvent(body.event);
@@ -67,6 +67,8 @@ export default async function handler(req, res) {
       console.error('handleEvent error:', e);
     }
   }
+
+  res.status(200).json({ ok: true });
 }
 
 async function readRawBody(req) {
