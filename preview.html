@@ -1,0 +1,1195 @@
+<!DOCTYPE html>
+<html><head><meta charset="UTF-8"><title>🧪 PREVIEW — Lepton Marketing Dashboard</title>
+<style>
+  body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; max-width: 1300px; margin: 30px auto; padding: 20px; background: #f6f7f8; color: #172b4d; }
+  h1 { color: #0052cc; border-bottom: 3px solid #0052cc; padding-bottom: 10px; font-size: 30px; }
+  h2 { color: #172b4d; margin-top: 32px; border-bottom: 2px solid #dfe1e6; padding-bottom: 6px; }
+  h3 { color: #172b4d; margin-top: 18px; margin-bottom: 8px; font-size: 18px; }
+  .section { background: white; padding: 18px 24px; border-radius: 8px; margin-bottom: 20px; box-shadow: 0 1px 2px rgba(0,0,0,0.05); }
+  .person-flow { padding: 18px 22px; border-radius: 10px; margin-bottom: 18px; box-shadow: 0 1px 4px rgba(0,0,0,0.05); border-left: 5px solid; }
+  .person-flow h2 { margin-top: 0; border: none; padding: 0; font-size: 22px; }
+  .flow-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 8px; margin-top: 10px; }
+  .flow-card { background: white; padding: 10px 12px; border-radius: 6px; border-left: 3px solid; }
+  .flow-card.morning { border-left-color: #dc2626; }
+  .flow-card.now { border-left-color: #f59e0b; }
+  .flow-card.evening { border-left-color: #6366f1; }
+  .flow-card.weekly { border-left-color: #0891b2; }
+  .flow-card h4 { margin: 0 0 4px 0; font-size: 12px; color: #1e293b; }
+  .flow-card a { display: block; padding: 2px 0; color: #2563eb; text-decoration: none; font-weight: 600; font-size: 12px; }
+  .flow-card a:hover { text-decoration: underline; }
+  .track { background: white; padding: 14px 20px; border-radius: 8px; margin-bottom: 14px; box-shadow: 0 1px 2px rgba(0,0,0,0.05); border-left: 4px solid #0052cc; }
+  .stakeholders { color: #6b778c; font-size: 12px; margin-bottom: 10px; font-style: italic; }
+  .activity-grid { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 6px; }
+  .activity-chip { display: inline-block; padding: 4px 12px; background: #f4f5f7; border-radius: 16px; font-size: 13px; }
+  .activity-chip:hover { background: #deebff; }
+  .activity-chip a { color: #0052cc; text-decoration: none; }
+  .activity-chip .code { font-family: 'SF Mono', Monaco, monospace; font-size: 10px; color: #6b778c; margin-right: 5px; }
+  .all-link { background: #e3fcef; border: 1px solid #36b37e; }
+  .all-link a { color: #006644; font-weight: 600; }
+  ul.flat { list-style: none; padding: 0; display: flex; flex-wrap: wrap; gap: 10px 24px; }
+  ul.flat li { padding: 3px 0; }
+  a { color: #0052cc; text-decoration: none; }
+  a:hover { text-decoration: underline; }
+  .meta { color: #6b778c; font-size: 14px; margin-bottom: 12px; }
+  .section-label { color: #6b778c; font-weight: 600; font-size: 11px; text-transform: uppercase; letter-spacing: 0.5px; margin-top: 10px; margin-bottom: 4px; }
+  .quick-jump { background: #e3f2fd; border-radius: 8px; padding: 12px 16px; margin: 14px 0 24px; }
+  .quick-jump a { margin-right: 12px; font-weight: 600; }
+  /* Calendar */
+  .cal-nav-btn { background: #f4f5f7; border: 1px solid #dfe1e6; padding: 4px 10px; border-radius: 4px; cursor: pointer; font-size: 13px; }
+  .cal-nav-btn:hover { background: #deebff; }
+  .cal-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 4px; }
+  .cal-weekday { padding: 6px 8px; font-size: 11px; font-weight: 700; color: #6b778c; text-transform: uppercase; letter-spacing: 0.5px; text-align: center; }
+  .cal-day { background: #f9fafb; border: 1px solid #e5e7eb; border-radius: 6px; min-height: 130px; max-height: 320px; overflow-y: auto; padding: 6px 7px; cursor: pointer; transition: background 0.15s, border-color 0.15s; display: flex; flex-direction: column; gap: 3px; }
+  .cal-day:hover { background: #eff6ff; border-color: #93c5fd; }
+  .cal-day.other-month { opacity: 0.45; }
+  .cal-day.today { border-color: #0052cc; border-width: 2px; background: #e0e7ff; }
+  .cal-day.selected { background: #fef3c7; border-color: #f59e0b; border-width: 2px; }
+  .cal-day-num { font-size: 13px; font-weight: 700; color: #1e293b; }
+  .cal-day-num.weekend { color: #94a3b8; }
+  .cal-tile-epic { margin-top: 4px; padding-top: 3px; border-top: 1px dashed #e5e7eb; }
+  .cal-tile-epic:first-of-type { border-top: none; padding-top: 0; }
+  .cal-tile-epic-h { font-size: 10px; font-weight: 700; color: #0052cc; text-transform: uppercase; letter-spacing: 0.2px; line-height: 1.25; margin-bottom: 2px; word-break: break-word; }
+  .cal-tile-epic-h.no-epic { color: #94a3b8; font-style: italic; }
+  .cal-tile-task { display: block; font-size: 11px; line-height: 1.3; color: #1e293b; text-decoration: none; padding: 1px 3px; border-radius: 3px; margin-bottom: 1px; word-break: break-word; }
+  .cal-tile-task:hover { background: #fef3c7; }
+  .cal-tile-task.done { color: #94a3b8; }
+  .cal-tile-task.done .cal-tile-task-sum { text-decoration: line-through; }
+  .cal-tile-task-key { font-family: 'SF Mono', Monaco, monospace; font-size: 9px; color: #6b778c; margin-right: 3px; font-weight: 600; }
+  .cal-tile-task-prio { display: inline-block; width: 6px; height: 6px; border-radius: 50%; margin-right: 4px; vertical-align: middle; }
+  .cal-detail { margin-top: 18px; padding: 14px 18px; background: #fffbeb; border-left: 4px solid #f59e0b; border-radius: 6px; }
+  .cal-detail h3 { margin-top: 0; margin-bottom: 12px; font-size: 16px; color: #92400e; }
+  .cal-task-group { margin-bottom: 14px; }
+  .cal-task-group:last-child { margin-bottom: 0; }
+  .cal-task-group-h { font-size: 12px; font-weight: 700; color: #0052cc; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 6px; }
+  .cal-task-row { display: flex; align-items: center; gap: 10px; padding: 6px 0; font-size: 13px; border-bottom: 1px dashed #fde68a; flex-wrap: wrap; }
+  .cal-task-row:last-child { border-bottom: none; }
+  .cal-task-row.done { opacity: 0.55; }
+  .cal-task-row.done .cal-task-summary { text-decoration: line-through; }
+  .cal-task-key { font-family: 'SF Mono', Monaco, monospace; font-size: 11px; font-weight: 700; color: #0052cc; min-width: 70px; }
+  .cal-task-prio { display: inline-block; padding: 1px 6px; border-radius: 3px; font-size: 10px; font-weight: 700; color: white; min-width: 22px; text-align: center; }
+  .cal-task-summary { flex: 1; min-width: 200px; color: #1e293b; }
+  .cal-task-meta { font-size: 11px; color: #6b778c; }
+  /* Product picker */
+  .track-picker { padding: 16px 4px 8px; }
+  .track-picker-q { font-size: 15px; color: #172b4d; margin: 0 0 16px 0; font-weight: 600; }
+  .track-picker-sub { font-size: 13px; color: #6b778c; margin: -10px 0 16px 0; }
+  .picker-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 12px; }
+  .picker-btn { border: 0; border-radius: 10px; padding: 18px 16px; color: white; cursor: pointer; font-family: inherit; text-align: left; transition: transform 0.15s, box-shadow 0.2s; box-shadow: 0 2px 4px rgba(0,0,0,0.08); display: block; }
+  .picker-btn:hover { transform: translateY(-2px); box-shadow: 0 6px 14px rgba(0,0,0,0.18); }
+  .picker-num { font-size: 11px; opacity: 0.75; font-weight: 600; letter-spacing: 1px; margin-bottom: 4px; }
+  .picker-name { font-size: 17px; font-weight: 700; line-height: 1.2; }
+  .picker-sub { font-size: 11px; opacity: 0.9; margin-top: 6px; font-weight: 500; }
+  .picker-all { background: #475569; grid-column: 1 / -1; text-align: center; }
+  .picker-all .picker-name { font-size: 14px; }
+  /* Calendar toolbar */
+  .cal-toolbar { display: flex; flex-wrap: wrap; gap: 12px 16px; align-items: center; padding: 10px 0 14px 0; border-bottom: 1px solid #e5e7eb; margin-bottom: 14px; }
+  .cal-toolbar-label { font-size: 14px; color: #6b778c; }
+  .cal-toolbar-label strong { color: #172b4d; font-weight: 700; }
+  .cal-change-link { font-size: 12px; color: #0052cc; text-decoration: none; padding: 4px 8px; border-radius: 4px; background: #e3f2fd; }
+  .cal-change-link:hover { background: #bbdefb; text-decoration: none; }
+  .cal-view-toggle { display: inline-flex; border: 1px solid #dfe1e6; border-radius: 6px; overflow: hidden; }
+  .view-btn { background: white; border: 0; padding: 6px 12px; font-size: 12px; cursor: pointer; font-family: inherit; color: #6b778c; font-weight: 600; }
+  .view-btn.active { background: #0052cc; color: white; }
+  .view-btn:not(.active):hover { background: #f4f5f7; }
+  .cal-month-nav { display: flex; gap: 4px; align-items: center; margin-left: auto; }
+  .cal-month-nav #cal-month-label { font-weight: 700; min-width: 130px; text-align: center; color: #172b4d; }
+  /* Monthly plan list view */
+  .cal-list { padding: 6px 4px 4px; }
+  .cal-list-month-h { margin: 0 0 16px 0; font-size: 18px; color: #172b4d; font-weight: 700; }
+  .cal-list-day { margin-bottom: 18px; padding-bottom: 14px; border-bottom: 1px solid #e5e7eb; }
+  .cal-list-day:last-child { border-bottom: none; }
+  .cal-list-day-h { font-size: 14px; font-weight: 700; color: #0052cc; margin-bottom: 8px; }
+  .cal-list-epic { margin-left: 16px; margin-bottom: 10px; }
+  .cal-list-epic:last-child { margin-bottom: 0; }
+  .cal-list-epic-h { font-size: 11px; font-weight: 700; color: #6b778c; text-transform: uppercase; letter-spacing: 0.4px; margin-bottom: 4px; }
+  .cal-list-task { padding: 4px 0; font-size: 13px; line-height: 1.45; color: #1e293b; }
+  .cal-list-task.done { color: #94a3b8; }
+  .cal-list-task.done .cal-list-sum { text-decoration: line-through; }
+  .cal-list-mark { display: inline-block; width: 20px; color: #16a34a; font-weight: 700; font-size: 14px; }
+  .cal-list-task.done .cal-list-mark { color: #94a3b8; }
+  .cal-list-key { font-family: 'SF Mono', Monaco, monospace; font-size: 11px; color: #0052cc; font-weight: 700; margin-right: 6px; text-decoration: none; }
+  .cal-list-key:hover { text-decoration: underline; }
+  .cal-list-meta { color: #6b778c; font-size: 11px; }
+  .cal-list-empty { color: #6b7280; font-style: italic; padding: 16px; text-align: center; }
+</style></head><body>
+
+<!-- ===================================================================== -->
+<!-- LOCAL PREVIEW ONLY — mock data, not connected to Jira.                -->
+<!-- This file is in .gitignore and is NOT deployed. Edit here first to    -->
+<!-- preview UI changes; once approved, sync the changes into index.html   -->
+<!-- (the live dashboard) and push to GitHub.                              -->
+<!-- ===================================================================== -->
+<div style="background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%); border: 3px solid #f59e0b; border-radius: 10px; padding: 14px 20px; margin-bottom: 20px; box-shadow: 0 2px 8px rgba(245,158,11,0.15);">
+  <div style="display: flex; align-items: center; gap: 12px; flex-wrap: wrap;">
+    <span style="font-size: 24px;">🧪</span>
+    <div style="flex: 1; min-width: 250px;">
+      <div style="font-weight: 700; color: #78350f; font-size: 15px;">LOCAL PREVIEW — mock data, not live</div>
+      <div style="color: #92400e; font-size: 13px; margin-top: 2px;">You're viewing <code style="background:#fff7ed;padding:1px 5px;border-radius:3px;">preview.html</code>. Numbers here are fake. After you approve changes here, they'll be synced to the live dashboard.</div>
+    </div>
+  </div>
+</div>
+
+<script>
+// ============================================================
+// MOCK FETCH — only present in preview.html, never in index.html
+// Returns canned data for /api/calendar, /api/priorities, /api/stats
+// so the dashboard works offline (file://) without a server.
+// ============================================================
+(function () {
+  const TODAY = '2026-05-25';
+
+  // Realistic mock tickets across May 2026, spread over multiple tracks
+  // and epics, mix of Done/In Progress/To Do, mix of priorities.
+  const MOCK_ISSUES = [
+    // ---- Track 1 · Lepton — "May Newsletter Campaign" epic ----
+    { key: 'LMR-210', summary: 'May newsletter — draft copy', priority: 'High',    assignee: 'Chetna Bhatia',  duedate: '2026-05-15', status: 'Done',        done: true,  issuetype: 'Task', epicKey: 'LMR-101', epicSummary: 'May Newsletter Campaign', track: 1, url: '#' },
+    { key: 'LMR-211', summary: 'May newsletter — final send',  priority: 'Highest', assignee: 'Chetna Bhatia',  duedate: '2026-05-20', status: 'In Progress', done: false, issuetype: 'Task', epicKey: 'LMR-101', epicSummary: 'May Newsletter Campaign', track: 1, url: '#' },
+    { key: 'LMR-212', summary: 'Newsletter open-rate retro',   priority: 'Medium',  assignee: 'Lakshay Chachra', duedate: '2026-05-27', status: 'To Do',       done: false, issuetype: 'Task', epicKey: 'LMR-101', epicSummary: 'May Newsletter Campaign', track: 1, url: '#' },
+    { key: 'LMR-213', summary: 'Lepton LinkedIn post #14',     priority: 'Medium',  assignee: 'Lakshay Chachra', duedate: '2026-05-25', status: 'To Do',       done: false, issuetype: 'Task', epicKey: null,      epicSummary: null,                       track: 1, url: '#' },
+
+    // ---- Track 2 · GMP — "GMP Q2 Webinar Series" epic ----
+    { key: 'LMR-220', summary: 'Webinar speaker confirmations', priority: 'High',    assignee: 'Plash Saini',    duedate: '2026-05-13', status: 'Done',        done: true,  issuetype: 'Task', epicKey: 'LMR-102', epicSummary: 'GMP Q2 Webinar Series', track: 2, url: '#' },
+    { key: 'LMR-221', summary: 'Webinar landing page live',     priority: 'High',    assignee: 'Plash Saini',    duedate: '2026-05-21', status: 'In Progress', done: false, issuetype: 'Task', epicKey: 'LMR-102', epicSummary: 'GMP Q2 Webinar Series', track: 2, url: '#' },
+    { key: 'LMR-222', summary: 'Webinar promo email blast',     priority: 'Highest', assignee: 'Chetna Bhatia',  duedate: '2026-05-26', status: 'To Do',       done: false, issuetype: 'Task', epicKey: 'LMR-102', epicSummary: 'GMP Q2 Webinar Series', track: 2, url: '#' },
+    { key: 'LMR-223', summary: 'Webinar Q&A prep doc',          priority: 'Medium',  assignee: 'Swadhin Saraf',  duedate: '2026-06-03', status: 'To Do',       done: false, issuetype: 'Task', epicKey: 'LMR-102', epicSummary: 'GMP Q2 Webinar Series', track: 2, url: '#' },
+
+    // ---- Track 3 · Network Access — "USA Co-op Outreach May" epic ----
+    { key: 'LMR-230', summary: 'Co-op target list — research',  priority: 'Medium',  assignee: 'Swadhin Saraf',  duedate: '2026-05-14', status: 'Done',        done: true,  issuetype: 'Task', epicKey: 'LMR-103', epicSummary: 'USA Co-op Outreach May', track: 3, url: '#' },
+    { key: 'LMR-231', summary: 'Cold email sequence v1 draft',  priority: 'High',    assignee: 'Swadhin Saraf',  duedate: '2026-05-19', status: 'In Progress', done: false, issuetype: 'Task', epicKey: 'LMR-103', epicSummary: 'USA Co-op Outreach May', track: 3, url: '#' },
+    { key: 'LMR-232', summary: 'Cold email — batch 1 send',     priority: 'Highest', assignee: 'Swadhin Saraf',  duedate: '2026-05-25', status: 'To Do',       done: false, issuetype: 'Task', epicKey: 'LMR-103', epicSummary: 'USA Co-op Outreach May', track: 3, url: '#' },
+    { key: 'LMR-233', summary: 'Follow-up call list',           priority: 'High',    assignee: 'Lakshay Chachra', duedate: '2026-05-29', status: 'To Do',       done: false, issuetype: 'Task', epicKey: 'LMR-103', epicSummary: 'USA Co-op Outreach May', track: 3, url: '#' },
+
+    // ---- Track 4 · Smart Market — "Q2 Brand Refresh" epic ----
+    { key: 'LMR-200', summary: 'Logo v1 — final review',        priority: 'High',    assignee: 'Shubham Sinha',  duedate: '2026-05-12', status: 'Done',        done: true,  issuetype: 'Task', epicKey: 'LMR-100', epicSummary: 'Q2 Brand Refresh', track: 4, url: '#' },
+    { key: 'LMR-201', summary: 'Logo v2 — design iteration',    priority: 'Highest', assignee: 'Shubham Sinha',  duedate: '2026-05-22', status: 'In Progress', done: false, issuetype: 'Task', epicKey: 'LMR-100', epicSummary: 'Q2 Brand Refresh', track: 4, url: '#' },
+    { key: 'LMR-202', summary: 'Footer logo placement',         priority: 'Low',     assignee: 'Designer Intern', duedate: '2026-05-22', status: 'Done',        done: true,  issuetype: 'Task', epicKey: 'LMR-100', epicSummary: 'Q2 Brand Refresh', track: 4, url: '#' },
+    { key: 'LMR-203', summary: 'Brand guidelines PDF',          priority: 'High',    assignee: 'Shubham Sinha',  duedate: '2026-05-28', status: 'In Progress', done: false, issuetype: 'Task', epicKey: 'LMR-100', epicSummary: 'Q2 Brand Refresh', track: 4, url: '#' },
+
+    // ---- Track 4 · Smart Market — "Instagram Reels 100D" epic ----
+    { key: 'LMR-240', summary: 'Reel #4 — script lock',         priority: 'Medium',  assignee: 'Plash Saini',    duedate: '2026-05-12', status: 'Done',        done: true,  issuetype: 'Task', epicKey: 'LMR-104', epicSummary: 'Instagram Reels 100D', track: 4, url: '#' },
+    { key: 'LMR-241', summary: 'Reel #5 — shoot day',           priority: 'Medium',  assignee: 'Plash Saini',    duedate: '2026-05-18', status: 'In Progress', done: false, issuetype: 'Task', epicKey: 'LMR-104', epicSummary: 'Instagram Reels 100D', track: 4, url: '#' },
+    { key: 'LMR-242', summary: 'Reel #6 — edit & captions',     priority: 'High',    assignee: 'Plash Saini',    duedate: '2026-05-22', status: 'To Do',       done: false, issuetype: 'Task', epicKey: 'LMR-104', epicSummary: 'Instagram Reels 100D', track: 4, url: '#' },
+    { key: 'LMR-243', summary: 'Reel #7 — publish',             priority: 'Medium',  assignee: 'Plash Saini',    duedate: '2026-05-28', status: 'To Do',       done: false, issuetype: 'Task', epicKey: 'LMR-104', epicSummary: 'Instagram Reels 100D', track: 4, url: '#' },
+
+    // ---- Track 5 · TraffiCure — "TraffiCure PR Push" epic ----
+    { key: 'LMR-250', summary: 'PR pitch — tier-1 outlets',     priority: 'High',    assignee: 'Lakshay Chachra', duedate: '2026-05-15', status: 'Done',        done: true,  issuetype: 'Task', epicKey: 'LMR-105', epicSummary: 'TraffiCure PR Push', track: 5, url: '#' },
+    { key: 'LMR-251', summary: 'Press coverage follow-up',      priority: 'High',    assignee: 'Lakshay Chachra', duedate: '2026-05-22', status: 'In Progress', done: false, issuetype: 'Task', epicKey: 'LMR-105', epicSummary: 'TraffiCure PR Push', track: 5, url: '#' },
+    { key: 'LMR-252', summary: 'Case study — Mumbai BMC',       priority: 'Medium',  assignee: 'Chetna Bhatia',  duedate: '2026-05-27', status: 'To Do',       done: false, issuetype: 'Task', epicKey: 'LMR-105', epicSummary: 'TraffiCure PR Push', track: 5, url: '#' },
+
+    // ---- Track 6 · Rajeev sir — no epic ----
+    { key: 'LMR-260', summary: 'Rajeev sir LinkedIn post #8',   priority: 'Medium',  assignee: 'Lakshay Chachra', duedate: '2026-05-20', status: 'In Progress', done: false, issuetype: 'Task', epicKey: null,      epicSummary: null,                       track: 6, url: '#' },
+    { key: 'LMR-261', summary: 'Rajeev sir — award nomination', priority: 'High',    assignee: 'Lakshay Chachra', duedate: '2026-05-24', status: 'To Do',       done: false, issuetype: 'Task', epicKey: null,      epicSummary: null,                       track: 6, url: '#' },
+
+    // ---- Track 7 · Umang — no epic ----
+    { key: 'LMR-270', summary: 'Umang LinkedIn post #5',        priority: 'Medium',  assignee: 'Lakshay Chachra', duedate: '2026-05-21', status: 'In Progress', done: false, issuetype: 'Task', epicKey: null,      epicSummary: null,                       track: 7, url: '#' },
+
+    // ---- Leading / trailing month edges ----
+    { key: 'LMR-280', summary: 'April retro deck',              priority: 'Low',     assignee: 'Lakshay Chachra', duedate: '2026-04-29', status: 'Done',        done: true,  issuetype: 'Task', epicKey: null,      epicSummary: null,                       track: 1, url: '#' }
+  ];
+
+  const LEVEL_TO_PRIORITY = { p0: 'Highest', p1: 'High', p2: 'Medium', p3: 'Low', p4: 'Lowest' };
+
+  const MOCK_STATS = {
+    byPriority: [
+      { priority: 'Highest', count: MOCK_ISSUES.filter(i => i.priority === 'Highest').length },
+      { priority: 'High',    count: MOCK_ISSUES.filter(i => i.priority === 'High').length },
+      { priority: 'Medium',  count: MOCK_ISSUES.filter(i => i.priority === 'Medium').length },
+      { priority: 'Low',     count: MOCK_ISSUES.filter(i => i.priority === 'Low').length }
+    ],
+    byStatus: [
+      { status: 'To Do',       count: MOCK_ISSUES.filter(i => i.status === 'To Do').length },
+      { status: 'In Progress', count: MOCK_ISSUES.filter(i => i.status === 'In Progress').length },
+      { status: 'Done',        count: MOCK_ISSUES.filter(i => i.status === 'Done').length }
+    ],
+    byTrack: [
+      { track: 1, name: 'Lepton',         count: MOCK_ISSUES.filter(i => i.track === 1).length },
+      { track: 2, name: 'GMP',            count: MOCK_ISSUES.filter(i => i.track === 2).length },
+      { track: 3, name: 'Network Access', count: MOCK_ISSUES.filter(i => i.track === 3).length },
+      { track: 4, name: 'Smart Market',   count: MOCK_ISSUES.filter(i => i.track === 4).length },
+      { track: 5, name: 'TraffiCure',     count: MOCK_ISSUES.filter(i => i.track === 5).length },
+      { track: 6, name: 'Rajeev sir',     count: MOCK_ISSUES.filter(i => i.track === 6).length },
+      { track: 7, name: 'Umang',          count: MOCK_ISSUES.filter(i => i.track === 7).length }
+    ],
+    byAssignee: [
+      { assignee: 'Swadhin Saraf',   count: MOCK_ISSUES.filter(i => i.assignee === 'Swadhin Saraf').length },
+      { assignee: 'Lakshay Chachra', count: MOCK_ISSUES.filter(i => i.assignee === 'Lakshay Chachra').length },
+      { assignee: 'Chetna Bhatia',   count: MOCK_ISSUES.filter(i => i.assignee === 'Chetna Bhatia').length },
+      { assignee: 'Plash Saini',     count: MOCK_ISSUES.filter(i => i.assignee === 'Plash Saini').length },
+      { assignee: 'Shubham Sinha',   count: MOCK_ISSUES.filter(i => i.assignee === 'Shubham Sinha').length }
+    ],
+    totalOpen: MOCK_ISSUES.filter(i => !i.done).length
+  };
+
+  const originalFetch = window.fetch ? window.fetch.bind(window) : null;
+
+  function jsonResponse(payload) {
+    return Promise.resolve(new Response(JSON.stringify(payload), {
+      status: 200,
+      headers: { 'Content-Type': 'application/json' }
+    }));
+  }
+
+  window.fetch = function (input, opts) {
+    const url = typeof input === 'string' ? input : (input && input.url) || '';
+
+    if (url.indexOf('/api/calendar') === 0) {
+      const m = url.match(/[?&]start=([^&]+)/);
+      const n = url.match(/[?&]end=([^&]+)/);
+      const start = m ? decodeURIComponent(m[1]) : '';
+      const end   = n ? decodeURIComponent(n[1]) : '';
+      const inRange = MOCK_ISSUES.filter(i => i.duedate && i.duedate >= start && i.duedate <= end);
+      return jsonResponse({ fetchedAt: new Date().toISOString(), start, end, count: inRange.length, issues: inRange });
+    }
+
+    if (url.indexOf('/api/priorities') === 0) {
+      const m = url.match(/[?&]level=([^&]+)/);
+      const level = m ? decodeURIComponent(m[1]) : 'p0';
+      const wanted = LEVEL_TO_PRIORITY[level];
+      const filtered = MOCK_ISSUES
+        .filter(i => !i.done && i.priority === wanted)
+        .map(i => ({
+          key: i.key, summary: i.summary, priority: i.priority, level,
+          assignee: i.assignee, duedate: i.duedate, status: i.status, url: i.url
+        }));
+      return jsonResponse({ fetchedAt: new Date().toISOString(), level, jiraPriority: wanted, count: filtered.length, issues: filtered });
+    }
+
+    if (url.indexOf('/api/stats') === 0) {
+      return jsonResponse(MOCK_STATS);
+    }
+
+    return originalFetch ? originalFetch(input, opts) : Promise.reject(new Error('fetch not available'));
+  };
+})();
+</script>
+
+<h1>🎯 Lepton Marketing — Live Dashboard</h1>
+<p class="meta">Each teammate's daily flow shown below. Click any link to open the filter live in Jira.</p>
+
+<div class="quick-jump">
+<strong>Quick jump:</strong>
+<a href="#calendar-section">📅 Calendar</a>
+<a href="#swadhin">🟢 Swadhin</a>
+<a href="#lakshay">🟣 Lakshay</a>
+<a href="#chetna">🟡 Chetna</a>
+<a href="#plash">🔵 Plash</a>
+<a href="#tracks">📦 Tracks</a>
+</div>
+
+
+<div style="background: linear-gradient(135deg, #fef2f2 0%, #fee2e2 100%); border: 3px solid #dc2626; border-radius: 12px; padding: 20px 24px; margin-bottom: 28px; box-shadow: 0 4px 12px rgba(220,38,38,0.15);">
+  <h2 style="color: #991b1b; margin-top: 0; margin-bottom: 6px; border: none; padding: 0; font-size: 22px;">🔥 Priority Tasks — Live from Jira</h2>
+  <p style="color: #7f1d1d; margin: 0 0 12px 0; font-size: 13px;">Click a tab to switch priority level. P0 = most urgent. Click any ticket ID to open in Jira.</p>
+  <div id="priority-tabs" style="display: flex; gap: 6px; margin-bottom: 12px; flex-wrap: wrap;">
+    <button data-level="p0" class="prio-tab active" style="padding: 6px 14px; border-radius: 6px; font-size: 13px; font-weight: 600; border: 1px solid #dc2626; cursor: pointer;">P0 — Critical</button>
+    <button data-level="p1" class="prio-tab" style="padding: 6px 14px; border-radius: 6px; font-size: 13px; font-weight: 600; border: 1px solid #f97316; cursor: pointer; background: white; color: #f97316;">P1 — High</button>
+    <button data-level="p2" class="prio-tab" style="padding: 6px 14px; border-radius: 6px; font-size: 13px; font-weight: 600; border: 1px solid #eab308; cursor: pointer; background: white; color: #ca8a04;">P2 — Medium</button>
+    <button data-level="p3" class="prio-tab" style="padding: 6px 14px; border-radius: 6px; font-size: 13px; font-weight: 600; border: 1px solid #22c55e; cursor: pointer; background: white; color: #16a34a;">P3 — Low</button>
+    <button data-level="p4" class="prio-tab" style="padding: 6px 14px; border-radius: 6px; font-size: 13px; font-weight: 600; border: 1px solid #94a3b8; cursor: pointer; background: white; color: #64748b;">P4 — Backlog</button>
+  </div>
+  <p style="color: #7f1d1d; margin: 0 0 14px 0; font-size: 11px; font-style: italic;">
+    <span id="refresh-status">Loading from Jira&hellip;</span>
+    <span style="margin-left: 12px;">Auto-refreshes every 30 seconds.</span>
+  </p>
+  <style>
+    .prio-tab.active[data-level="p0"] { background: #dc2626; color: white; }
+    .prio-tab.active[data-level="p1"] { background: #f97316; color: white; }
+    .prio-tab.active[data-level="p2"] { background: #eab308; color: white; }
+    .prio-tab.active[data-level="p3"] { background: #22c55e; color: white; }
+    .prio-tab.active[data-level="p4"] { background: #94a3b8; color: white; }
+    .prio-tab:hover { opacity: 0.85; }
+  </style>
+  <table style="width: 100%; border-collapse: collapse; background: white; border-radius: 8px; overflow: hidden;">
+    <thead>
+      <tr style="background: #dc2626; color: white;">
+        <th style="padding: 10px 12px; text-align: left; font-size: 12px;">Ticket</th>
+        <th style="padding: 10px 12px; text-align: left; font-size: 12px;">Task</th>
+        <th style="padding: 10px 12px; text-align: left; font-size: 12px;">Owner</th>
+        <th style="padding: 10px 12px; text-align: left; font-size: 12px;">Priority</th>
+        <th style="padding: 10px 12px; text-align: left; font-size: 12px;">Due</th>
+      </tr>
+    </thead>
+    <tbody id="priority-tbody">
+      <tr><td colspan="5" style="padding: 18px; text-align: center; color: #6b7280; font-style: italic;">Loading live data from Jira&hellip;</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<div class="section" id="charts-section">
+  <h2 style="margin-top: 0;">📊 Live stats
+    <span id="stats-status" style="font-size: 12px; font-weight: normal; color: #6b778c; margin-left: 12px;">Loading&hellip;</span>
+  </h2>
+  <p style="color: #6b7280; font-size: 13px; margin: 0 0 16px 0;">Aggregated from all open LMR tickets. Auto-refreshes every 30 seconds.</p>
+  <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px;">
+    <div style="background: #f9fafb; padding: 14px; border-radius: 8px;">
+      <h3 style="margin: 0 0 10px 0; font-size: 14px; color: #374151;">By Priority</h3>
+      <div style="position: relative; height: 220px;"><canvas id="chart-priority"></canvas></div>
+    </div>
+    <div style="background: #f9fafb; padding: 14px; border-radius: 8px;">
+      <h3 style="margin: 0 0 10px 0; font-size: 14px; color: #374151;">By Status</h3>
+      <div style="position: relative; height: 220px;"><canvas id="chart-status"></canvas></div>
+    </div>
+    <div style="background: #f9fafb; padding: 14px; border-radius: 8px;">
+      <h3 style="margin: 0 0 10px 0; font-size: 14px; color: #374151;">By Track</h3>
+      <div style="position: relative; height: 220px;"><canvas id="chart-track"></canvas></div>
+    </div>
+    <div style="background: #f9fafb; padding: 14px; border-radius: 8px;">
+      <h3 style="margin: 0 0 10px 0; font-size: 14px; color: #374151;">By Assignee</h3>
+      <div style="position: relative; height: 220px;"><canvas id="chart-assignee"></canvas></div>
+    </div>
+  </div>
+</div>
+
+<div class="section" id="calendar-section">
+  <h2 style="margin-top: 0;">
+    📅 Task Calendar
+    <span id="calendar-status" style="font-size: 12px; font-weight: normal; color: #6b778c; margin-left: 12px;">&nbsp;</span>
+  </h2>
+
+  <!-- Product picker (visible until a product is picked) -->
+  <div id="track-picker" class="track-picker">
+    <p class="track-picker-q">Which product would you like to see the calendar for?</p>
+    <p class="track-picker-sub">Pick one. You can switch any time using "Change product".</p>
+    <div class="picker-grid">
+      <button class="picker-btn" data-track="1" style="background: #0052cc;">
+        <div class="picker-num">TRACK 1</div>
+        <div class="picker-name">Lepton</div>
+        <div class="picker-sub">Sonam ma'am · Umang · Rajeev sir</div>
+      </button>
+      <button class="picker-btn" data-track="2" style="background: #16a34a;">
+        <div class="picker-num">TRACK 2</div>
+        <div class="picker-name">GMP</div>
+        <div class="picker-sub">Manish Gupta</div>
+      </button>
+      <button class="picker-btn" data-track="3" style="background: #0891b2;">
+        <div class="picker-num">TRACK 3</div>
+        <div class="picker-name">Network Access</div>
+        <div class="picker-sub">Kshemendra</div>
+      </button>
+      <button class="picker-btn" data-track="4" style="background: #7c3aed;">
+        <div class="picker-num">TRACK 4</div>
+        <div class="picker-name">Smart Market</div>
+        <div class="picker-sub">Shubham Sinha</div>
+      </button>
+      <button class="picker-btn" data-track="5" style="background: #f97316;">
+        <div class="picker-num">TRACK 5</div>
+        <div class="picker-name">TraffiCure</div>
+        <div class="picker-sub">Umang</div>
+      </button>
+      <button class="picker-btn" data-track="6" style="background: #be185d;">
+        <div class="picker-num">TRACK 6</div>
+        <div class="picker-name">Rajeev sir</div>
+        <div class="picker-sub">Rajeev sir</div>
+      </button>
+      <button class="picker-btn" data-track="7" style="background: #ca8a04;">
+        <div class="picker-num">TRACK 7</div>
+        <div class="picker-name">Umang</div>
+        <div class="picker-sub">Umang</div>
+      </button>
+      <button class="picker-btn picker-all" data-track="">
+        <div class="picker-name">Show all (full team view)</div>
+        <div class="picker-sub">Every track combined — for the team lead view</div>
+      </button>
+    </div>
+  </div>
+
+  <!-- Calendar content (hidden until a product is picked) -->
+  <div id="calendar-content" style="display: none;">
+    <div class="cal-toolbar">
+      <span class="cal-toolbar-label">Showing: <strong id="track-title">—</strong></span>
+      <a href="#" id="change-track" class="cal-change-link">← Change product</a>
+      <span class="cal-view-toggle" role="tablist">
+        <button data-view="calendar" class="view-btn active">📅 Calendar</button>
+        <button data-view="list" class="view-btn">📋 Monthly plan</button>
+      </span>
+      <span class="cal-month-nav">
+        <button id="cal-prev" class="cal-nav-btn" title="Previous month">&#9664;</button>
+        <span id="cal-month-label">&mdash;</span>
+        <button id="cal-next" class="cal-nav-btn" title="Next month">&#9654;</button>
+        <button id="cal-today" class="cal-nav-btn" style="margin-left: 4px;">Today</button>
+      </span>
+    </div>
+    <p style="color: #6b7280; font-size: 13px; margin: 0 0 14px 0;">Click any day to see the tasks scheduled. Done tasks shown struck through. Auto-refreshes every 60 seconds.</p>
+    <div id="cal-grid" class="cal-grid"></div>
+    <div id="cal-list" class="cal-list" style="display: none;"></div>
+    <div id="cal-detail" class="cal-detail" style="display: none;">
+      <h3 id="cal-detail-heading"></h3>
+      <div id="cal-detail-body"></div>
+    </div>
+  </div>
+</div>
+
+<div id="swadhin" class="person-flow" style="border-left-color: #dc2626; background: #fef2f2;">
+<h2 style="color: #dc2626;">🟢 Swadhin Saraf — Daily Flow</h2>
+<div class="flow-grid">
+<div class="flow-card morning"><h4>🔥 Top priorities NOW</h4><a href="https://leptonsoftware-team.atlassian.net/issues?jql=project%20%3D%20LMR%20AND%20assignee%20%3D%20%22712020%3A262e57bb-d008-4e8f-973a-734d3b19e12e%22%20AND%20statusCategory%20%21%3D%20Done%20AND%20priority%20in%20%28Highest%2C%20High%29%20ORDER%20BY%20priority%20DESC%2C%20duedate%20ASC" target="_blank">OPEN →</a></div>
+<div class="flow-card now"><h4>⭐ All Highest</h4><a href="https://leptonsoftware-team.atlassian.net/issues?jql=project%20%3D%20LMR%20AND%20assignee%20%3D%20%22712020%3A262e57bb-d008-4e8f-973a-734d3b19e12e%22%20AND%20priority%20%3D%20Highest%20AND%20statusCategory%20%21%3D%20Done%20ORDER%20BY%20duedate%20ASC" target="_blank">OPEN →</a></div>
+<div class="flow-card now"><h4>📋 All open tickets</h4><a href="https://leptonsoftware-team.atlassian.net/issues?jql=project%20%3D%20LMR%20AND%20assignee%20%3D%20%22712020%3A262e57bb-d008-4e8f-973a-734d3b19e12e%22%20AND%20statusCategory%20%21%3D%20Done%20ORDER%20BY%20priority%20DESC%2C%20duedate%20ASC" target="_blank">OPEN →</a></div>
+<div class="flow-card now"><h4>🚧 In Progress</h4><a href="https://leptonsoftware-team.atlassian.net/issues?jql=project%20%3D%20LMR%20AND%20assignee%20%3D%20%22712020%3A262e57bb-d008-4e8f-973a-734d3b19e12e%22%20AND%20status%20%3D%20%22In%20Progress%22%20ORDER%20BY%20priority%20DESC" target="_blank">OPEN →</a></div>
+<div class="flow-card evening"><h4>✅ Done today</h4><a href="https://leptonsoftware-team.atlassian.net/issues?jql=project%20%3D%20LMR%20AND%20assignee%20%3D%20%22712020%3A262e57bb-d008-4e8f-973a-734d3b19e12e%22%20AND%20status%20%3D%20Done%20AND%20statusCategoryChangedDate%20%3E%3D%20startOfDay%28%29%20ORDER%20BY%20updated%20DESC" target="_blank">OPEN →</a></div>
+<div class="flow-card evening"><h4>📅 Tomorrow</h4><a href="https://leptonsoftware-team.atlassian.net/issues?jql=project%20%3D%20LMR%20AND%20assignee%20%3D%20%22712020%3A262e57bb-d008-4e8f-973a-734d3b19e12e%22%20AND%20statusCategory%20%21%3D%20Done%20AND%20duedate%20%3D%20startOfDay%28%22%2B1d%22%29%20ORDER%20BY%20priority%20DESC" target="_blank">OPEN →</a></div>
+<div class="flow-card evening"><h4>📆 Day after</h4><a href="https://leptonsoftware-team.atlassian.net/issues?jql=project%20%3D%20LMR%20AND%20assignee%20%3D%20%22712020%3A262e57bb-d008-4e8f-973a-734d3b19e12e%22%20AND%20statusCategory%20%21%3D%20Done%20AND%20duedate%20%3D%20startOfDay%28%22%2B2d%22%29%20ORDER%20BY%20priority%20DESC" target="_blank">OPEN →</a></div>
+<div class="flow-card weekly"><h4>📊 This week plan</h4><a href="https://leptonsoftware-team.atlassian.net/issues?jql=project%20%3D%20LMR%20AND%20assignee%20%3D%20%22712020%3A262e57bb-d008-4e8f-973a-734d3b19e12e%22%20AND%20statusCategory%20%21%3D%20Done%20AND%20duedate%20%3C%3D%20endOfWeek%28%29%20ORDER%20BY%20duedate%20ASC%2C%20priority%20DESC" target="_blank">OPEN →</a></div>
+<div class="flow-card weekly"><h4>✅ Done this week</h4><a href="https://leptonsoftware-team.atlassian.net/issues?jql=project%20%3D%20LMR%20AND%20assignee%20%3D%20%22712020%3A262e57bb-d008-4e8f-973a-734d3b19e12e%22%20AND%20status%20%3D%20Done%20AND%20statusCategoryChangedDate%20%3E%3D%20startOfWeek%28%29%20ORDER%20BY%20updated%20DESC" target="_blank">OPEN →</a></div>
+<div class="flow-card weekly"><h4>🌫 Stale 7+ days</h4><a href="https://leptonsoftware-team.atlassian.net/issues?jql=project%20%3D%20LMR%20AND%20assignee%20%3D%20%22712020%3A262e57bb-d008-4e8f-973a-734d3b19e12e%22%20AND%20status%20%3D%20%22To%20Do%22%20AND%20updated%20%3C%3D%20-7d%20ORDER%20BY%20updated%20ASC" target="_blank">OPEN →</a></div>
+</div></div>
+<div id="lakshay" class="person-flow" style="border-left-color: #7c3aed; background: #f5f3ff;">
+<h2 style="color: #7c3aed;">🟣 Lakshay Chachra — Daily Flow</h2>
+<div class="flow-grid">
+<div class="flow-card morning"><h4>🔥 Top priorities NOW</h4><a href="https://leptonsoftware-team.atlassian.net/issues?jql=project%20%3D%20LMR%20AND%20assignee%20%3D%20%22712020%3Ac30d55c4-5bfe-4564-847a-df50d29665a3%22%20AND%20statusCategory%20%21%3D%20Done%20AND%20priority%20in%20%28Highest%2C%20High%29%20ORDER%20BY%20priority%20DESC%2C%20duedate%20ASC" target="_blank">OPEN →</a></div>
+<div class="flow-card now"><h4>⭐ All Highest</h4><a href="https://leptonsoftware-team.atlassian.net/issues?jql=project%20%3D%20LMR%20AND%20assignee%20%3D%20%22712020%3Ac30d55c4-5bfe-4564-847a-df50d29665a3%22%20AND%20priority%20%3D%20Highest%20AND%20statusCategory%20%21%3D%20Done%20ORDER%20BY%20duedate%20ASC" target="_blank">OPEN →</a></div>
+<div class="flow-card now"><h4>📋 All open tickets</h4><a href="https://leptonsoftware-team.atlassian.net/issues?jql=project%20%3D%20LMR%20AND%20assignee%20%3D%20%22712020%3Ac30d55c4-5bfe-4564-847a-df50d29665a3%22%20AND%20statusCategory%20%21%3D%20Done%20ORDER%20BY%20priority%20DESC%2C%20duedate%20ASC" target="_blank">OPEN →</a></div>
+<div class="flow-card now"><h4>🚧 In Progress</h4><a href="https://leptonsoftware-team.atlassian.net/issues?jql=project%20%3D%20LMR%20AND%20assignee%20%3D%20%22712020%3Ac30d55c4-5bfe-4564-847a-df50d29665a3%22%20AND%20status%20%3D%20%22In%20Progress%22%20ORDER%20BY%20priority%20DESC" target="_blank">OPEN →</a></div>
+<div class="flow-card evening"><h4>✅ Done today</h4><a href="https://leptonsoftware-team.atlassian.net/issues?jql=project%20%3D%20LMR%20AND%20assignee%20%3D%20%22712020%3Ac30d55c4-5bfe-4564-847a-df50d29665a3%22%20AND%20status%20%3D%20Done%20AND%20statusCategoryChangedDate%20%3E%3D%20startOfDay%28%29%20ORDER%20BY%20updated%20DESC" target="_blank">OPEN →</a></div>
+<div class="flow-card evening"><h4>📅 Tomorrow</h4><a href="https://leptonsoftware-team.atlassian.net/issues?jql=project%20%3D%20LMR%20AND%20assignee%20%3D%20%22712020%3Ac30d55c4-5bfe-4564-847a-df50d29665a3%22%20AND%20statusCategory%20%21%3D%20Done%20AND%20duedate%20%3D%20startOfDay%28%22%2B1d%22%29%20ORDER%20BY%20priority%20DESC" target="_blank">OPEN →</a></div>
+<div class="flow-card evening"><h4>📆 Day after</h4><a href="https://leptonsoftware-team.atlassian.net/issues?jql=project%20%3D%20LMR%20AND%20assignee%20%3D%20%22712020%3Ac30d55c4-5bfe-4564-847a-df50d29665a3%22%20AND%20statusCategory%20%21%3D%20Done%20AND%20duedate%20%3D%20startOfDay%28%22%2B2d%22%29%20ORDER%20BY%20priority%20DESC" target="_blank">OPEN →</a></div>
+<div class="flow-card weekly"><h4>📊 This week plan</h4><a href="https://leptonsoftware-team.atlassian.net/issues?jql=project%20%3D%20LMR%20AND%20assignee%20%3D%20%22712020%3Ac30d55c4-5bfe-4564-847a-df50d29665a3%22%20AND%20statusCategory%20%21%3D%20Done%20AND%20duedate%20%3C%3D%20endOfWeek%28%29%20ORDER%20BY%20duedate%20ASC%2C%20priority%20DESC" target="_blank">OPEN →</a></div>
+<div class="flow-card weekly"><h4>✅ Done this week</h4><a href="https://leptonsoftware-team.atlassian.net/issues?jql=project%20%3D%20LMR%20AND%20assignee%20%3D%20%22712020%3Ac30d55c4-5bfe-4564-847a-df50d29665a3%22%20AND%20status%20%3D%20Done%20AND%20statusCategoryChangedDate%20%3E%3D%20startOfWeek%28%29%20ORDER%20BY%20updated%20DESC" target="_blank">OPEN →</a></div>
+<div class="flow-card weekly"><h4>🌫 Stale 7+ days</h4><a href="https://leptonsoftware-team.atlassian.net/issues?jql=project%20%3D%20LMR%20AND%20assignee%20%3D%20%22712020%3Ac30d55c4-5bfe-4564-847a-df50d29665a3%22%20AND%20status%20%3D%20%22To%20Do%22%20AND%20updated%20%3C%3D%20-7d%20ORDER%20BY%20updated%20ASC" target="_blank">OPEN →</a></div>
+</div></div>
+<div id="chetna" class="person-flow" style="border-left-color: #ca8a04; background: #fefce8;">
+<h2 style="color: #ca8a04;">🟡 Chetna Bhatia — Daily Flow</h2>
+<div class="flow-grid">
+<div class="flow-card morning"><h4>🔥 Top priorities NOW</h4><a href="https://leptonsoftware-team.atlassian.net/issues?jql=project%20%3D%20LMR%20AND%20assignee%20%3D%20%22712020%3A1a3f2ee1-53d8-44de-91f6-b088ef327f3e%22%20AND%20statusCategory%20%21%3D%20Done%20AND%20priority%20in%20%28Highest%2C%20High%29%20ORDER%20BY%20priority%20DESC%2C%20duedate%20ASC" target="_blank">OPEN →</a></div>
+<div class="flow-card now"><h4>⭐ All Highest</h4><a href="https://leptonsoftware-team.atlassian.net/issues?jql=project%20%3D%20LMR%20AND%20assignee%20%3D%20%22712020%3A1a3f2ee1-53d8-44de-91f6-b088ef327f3e%22%20AND%20priority%20%3D%20Highest%20AND%20statusCategory%20%21%3D%20Done%20ORDER%20BY%20duedate%20ASC" target="_blank">OPEN →</a></div>
+<div class="flow-card now"><h4>📋 All open tickets</h4><a href="https://leptonsoftware-team.atlassian.net/issues?jql=project%20%3D%20LMR%20AND%20assignee%20%3D%20%22712020%3A1a3f2ee1-53d8-44de-91f6-b088ef327f3e%22%20AND%20statusCategory%20%21%3D%20Done%20ORDER%20BY%20priority%20DESC%2C%20duedate%20ASC" target="_blank">OPEN →</a></div>
+<div class="flow-card now"><h4>🚧 In Progress</h4><a href="https://leptonsoftware-team.atlassian.net/issues?jql=project%20%3D%20LMR%20AND%20assignee%20%3D%20%22712020%3A1a3f2ee1-53d8-44de-91f6-b088ef327f3e%22%20AND%20status%20%3D%20%22In%20Progress%22%20ORDER%20BY%20priority%20DESC" target="_blank">OPEN →</a></div>
+<div class="flow-card evening"><h4>✅ Done today</h4><a href="https://leptonsoftware-team.atlassian.net/issues?jql=project%20%3D%20LMR%20AND%20assignee%20%3D%20%22712020%3A1a3f2ee1-53d8-44de-91f6-b088ef327f3e%22%20AND%20status%20%3D%20Done%20AND%20statusCategoryChangedDate%20%3E%3D%20startOfDay%28%29%20ORDER%20BY%20updated%20DESC" target="_blank">OPEN →</a></div>
+<div class="flow-card evening"><h4>📅 Tomorrow</h4><a href="https://leptonsoftware-team.atlassian.net/issues?jql=project%20%3D%20LMR%20AND%20assignee%20%3D%20%22712020%3A1a3f2ee1-53d8-44de-91f6-b088ef327f3e%22%20AND%20statusCategory%20%21%3D%20Done%20AND%20duedate%20%3D%20startOfDay%28%22%2B1d%22%29%20ORDER%20BY%20priority%20DESC" target="_blank">OPEN →</a></div>
+<div class="flow-card evening"><h4>📆 Day after</h4><a href="https://leptonsoftware-team.atlassian.net/issues?jql=project%20%3D%20LMR%20AND%20assignee%20%3D%20%22712020%3A1a3f2ee1-53d8-44de-91f6-b088ef327f3e%22%20AND%20statusCategory%20%21%3D%20Done%20AND%20duedate%20%3D%20startOfDay%28%22%2B2d%22%29%20ORDER%20BY%20priority%20DESC" target="_blank">OPEN →</a></div>
+<div class="flow-card weekly"><h4>📊 This week plan</h4><a href="https://leptonsoftware-team.atlassian.net/issues?jql=project%20%3D%20LMR%20AND%20assignee%20%3D%20%22712020%3A1a3f2ee1-53d8-44de-91f6-b088ef327f3e%22%20AND%20statusCategory%20%21%3D%20Done%20AND%20duedate%20%3C%3D%20endOfWeek%28%29%20ORDER%20BY%20duedate%20ASC%2C%20priority%20DESC" target="_blank">OPEN →</a></div>
+<div class="flow-card weekly"><h4>✅ Done this week</h4><a href="https://leptonsoftware-team.atlassian.net/issues?jql=project%20%3D%20LMR%20AND%20assignee%20%3D%20%22712020%3A1a3f2ee1-53d8-44de-91f6-b088ef327f3e%22%20AND%20status%20%3D%20Done%20AND%20statusCategoryChangedDate%20%3E%3D%20startOfWeek%28%29%20ORDER%20BY%20updated%20DESC" target="_blank">OPEN →</a></div>
+<div class="flow-card weekly"><h4>🌫 Stale 7+ days</h4><a href="https://leptonsoftware-team.atlassian.net/issues?jql=project%20%3D%20LMR%20AND%20assignee%20%3D%20%22712020%3A1a3f2ee1-53d8-44de-91f6-b088ef327f3e%22%20AND%20status%20%3D%20%22To%20Do%22%20AND%20updated%20%3C%3D%20-7d%20ORDER%20BY%20updated%20ASC" target="_blank">OPEN →</a></div>
+</div></div>
+<div id="plash" class="person-flow" style="border-left-color: #0891b2; background: #ecfeff;">
+<h2 style="color: #0891b2;">🔵 Plash Saini — Daily Flow</h2>
+<div class="flow-grid">
+<div class="flow-card morning"><h4>🔥 Top priorities NOW</h4><a href="https://leptonsoftware-team.atlassian.net/issues?jql=project%20%3D%20LMR%20AND%20assignee%20%3D%20%22712020%3A7d2a8edd-cd85-447a-8953-ec9fa7333218%22%20AND%20statusCategory%20%21%3D%20Done%20AND%20priority%20in%20%28Highest%2C%20High%29%20ORDER%20BY%20priority%20DESC%2C%20duedate%20ASC" target="_blank">OPEN →</a></div>
+<div class="flow-card now"><h4>⭐ All Highest</h4><a href="https://leptonsoftware-team.atlassian.net/issues?jql=project%20%3D%20LMR%20AND%20assignee%20%3D%20%22712020%3A7d2a8edd-cd85-447a-8953-ec9fa7333218%22%20AND%20priority%20%3D%20Highest%20AND%20statusCategory%20%21%3D%20Done%20ORDER%20BY%20duedate%20ASC" target="_blank">OPEN →</a></div>
+<div class="flow-card now"><h4>📋 All open tickets</h4><a href="https://leptonsoftware-team.atlassian.net/issues?jql=project%20%3D%20LMR%20AND%20assignee%20%3D%20%22712020%3A7d2a8edd-cd85-447a-8953-ec9fa7333218%22%20AND%20statusCategory%20%21%3D%20Done%20ORDER%20BY%20priority%20DESC%2C%20duedate%20ASC" target="_blank">OPEN →</a></div>
+<div class="flow-card now"><h4>🚧 In Progress</h4><a href="https://leptonsoftware-team.atlassian.net/issues?jql=project%20%3D%20LMR%20AND%20assignee%20%3D%20%22712020%3A7d2a8edd-cd85-447a-8953-ec9fa7333218%22%20AND%20status%20%3D%20%22In%20Progress%22%20ORDER%20BY%20priority%20DESC" target="_blank">OPEN →</a></div>
+<div class="flow-card evening"><h4>✅ Done today</h4><a href="https://leptonsoftware-team.atlassian.net/issues?jql=project%20%3D%20LMR%20AND%20assignee%20%3D%20%22712020%3A7d2a8edd-cd85-447a-8953-ec9fa7333218%22%20AND%20status%20%3D%20Done%20AND%20statusCategoryChangedDate%20%3E%3D%20startOfDay%28%29%20ORDER%20BY%20updated%20DESC" target="_blank">OPEN →</a></div>
+<div class="flow-card evening"><h4>📅 Tomorrow</h4><a href="https://leptonsoftware-team.atlassian.net/issues?jql=project%20%3D%20LMR%20AND%20assignee%20%3D%20%22712020%3A7d2a8edd-cd85-447a-8953-ec9fa7333218%22%20AND%20statusCategory%20%21%3D%20Done%20AND%20duedate%20%3D%20startOfDay%28%22%2B1d%22%29%20ORDER%20BY%20priority%20DESC" target="_blank">OPEN →</a></div>
+<div class="flow-card evening"><h4>📆 Day after</h4><a href="https://leptonsoftware-team.atlassian.net/issues?jql=project%20%3D%20LMR%20AND%20assignee%20%3D%20%22712020%3A7d2a8edd-cd85-447a-8953-ec9fa7333218%22%20AND%20statusCategory%20%21%3D%20Done%20AND%20duedate%20%3D%20startOfDay%28%22%2B2d%22%29%20ORDER%20BY%20priority%20DESC" target="_blank">OPEN →</a></div>
+<div class="flow-card weekly"><h4>📊 This week plan</h4><a href="https://leptonsoftware-team.atlassian.net/issues?jql=project%20%3D%20LMR%20AND%20assignee%20%3D%20%22712020%3A7d2a8edd-cd85-447a-8953-ec9fa7333218%22%20AND%20statusCategory%20%21%3D%20Done%20AND%20duedate%20%3C%3D%20endOfWeek%28%29%20ORDER%20BY%20duedate%20ASC%2C%20priority%20DESC" target="_blank">OPEN →</a></div>
+<div class="flow-card weekly"><h4>✅ Done this week</h4><a href="https://leptonsoftware-team.atlassian.net/issues?jql=project%20%3D%20LMR%20AND%20assignee%20%3D%20%22712020%3A7d2a8edd-cd85-447a-8953-ec9fa7333218%22%20AND%20status%20%3D%20Done%20AND%20statusCategoryChangedDate%20%3E%3D%20startOfWeek%28%29%20ORDER%20BY%20updated%20DESC" target="_blank">OPEN →</a></div>
+<div class="flow-card weekly"><h4>🌫 Stale 7+ days</h4><a href="https://leptonsoftware-team.atlassian.net/issues?jql=project%20%3D%20LMR%20AND%20assignee%20%3D%20%22712020%3A7d2a8edd-cd85-447a-8953-ec9fa7333218%22%20AND%20status%20%3D%20%22To%20Do%22%20AND%20updated%20%3C%3D%20-7d%20ORDER%20BY%20updated%20ASC" target="_blank">OPEN →</a></div>
+</div></div>
+<div class="section"><h2>🎯 Per-stakeholder</h2><ul class="flat">
+<li><a href="https://leptonsoftware-team.atlassian.net/issues?jql=project%20%3D%20LMR%20AND%20labels%20%3D%20%22stakeholder-umang%22%20AND%20statusCategory%20%21%3D%20Done%20ORDER%20BY%20priority%20DESC" target="_blank">Umang</a></li>
+<li><a href="https://leptonsoftware-team.atlassian.net/issues?jql=project%20%3D%20LMR%20AND%20labels%20%3D%20%22stakeholder-rajeev-sir%22%20AND%20statusCategory%20%21%3D%20Done%20ORDER%20BY%20priority%20DESC" target="_blank">Rajeev sir</a></li>
+<li><a href="https://leptonsoftware-team.atlassian.net/issues?jql=project%20%3D%20LMR%20AND%20labels%20%3D%20%22stakeholder-manish-gupta%22%20AND%20statusCategory%20%21%3D%20Done%20ORDER%20BY%20priority%20DESC" target="_blank">Manish Gupta</a></li>
+<li><a href="https://leptonsoftware-team.atlassian.net/issues?jql=project%20%3D%20LMR%20AND%20labels%20%3D%20%22stakeholder-kshemendra%22%20AND%20statusCategory%20%21%3D%20Done%20ORDER%20BY%20priority%20DESC" target="_blank">Kshemendra</a></li>
+<li><a href="https://leptonsoftware-team.atlassian.net/issues?jql=project%20%3D%20LMR%20AND%20labels%20%3D%20%22stakeholder-shubham-sinha%22%20AND%20statusCategory%20%21%3D%20Done%20ORDER%20BY%20priority%20DESC" target="_blank">Shubham Sinha</a></li>
+<li><a href="https://leptonsoftware-team.atlassian.net/issues?jql=project%20%3D%20LMR%20AND%20labels%20%3D%20%22stakeholder-sonam%22%20AND%20statusCategory%20%21%3D%20Done%20ORDER%20BY%20priority%20DESC" target="_blank">Sonam ma'am</a></li>
+</ul></div>
+<h2 id="tracks" style="margin-top:32px;">📦 Per-track with activity filters</h2>
+<div class="track">
+<h3>1. Lepton <span style="font-weight:normal; color:#6b778c; font-size:13px;">— Stakeholder: Sonam ma'am · Umang · Rajeev sir</span></h3>
+<div class="activity-grid">
+<div class="activity-chip all-link"><a href="https://leptonsoftware-team.atlassian.net/issues?jql=project%20%3D%20LMR%20AND%20labels%20%3D%20%221%22%20AND%20statusCategory%20%21%3D%20Done%20ORDER%20BY%20priority%20DESC" target="_blank"><span class="code">1</span>📋 All open in Lepton</a></div>
+</div>
+<div class="section-label">Marketing · <a href="https://leptonsoftware-team.atlassian.net/issues?jql=project%20%3D%20LMR%20AND%20labels%20%3D%20%221.1%22%20AND%20statusCategory%20%21%3D%20Done" target="_blank">all 1.1</a></div>
+<div class="activity-grid">
+<div class="activity-chip"><a href="https://leptonsoftware-team.atlassian.net/issues?jql=project%20%3D%20LMR%20AND%20labels%20%3D%20%221.1.1%22%20AND%20statusCategory%20%21%3D%20Done%20ORDER%20BY%20priority%20DESC" target="_blank"><span class="code">1.1.1</span>Website</a></div>
+<div class="activity-chip"><a href="https://leptonsoftware-team.atlassian.net/issues?jql=project%20%3D%20LMR%20AND%20labels%20%3D%20%221.1.2%22%20AND%20statusCategory%20%21%3D%20Done%20ORDER%20BY%20priority%20DESC" target="_blank"><span class="code">1.1.2</span>Newsletter</a></div>
+<div class="activity-chip"><a href="https://leptonsoftware-team.atlassian.net/issues?jql=project%20%3D%20LMR%20AND%20labels%20%3D%20%221.1.3%22%20AND%20statusCategory%20%21%3D%20Done%20ORDER%20BY%20priority%20DESC" target="_blank"><span class="code">1.1.3</span>Blog</a></div>
+<div class="activity-chip"><a href="https://leptonsoftware-team.atlassian.net/issues?jql=project%20%3D%20LMR%20AND%20labels%20%3D%20%221.1.4%22%20AND%20statusCategory%20%21%3D%20Done%20ORDER%20BY%20priority%20DESC" target="_blank"><span class="code">1.1.4</span>LinkedIn</a></div>
+<div class="activity-chip"><a href="https://leptonsoftware-team.atlassian.net/issues?jql=project%20%3D%20LMR%20AND%20labels%20%3D%20%221.1.5%22%20AND%20statusCategory%20%21%3D%20Done%20ORDER%20BY%20priority%20DESC" target="_blank"><span class="code">1.1.5</span>Twitter</a></div>
+<div class="activity-chip"><a href="https://leptonsoftware-team.atlassian.net/issues?jql=project%20%3D%20LMR%20AND%20labels%20%3D%20%221.1.6%22%20AND%20statusCategory%20%21%3D%20Done%20ORDER%20BY%20priority%20DESC" target="_blank"><span class="code">1.1.6</span>Instagram</a></div>
+<div class="activity-chip"><a href="https://leptonsoftware-team.atlassian.net/issues?jql=project%20%3D%20LMR%20AND%20labels%20%3D%20%221.1.7%22%20AND%20statusCategory%20%21%3D%20Done%20ORDER%20BY%20priority%20DESC" target="_blank"><span class="code">1.1.7</span>Events</a></div>
+<div class="activity-chip"><a href="https://leptonsoftware-team.atlassian.net/issues?jql=project%20%3D%20LMR%20AND%20labels%20%3D%20%221.1.8%22%20AND%20statusCategory%20%21%3D%20Done%20ORDER%20BY%20priority%20DESC" target="_blank"><span class="code">1.1.8</span>Webinar</a></div>
+<div class="activity-chip"><a href="https://leptonsoftware-team.atlassian.net/issues?jql=project%20%3D%20LMR%20AND%20labels%20%3D%20%221.1.9%22%20AND%20statusCategory%20%21%3D%20Done%20ORDER%20BY%20priority%20DESC" target="_blank"><span class="code">1.1.9</span>PR</a></div>
+<div class="activity-chip"><a href="https://leptonsoftware-team.atlassian.net/issues?jql=project%20%3D%20LMR%20AND%20labels%20%3D%20%221.1.10%22%20AND%20statusCategory%20%21%3D%20Done%20ORDER%20BY%20priority%20DESC" target="_blank"><span class="code">1.1.10</span>Awards</a></div>
+<div class="activity-chip"><a href="https://leptonsoftware-team.atlassian.net/issues?jql=project%20%3D%20LMR%20AND%20labels%20%3D%20%221.1.11%22%20AND%20statusCategory%20%21%3D%20Done%20ORDER%20BY%20priority%20DESC" target="_blank"><span class="code">1.1.11</span>Sales pipeline</a></div>
+<div class="activity-chip"><a href="https://leptonsoftware-team.atlassian.net/issues?jql=project%20%3D%20LMR%20AND%20labels%20%3D%20%221.1.12%22%20AND%20statusCategory%20%21%3D%20Done%20ORDER%20BY%20priority%20DESC" target="_blank"><span class="code">1.1.12</span>Email campaigns</a></div>
+<div class="activity-chip"><a href="https://leptonsoftware-team.atlassian.net/issues?jql=project%20%3D%20LMR%20AND%20labels%20%3D%20%221.1.13%22%20AND%20statusCategory%20%21%3D%20Done%20ORDER%20BY%20priority%20DESC" target="_blank"><span class="code">1.1.13</span>Decks</a></div>
+<div class="activity-chip"><a href="https://leptonsoftware-team.atlassian.net/issues?jql=project%20%3D%20LMR%20AND%20labels%20%3D%20%221.1.14%22%20AND%20statusCategory%20%21%3D%20Done%20ORDER%20BY%20priority%20DESC" target="_blank"><span class="code">1.1.14</span>Performance marketing</a></div>
+<div class="activity-chip"><a href="https://leptonsoftware-team.atlassian.net/issues?jql=project%20%3D%20LMR%20AND%20labels%20%3D%20%221.1.15%22%20AND%20statusCategory%20%21%3D%20Done%20ORDER%20BY%20priority%20DESC" target="_blank"><span class="code">1.1.15</span>ORM</a></div>
+<div class="activity-chip"><a href="https://leptonsoftware-team.atlassian.net/issues?jql=project%20%3D%20LMR%20AND%20labels%20%3D%20%221.1.16%22%20AND%20statusCategory%20%21%3D%20Done%20ORDER%20BY%20priority%20DESC" target="_blank"><span class="code">1.1.16</span>Competitor analysis</a></div>
+</div>
+</div>
+<div class="track">
+<h3>2. GMP <span style="font-weight:normal; color:#6b778c; font-size:13px;">— Stakeholder: Manish Gupta</span></h3>
+<div class="activity-grid">
+<div class="activity-chip all-link"><a href="https://leptonsoftware-team.atlassian.net/issues?jql=project%20%3D%20LMR%20AND%20labels%20%3D%20%222%22%20AND%20statusCategory%20%21%3D%20Done%20ORDER%20BY%20priority%20DESC" target="_blank"><span class="code">2</span>📋 All open in GMP</a></div>
+</div>
+<div class="section-label">Marketing · <a href="https://leptonsoftware-team.atlassian.net/issues?jql=project%20%3D%20LMR%20AND%20labels%20%3D%20%222.1%22%20AND%20statusCategory%20%21%3D%20Done" target="_blank">all 2.1</a></div>
+<div class="activity-grid">
+<div class="activity-chip"><a href="https://leptonsoftware-team.atlassian.net/issues?jql=project%20%3D%20LMR%20AND%20labels%20%3D%20%222.1.1%22%20AND%20statusCategory%20%21%3D%20Done%20ORDER%20BY%20priority%20DESC" target="_blank"><span class="code">2.1.1</span>Instagram</a></div>
+<div class="activity-chip"><a href="https://leptonsoftware-team.atlassian.net/issues?jql=project%20%3D%20LMR%20AND%20labels%20%3D%20%222.1.2%22%20AND%20statusCategory%20%21%3D%20Done%20ORDER%20BY%20priority%20DESC" target="_blank"><span class="code">2.1.2</span>Website</a></div>
+<div class="activity-chip"><a href="https://leptonsoftware-team.atlassian.net/issues?jql=project%20%3D%20LMR%20AND%20labels%20%3D%20%222.1.3%22%20AND%20statusCategory%20%21%3D%20Done%20ORDER%20BY%20priority%20DESC" target="_blank"><span class="code">2.1.3</span>Webinar</a></div>
+<div class="activity-chip"><a href="https://leptonsoftware-team.atlassian.net/issues?jql=project%20%3D%20LMR%20AND%20labels%20%3D%20%222.1.4%22%20AND%20statusCategory%20%21%3D%20Done%20ORDER%20BY%20priority%20DESC" target="_blank"><span class="code">2.1.4</span>Accelerator partnership</a></div>
+<div class="activity-chip"><a href="https://leptonsoftware-team.atlassian.net/issues?jql=project%20%3D%20LMR%20AND%20labels%20%3D%20%222.1.5%22%20AND%20statusCategory%20%21%3D%20Done%20ORDER%20BY%20priority%20DESC" target="_blank"><span class="code">2.1.5</span>LinkedIn</a></div>
+<div class="activity-chip"><a href="https://leptonsoftware-team.atlassian.net/issues?jql=project%20%3D%20LMR%20AND%20labels%20%3D%20%222.1.6%22%20AND%20statusCategory%20%21%3D%20Done%20ORDER%20BY%20priority%20DESC" target="_blank"><span class="code">2.1.6</span>Case study</a></div>
+<div class="activity-chip"><a href="https://leptonsoftware-team.atlassian.net/issues?jql=project%20%3D%20LMR%20AND%20labels%20%3D%20%222.1.7%22%20AND%20statusCategory%20%21%3D%20Done%20ORDER%20BY%20priority%20DESC" target="_blank"><span class="code">2.1.7</span>Accommodations</a></div>
+<div class="activity-chip"><a href="https://leptonsoftware-team.atlassian.net/issues?jql=project%20%3D%20LMR%20AND%20labels%20%3D%20%222.1.8%22%20AND%20statusCategory%20%21%3D%20Done%20ORDER%20BY%20priority%20DESC" target="_blank"><span class="code">2.1.8</span>SI partner relations</a></div>
+<div class="activity-chip"><a href="https://leptonsoftware-team.atlassian.net/issues?jql=project%20%3D%20LMR%20AND%20labels%20%3D%20%222.1.9%22%20AND%20statusCategory%20%21%3D%20Done%20ORDER%20BY%20priority%20DESC" target="_blank"><span class="code">2.1.9</span>Inward partners</a></div>
+<div class="activity-chip"><a href="https://leptonsoftware-team.atlassian.net/issues?jql=project%20%3D%20LMR%20AND%20labels%20%3D%20%222.1.10%22%20AND%20statusCategory%20%21%3D%20Done%20ORDER%20BY%20priority%20DESC" target="_blank"><span class="code">2.1.10</span>Events</a></div>
+<div class="activity-chip"><a href="https://leptonsoftware-team.atlassian.net/issues?jql=project%20%3D%20LMR%20AND%20labels%20%3D%20%222.1.11%22%20AND%20statusCategory%20%21%3D%20Done%20ORDER%20BY%20priority%20DESC" target="_blank"><span class="code">2.1.11</span>PR</a></div>
+<div class="activity-chip"><a href="https://leptonsoftware-team.atlassian.net/issues?jql=project%20%3D%20LMR%20AND%20labels%20%3D%20%222.1.12%22%20AND%20statusCategory%20%21%3D%20Done%20ORDER%20BY%20priority%20DESC" target="_blank"><span class="code">2.1.12</span>Email campaigns</a></div>
+<div class="activity-chip"><a href="https://leptonsoftware-team.atlassian.net/issues?jql=project%20%3D%20LMR%20AND%20labels%20%3D%20%222.1.13%22%20AND%20statusCategory%20%21%3D%20Done%20ORDER%20BY%20priority%20DESC" target="_blank"><span class="code">2.1.13</span>Region-based marketing</a></div>
+<div class="activity-chip"><a href="https://leptonsoftware-team.atlassian.net/issues?jql=project%20%3D%20LMR%20AND%20labels%20%3D%20%222.1.14%22%20AND%20statusCategory%20%21%3D%20Done%20ORDER%20BY%20priority%20DESC" target="_blank"><span class="code">2.1.14</span>Competitor analysis</a></div>
+</div>
+<div class="section-label">Inside Sales · <a href="https://leptonsoftware-team.atlassian.net/issues?jql=project%20%3D%20LMR%20AND%20labels%20%3D%20%222.2%22%20AND%20statusCategory%20%21%3D%20Done" target="_blank">all 2.2</a></div>
+<div class="activity-grid">
+<div class="activity-chip"><a href="https://leptonsoftware-team.atlassian.net/issues?jql=project%20%3D%20LMR%20AND%20labels%20%3D%20%222.2.1%22%20AND%20statusCategory%20%21%3D%20Done%20ORDER%20BY%20priority%20DESC" target="_blank"><span class="code">2.2.1</span>TOFU research</a></div>
+<div class="activity-chip"><a href="https://leptonsoftware-team.atlassian.net/issues?jql=project%20%3D%20LMR%20AND%20labels%20%3D%20%222.2.2%22%20AND%20statusCategory%20%21%3D%20Done%20ORDER%20BY%20priority%20DESC" target="_blank"><span class="code">2.2.2</span>Customer list (existing)</a></div>
+<div class="activity-chip"><a href="https://leptonsoftware-team.atlassian.net/issues?jql=project%20%3D%20LMR%20AND%20labels%20%3D%20%222.2.3%22%20AND%20statusCategory%20%21%3D%20Done%20ORDER%20BY%20priority%20DESC" target="_blank"><span class="code">2.2.3</span>Customer list (potential)</a></div>
+<div class="activity-chip"><a href="https://leptonsoftware-team.atlassian.net/issues?jql=project%20%3D%20LMR%20AND%20labels%20%3D%20%222.2.4%22%20AND%20statusCategory%20%21%3D%20Done%20ORDER%20BY%20priority%20DESC" target="_blank"><span class="code">2.2.4</span>Swadhin personal connect</a></div>
+<div class="activity-chip"><a href="https://leptonsoftware-team.atlassian.net/issues?jql=project%20%3D%20LMR%20AND%20labels%20%3D%20%222.2.5%22%20AND%20statusCategory%20%21%3D%20Done%20ORDER%20BY%20priority%20DESC" target="_blank"><span class="code">2.2.5</span>Custom Decks</a></div>
+<div class="activity-chip"><a href="https://leptonsoftware-team.atlassian.net/issues?jql=project%20%3D%20LMR%20AND%20labels%20%3D%20%222.2.6%22%20AND%20statusCategory%20%21%3D%20Done%20ORDER%20BY%20priority%20DESC" target="_blank"><span class="code">2.2.6</span>Cold calling</a></div>
+<div class="activity-chip"><a href="https://leptonsoftware-team.atlassian.net/issues?jql=project%20%3D%20LMR%20AND%20labels%20%3D%20%222.2.7%22%20AND%20statusCategory%20%21%3D%20Done%20ORDER%20BY%20priority%20DESC" target="_blank"><span class="code">2.2.7</span>Cold emailing</a></div>
+</div>
+</div>
+<div class="track">
+<h3>3. Network Access <span style="font-weight:normal; color:#6b778c; font-size:13px;">— Stakeholder: Kshemendra</span></h3>
+<div class="activity-grid">
+<div class="activity-chip all-link"><a href="https://leptonsoftware-team.atlassian.net/issues?jql=project%20%3D%20LMR%20AND%20labels%20%3D%20%223%22%20AND%20statusCategory%20%21%3D%20Done%20ORDER%20BY%20priority%20DESC" target="_blank"><span class="code">3</span>📋 All open in Network Access</a></div>
+</div>
+<div class="section-label">Marketing · <a href="https://leptonsoftware-team.atlassian.net/issues?jql=project%20%3D%20LMR%20AND%20labels%20%3D%20%223.1%22%20AND%20statusCategory%20%21%3D%20Done" target="_blank">all 3.1</a></div>
+<div class="activity-grid">
+<div class="activity-chip"><a href="https://leptonsoftware-team.atlassian.net/issues?jql=project%20%3D%20LMR%20AND%20labels%20%3D%20%223.1.1%22%20AND%20statusCategory%20%21%3D%20Done%20ORDER%20BY%20priority%20DESC" target="_blank"><span class="code">3.1.1</span>Webinar</a></div>
+<div class="activity-chip"><a href="https://leptonsoftware-team.atlassian.net/issues?jql=project%20%3D%20LMR%20AND%20labels%20%3D%20%223.1.2%22%20AND%20statusCategory%20%21%3D%20Done%20ORDER%20BY%20priority%20DESC" target="_blank"><span class="code">3.1.2</span>Events</a></div>
+<div class="activity-chip"><a href="https://leptonsoftware-team.atlassian.net/issues?jql=project%20%3D%20LMR%20AND%20labels%20%3D%20%223.1.3%22%20AND%20statusCategory%20%21%3D%20Done%20ORDER%20BY%20priority%20DESC" target="_blank"><span class="code">3.1.3</span>PR</a></div>
+<div class="activity-chip"><a href="https://leptonsoftware-team.atlassian.net/issues?jql=project%20%3D%20LMR%20AND%20labels%20%3D%20%223.1.4%22%20AND%20statusCategory%20%21%3D%20Done%20ORDER%20BY%20priority%20DESC" target="_blank"><span class="code">3.1.4</span>LinkedIn</a></div>
+<div class="activity-chip"><a href="https://leptonsoftware-team.atlassian.net/issues?jql=project%20%3D%20LMR%20AND%20labels%20%3D%20%223.1.5%22%20AND%20statusCategory%20%21%3D%20Done%20ORDER%20BY%20priority%20DESC" target="_blank"><span class="code">3.1.5</span>Email campaigns</a></div>
+<div class="activity-chip"><a href="https://leptonsoftware-team.atlassian.net/issues?jql=project%20%3D%20LMR%20AND%20labels%20%3D%20%223.1.6%22%20AND%20statusCategory%20%21%3D%20Done%20ORDER%20BY%20priority%20DESC" target="_blank"><span class="code">3.1.6</span>Twitter</a></div>
+<div class="activity-chip"><a href="https://leptonsoftware-team.atlassian.net/issues?jql=project%20%3D%20LMR%20AND%20labels%20%3D%20%223.1.9%22%20AND%20statusCategory%20%21%3D%20Done%20ORDER%20BY%20priority%20DESC" target="_blank"><span class="code">3.1.9</span>Region-based marketing (USA)</a></div>
+<div class="activity-chip"><a href="https://leptonsoftware-team.atlassian.net/issues?jql=project%20%3D%20LMR%20AND%20labels%20%3D%20%223.1.10%22%20AND%20statusCategory%20%21%3D%20Done%20ORDER%20BY%20priority%20DESC" target="_blank"><span class="code">3.1.10</span>Competitor analysis</a></div>
+<div class="activity-chip"><a href="https://leptonsoftware-team.atlassian.net/issues?jql=project%20%3D%20LMR%20AND%20labels%20%3D%20%223.1.11%22%20AND%20statusCategory%20%21%3D%20Done%20ORDER%20BY%20priority%20DESC" target="_blank"><span class="code">3.1.11</span>Case study</a></div>
+<div class="activity-chip"><a href="https://leptonsoftware-team.atlassian.net/issues?jql=project%20%3D%20LMR%20AND%20labels%20%3D%20%223.1.12%22%20AND%20statusCategory%20%21%3D%20Done%20ORDER%20BY%20priority%20DESC" target="_blank"><span class="code">3.1.12</span>Product demo (NEW)</a></div>
+</div>
+<div class="section-label">Inside Sales · <a href="https://leptonsoftware-team.atlassian.net/issues?jql=project%20%3D%20LMR%20AND%20labels%20%3D%20%223.2%22%20AND%20statusCategory%20%21%3D%20Done" target="_blank">all 3.2</a></div>
+<div class="activity-grid">
+<div class="activity-chip"><a href="https://leptonsoftware-team.atlassian.net/issues?jql=project%20%3D%20LMR%20AND%20labels%20%3D%20%223.2.1%22%20AND%20statusCategory%20%21%3D%20Done%20ORDER%20BY%20priority%20DESC" target="_blank"><span class="code">3.2.1</span>Cold calling</a></div>
+<div class="activity-chip"><a href="https://leptonsoftware-team.atlassian.net/issues?jql=project%20%3D%20LMR%20AND%20labels%20%3D%20%223.2.2%22%20AND%20statusCategory%20%21%3D%20Done%20ORDER%20BY%20priority%20DESC" target="_blank"><span class="code">3.2.2</span>Cold emailing</a></div>
+<div class="activity-chip"><a href="https://leptonsoftware-team.atlassian.net/issues?jql=project%20%3D%20LMR%20AND%20labels%20%3D%20%223.2.3%22%20AND%20statusCategory%20%21%3D%20Done%20ORDER%20BY%20priority%20DESC" target="_blank"><span class="code">3.2.3</span>Customer list (existing)</a></div>
+<div class="activity-chip"><a href="https://leptonsoftware-team.atlassian.net/issues?jql=project%20%3D%20LMR%20AND%20labels%20%3D%20%223.2.4%22%20AND%20statusCategory%20%21%3D%20Done%20ORDER%20BY%20priority%20DESC" target="_blank"><span class="code">3.2.4</span>Customer list (potential)</a></div>
+<div class="activity-chip"><a href="https://leptonsoftware-team.atlassian.net/issues?jql=project%20%3D%20LMR%20AND%20labels%20%3D%20%223.2.5%22%20AND%20statusCategory%20%21%3D%20Done%20ORDER%20BY%20priority%20DESC" target="_blank"><span class="code">3.2.5</span>Partner list (existing)</a></div>
+<div class="activity-chip"><a href="https://leptonsoftware-team.atlassian.net/issues?jql=project%20%3D%20LMR%20AND%20labels%20%3D%20%223.2.6%22%20AND%20statusCategory%20%21%3D%20Done%20ORDER%20BY%20priority%20DESC" target="_blank"><span class="code">3.2.6</span>Partner list (potential)</a></div>
+</div>
+</div>
+<div class="track">
+<h3>4. Smart Market <span style="font-weight:normal; color:#6b778c; font-size:13px;">— Stakeholder: Shubham Sinha</span></h3>
+<div class="activity-grid">
+<div class="activity-chip all-link"><a href="https://leptonsoftware-team.atlassian.net/issues?jql=project%20%3D%20LMR%20AND%20labels%20%3D%20%224%22%20AND%20statusCategory%20%21%3D%20Done%20ORDER%20BY%20priority%20DESC" target="_blank"><span class="code">4</span>📋 All open in Smart Market</a></div>
+</div>
+<div class="section-label">Marketing · <a href="https://leptonsoftware-team.atlassian.net/issues?jql=project%20%3D%20LMR%20AND%20labels%20%3D%20%224.1%22%20AND%20statusCategory%20%21%3D%20Done" target="_blank">all 4.1</a></div>
+<div class="activity-grid">
+<div class="activity-chip"><a href="https://leptonsoftware-team.atlassian.net/issues?jql=project%20%3D%20LMR%20AND%20labels%20%3D%20%224.1.1%22%20AND%20statusCategory%20%21%3D%20Done%20ORDER%20BY%20priority%20DESC" target="_blank"><span class="code">4.1.1</span>Instagram - 100D reels</a></div>
+<div class="activity-chip"><a href="https://leptonsoftware-team.atlassian.net/issues?jql=project%20%3D%20LMR%20AND%20labels%20%3D%20%224.1.2%22%20AND%20statusCategory%20%21%3D%20Done%20ORDER%20BY%20priority%20DESC" target="_blank"><span class="code">4.1.2</span>LinkedIn</a></div>
+<div class="activity-chip"><a href="https://leptonsoftware-team.atlassian.net/issues?jql=project%20%3D%20LMR%20AND%20labels%20%3D%20%224.1.3%22%20AND%20statusCategory%20%21%3D%20Done%20ORDER%20BY%20priority%20DESC" target="_blank"><span class="code">4.1.3</span>Website</a></div>
+<div class="activity-chip"><a href="https://leptonsoftware-team.atlassian.net/issues?jql=project%20%3D%20LMR%20AND%20labels%20%3D%20%224.1.4%22%20AND%20statusCategory%20%21%3D%20Done%20ORDER%20BY%20priority%20DESC" target="_blank"><span class="code">4.1.4</span>Events</a></div>
+<div class="activity-chip"><a href="https://leptonsoftware-team.atlassian.net/issues?jql=project%20%3D%20LMR%20AND%20labels%20%3D%20%224.1.5%22%20AND%20statusCategory%20%21%3D%20Done%20ORDER%20BY%20priority%20DESC" target="_blank"><span class="code">4.1.5</span>Competitor analysis</a></div>
+<div class="activity-chip"><a href="https://leptonsoftware-team.atlassian.net/issues?jql=project%20%3D%20LMR%20AND%20labels%20%3D%20%224.1.6%22%20AND%20statusCategory%20%21%3D%20Done%20ORDER%20BY%20priority%20DESC" target="_blank"><span class="code">4.1.6</span>Email campaigns</a></div>
+<div class="activity-chip"><a href="https://leptonsoftware-team.atlassian.net/issues?jql=project%20%3D%20LMR%20AND%20labels%20%3D%20%224.1.7%22%20AND%20statusCategory%20%21%3D%20Done%20ORDER%20BY%20priority%20DESC" target="_blank"><span class="code">4.1.7</span>PR</a></div>
+<div class="activity-chip"><a href="https://leptonsoftware-team.atlassian.net/issues?jql=project%20%3D%20LMR%20AND%20labels%20%3D%20%224.1.8%22%20AND%20statusCategory%20%21%3D%20Done%20ORDER%20BY%20priority%20DESC" target="_blank"><span class="code">4.1.8</span>Twitter</a></div>
+<div class="activity-chip"><a href="https://leptonsoftware-team.atlassian.net/issues?jql=project%20%3D%20LMR%20AND%20labels%20%3D%20%224.1.9%22%20AND%20statusCategory%20%21%3D%20Done%20ORDER%20BY%20priority%20DESC" target="_blank"><span class="code">4.1.9</span>Custom Decks</a></div>
+<div class="activity-chip"><a href="https://leptonsoftware-team.atlassian.net/issues?jql=project%20%3D%20LMR%20AND%20labels%20%3D%20%224.1.10%22%20AND%20statusCategory%20%21%3D%20Done%20ORDER%20BY%20priority%20DESC" target="_blank"><span class="code">4.1.10</span>Case study</a></div>
+<div class="activity-chip"><a href="https://leptonsoftware-team.atlassian.net/issues?jql=project%20%3D%20LMR%20AND%20labels%20%3D%20%224.1.11%22%20AND%20statusCategory%20%21%3D%20Done%20ORDER%20BY%20priority%20DESC" target="_blank"><span class="code">4.1.11</span>Product demos</a></div>
+<div class="activity-chip"><a href="https://leptonsoftware-team.atlassian.net/issues?jql=project%20%3D%20LMR%20AND%20labels%20%3D%20%224.1.12%22%20AND%20statusCategory%20%21%3D%20Done%20ORDER%20BY%20priority%20DESC" target="_blank"><span class="code">4.1.12</span>Logo finalization</a></div>
+<div class="activity-chip"><a href="https://leptonsoftware-team.atlassian.net/issues?jql=project%20%3D%20LMR%20AND%20labels%20%3D%20%224.1.13%22%20AND%20statusCategory%20%21%3D%20Done%20ORDER%20BY%20priority%20DESC" target="_blank"><span class="code">4.1.13</span>Blogs</a></div>
+<div class="activity-chip"><a href="https://leptonsoftware-team.atlassian.net/issues?jql=project%20%3D%20LMR%20AND%20labels%20%3D%20%224.1.14%22%20AND%20statusCategory%20%21%3D%20Done%20ORDER%20BY%20priority%20DESC" target="_blank"><span class="code">4.1.14</span>Newsletter</a></div>
+<div class="activity-chip"><a href="https://leptonsoftware-team.atlassian.net/issues?jql=project%20%3D%20LMR%20AND%20labels%20%3D%20%224.1.15%22%20AND%20statusCategory%20%21%3D%20Done%20ORDER%20BY%20priority%20DESC" target="_blank"><span class="code">4.1.15</span>Usage videos</a></div>
+</div>
+</div>
+<div class="track">
+<h3>5. TraffiCure <span style="font-weight:normal; color:#6b778c; font-size:13px;">— Stakeholder: Umang</span></h3>
+<div class="activity-grid">
+<div class="activity-chip all-link"><a href="https://leptonsoftware-team.atlassian.net/issues?jql=project%20%3D%20LMR%20AND%20labels%20%3D%20%225%22%20AND%20statusCategory%20%21%3D%20Done%20ORDER%20BY%20priority%20DESC" target="_blank"><span class="code">5</span>📋 All open in TraffiCure</a></div>
+</div>
+<div class="section-label">Marketing · <a href="https://leptonsoftware-team.atlassian.net/issues?jql=project%20%3D%20LMR%20AND%20labels%20%3D%20%225.1%22%20AND%20statusCategory%20%21%3D%20Done" target="_blank">all 5.1</a></div>
+<div class="activity-grid">
+<div class="activity-chip"><a href="https://leptonsoftware-team.atlassian.net/issues?jql=project%20%3D%20LMR%20AND%20labels%20%3D%20%225.1.1%22%20AND%20statusCategory%20%21%3D%20Done%20ORDER%20BY%20priority%20DESC" target="_blank"><span class="code">5.1.1</span>Shipments</a></div>
+<div class="activity-chip"><a href="https://leptonsoftware-team.atlassian.net/issues?jql=project%20%3D%20LMR%20AND%20labels%20%3D%20%225.1.2%22%20AND%20statusCategory%20%21%3D%20Done%20ORDER%20BY%20priority%20DESC" target="_blank"><span class="code">5.1.2</span>PR</a></div>
+<div class="activity-chip"><a href="https://leptonsoftware-team.atlassian.net/issues?jql=project%20%3D%20LMR%20AND%20labels%20%3D%20%225.1.3%22%20AND%20statusCategory%20%21%3D%20Done%20ORDER%20BY%20priority%20DESC" target="_blank"><span class="code">5.1.3</span>Twitter + Bots</a></div>
+<div class="activity-chip"><a href="https://leptonsoftware-team.atlassian.net/issues?jql=project%20%3D%20LMR%20AND%20labels%20%3D%20%225.1.4%22%20AND%20statusCategory%20%21%3D%20Done%20ORDER%20BY%20priority%20DESC" target="_blank"><span class="code">5.1.4</span>LinkedIn</a></div>
+<div class="activity-chip"><a href="https://leptonsoftware-team.atlassian.net/issues?jql=project%20%3D%20LMR%20AND%20labels%20%3D%20%225.1.5%22%20AND%20statusCategory%20%21%3D%20Done%20ORDER%20BY%20priority%20DESC" target="_blank"><span class="code">5.1.5</span>Instagram</a></div>
+<div class="activity-chip"><a href="https://leptonsoftware-team.atlassian.net/issues?jql=project%20%3D%20LMR%20AND%20labels%20%3D%20%225.1.6%22%20AND%20statusCategory%20%21%3D%20Done%20ORDER%20BY%20priority%20DESC" target="_blank"><span class="code">5.1.6</span>Website + Blog</a></div>
+<div class="activity-chip"><a href="https://leptonsoftware-team.atlassian.net/issues?jql=project%20%3D%20LMR%20AND%20labels%20%3D%20%225.1.8%22%20AND%20statusCategory%20%21%3D%20Done%20ORDER%20BY%20priority%20DESC" target="_blank"><span class="code">5.1.8</span>Webinar</a></div>
+<div class="activity-chip"><a href="https://leptonsoftware-team.atlassian.net/issues?jql=project%20%3D%20LMR%20AND%20labels%20%3D%20%225.1.9%22%20AND%20statusCategory%20%21%3D%20Done%20ORDER%20BY%20priority%20DESC" target="_blank"><span class="code">5.1.9</span>Email campaigns</a></div>
+<div class="activity-chip"><a href="https://leptonsoftware-team.atlassian.net/issues?jql=project%20%3D%20LMR%20AND%20labels%20%3D%20%225.1.12%22%20AND%20statusCategory%20%21%3D%20Done%20ORDER%20BY%20priority%20DESC" target="_blank"><span class="code">5.1.12</span>Events</a></div>
+</div>
+</div>
+<div class="track">
+<h3>6. Rajeev sir <span style="font-weight:normal; color:#6b778c; font-size:13px;">— Stakeholder: Rajeev sir</span></h3>
+<div class="activity-grid">
+<div class="activity-chip all-link"><a href="https://leptonsoftware-team.atlassian.net/issues?jql=project%20%3D%20LMR%20AND%20labels%20%3D%20%226%22%20AND%20statusCategory%20%21%3D%20Done%20ORDER%20BY%20priority%20DESC" target="_blank"><span class="code">6</span>📋 All open in Rajeev sir</a></div>
+</div>
+<div class="section-label">Marketing · <a href="https://leptonsoftware-team.atlassian.net/issues?jql=project%20%3D%20LMR%20AND%20labels%20%3D%20%226.1%22%20AND%20statusCategory%20%21%3D%20Done" target="_blank">all 6.1</a></div>
+<div class="activity-grid">
+<div class="activity-chip"><a href="https://leptonsoftware-team.atlassian.net/issues?jql=project%20%3D%20LMR%20AND%20labels%20%3D%20%226.1.1%22%20AND%20statusCategory%20%21%3D%20Done%20ORDER%20BY%20priority%20DESC" target="_blank"><span class="code">6.1.1</span>LinkedIn</a></div>
+<div class="activity-chip"><a href="https://leptonsoftware-team.atlassian.net/issues?jql=project%20%3D%20LMR%20AND%20labels%20%3D%20%226.1.2%22%20AND%20statusCategory%20%21%3D%20Done%20ORDER%20BY%20priority%20DESC" target="_blank"><span class="code">6.1.2</span>PR</a></div>
+<div class="activity-chip"><a href="https://leptonsoftware-team.atlassian.net/issues?jql=project%20%3D%20LMR%20AND%20labels%20%3D%20%226.1.3%22%20AND%20statusCategory%20%21%3D%20Done%20ORDER%20BY%20priority%20DESC" target="_blank"><span class="code">6.1.3</span>Awards</a></div>
+</div>
+</div>
+<div class="track">
+<h3>7. Umang <span style="font-weight:normal; color:#6b778c; font-size:13px;">— Stakeholder: Umang</span></h3>
+<div class="activity-grid">
+<div class="activity-chip all-link"><a href="https://leptonsoftware-team.atlassian.net/issues?jql=project%20%3D%20LMR%20AND%20labels%20%3D%20%227%22%20AND%20statusCategory%20%21%3D%20Done%20ORDER%20BY%20priority%20DESC" target="_blank"><span class="code">7</span>📋 All open in Umang</a></div>
+</div>
+<div class="section-label">Marketing · <a href="https://leptonsoftware-team.atlassian.net/issues?jql=project%20%3D%20LMR%20AND%20labels%20%3D%20%227.1%22%20AND%20statusCategory%20%21%3D%20Done" target="_blank">all 7.1</a></div>
+<div class="activity-grid">
+<div class="activity-chip"><a href="https://leptonsoftware-team.atlassian.net/issues?jql=project%20%3D%20LMR%20AND%20labels%20%3D%20%227.1.1%22%20AND%20statusCategory%20%21%3D%20Done%20ORDER%20BY%20priority%20DESC" target="_blank"><span class="code">7.1.1</span>LinkedIn</a></div>
+<div class="activity-chip"><a href="https://leptonsoftware-team.atlassian.net/issues?jql=project%20%3D%20LMR%20AND%20labels%20%3D%20%227.1.2%22%20AND%20statusCategory%20%21%3D%20Done%20ORDER%20BY%20priority%20DESC" target="_blank"><span class="code">7.1.2</span>PR</a></div>
+<div class="activity-chip"><a href="https://leptonsoftware-team.atlassian.net/issues?jql=project%20%3D%20LMR%20AND%20labels%20%3D%20%227.1.3%22%20AND%20statusCategory%20%21%3D%20Done%20ORDER%20BY%20priority%20DESC" target="_blank"><span class="code">7.1.3</span>Awards</a></div>
+</div>
+</div>
+<div class="section"><h2>⚠️ Team-wide critical views</h2><ul class="flat">
+<li><a href="https://leptonsoftware-team.atlassian.net/issues?jql=project%20%3D%20LMR%20AND%20priority%20in%20%28Highest%2C%20High%29%20AND%20statusCategory%20%21%3D%20Done%20ORDER%20BY%20priority%20DESC" target="_blank">🔥 Top priorities (all team)</a></li>
+<li><a href="https://leptonsoftware-team.atlassian.net/issues?jql=project%20%3D%20LMR%20AND%20updated%20%3E%3D%20-7d%20ORDER%20BY%20updated%20DESC" target="_blank">⏰ Recent activity (7 days)</a></li>
+<li><a href="https://leptonsoftware-team.atlassian.net/issues?jql=project%20%3D%20LMR%20AND%20status%20%3D%20%22In%20Progress%22" target="_blank">🚧 In Progress (team)</a></li>
+<li><a href="https://leptonsoftware-team.atlassian.net/issues?jql=project%20%3D%20LMR%20AND%20status%20%3D%20%22To%20Do%22%20AND%20updated%20%3C%3D%20-14d" target="_blank">🌫 Stale 14+ days (team)</a></li>
+<li><a href="https://leptonsoftware-team.atlassian.net/issues?jql=project%20%3D%20LMR%20AND%20assignee%20is%20EMPTY%20AND%20statusCategory%20%21%3D%20Done" target="_blank">🔓 Unassigned</a></li>
+</ul></div>
+
+<script>
+(function () {
+  const tbody = document.getElementById('priority-tbody');
+  const statusEl = document.getElementById('refresh-status');
+  const REFRESH_MS = 30000;
+  let currentLevel = 'p0';
+
+  const LEVEL_COLORS = {
+    p0: { bg: '#dc2626', label: 'P0' },
+    p1: { bg: '#f97316', label: 'P1' },
+    p2: { bg: '#eab308', label: 'P2' },
+    p3: { bg: '#22c55e', label: 'P3' },
+    p4: { bg: '#94a3b8', label: 'P4' }
+  };
+
+  function formatDue(iso) {
+    if (!iso) return '—';
+    const d = new Date(iso + 'T00:00:00');
+    const days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+    const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+    return days[d.getDay()] + ' ' + d.getDate() + ' ' + months[d.getMonth()] + ' ' + d.getFullYear();
+  }
+
+  function priorityBadge(level) {
+    const cfg = LEVEL_COLORS[level] || { bg: '#64748b', label: level.toUpperCase() };
+    return '<span style="background: ' + cfg.bg + '; color: white; padding: 3px 8px; border-radius: 4px; font-size: 11px; font-weight: bold;">' + cfg.label + '</span>';
+  }
+
+  function dueColor(iso) {
+    if (!iso) return '#9ca3af';
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+    const due = new Date(iso + 'T00:00:00');
+    const diffDays = (due - today) / (1000 * 60 * 60 * 24);
+    if (diffDays < 0) return '#991b1b';
+    if (diffDays <= 1) return '#dc2626';
+    if (diffDays <= 3) return '#f97316';
+    return '#0f766e';
+  }
+
+  function renderRows(issues, level) {
+    if (!issues.length) {
+      const labelTxt = (LEVEL_COLORS[level] || {}).label || level;
+      tbody.innerHTML = '<tr><td colspan="5" style="padding: 18px; text-align: center; color: #16a34a; font-weight: 600;">No ' + labelTxt + ' open tickets. Clear plate!</td></tr>';
+      return;
+    }
+    const lastIdx = issues.length - 1;
+    tbody.innerHTML = issues.map(function (i, idx) {
+      const borderStyle = idx === lastIdx ? '' : 'border-bottom: 1px solid #fecaca;';
+      return '<tr style="' + borderStyle + '">' +
+        '<td style="padding: 10px 12px;"><a href="' + i.url + '" target="_blank" style="font-weight: bold; color: #0052cc;">' + i.key + '</a></td>' +
+        '<td style="padding: 10px 12px; font-size: 13px;">' + escapeHtml(i.summary) + '</td>' +
+        '<td style="padding: 10px 12px; font-size: 13px;">' + escapeHtml(i.assignee) + '</td>' +
+        '<td style="padding: 10px 12px;">' + priorityBadge(i.level || level) + '</td>' +
+        '<td style="padding: 10px 12px; font-weight: bold; color: ' + dueColor(i.duedate) + ';">' + formatDue(i.duedate) + '</td>' +
+        '</tr>';
+    }).join('');
+  }
+
+  function escapeHtml(s) {
+    return String(s || '').replace(/[&<>"']/g, function (c) {
+      return ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[c];
+    });
+  }
+
+  function setStatus(text, color) {
+    statusEl.textContent = text;
+    statusEl.style.color = color || '#7f1d1d';
+  }
+
+  async function refresh() {
+    try {
+      const res = await fetch('/api/priorities?level=' + currentLevel, { cache: 'no-store' });
+      if (!res.ok) {
+        setStatus('Refresh failed (HTTP ' + res.status + '). Will retry.', '#991b1b');
+        return;
+      }
+      const data = await res.json();
+      renderRows(data.issues || [], currentLevel);
+      const t = new Date();
+      const hh = String(t.getHours()).padStart(2, '0');
+      const mm = String(t.getMinutes()).padStart(2, '0');
+      const ss = String(t.getSeconds()).padStart(2, '0');
+      const labelTxt = (LEVEL_COLORS[currentLevel] || {}).label || currentLevel;
+      setStatus('Last refreshed ' + hh + ':' + mm + ':' + ss + ' — ' + (data.count || 0) + ' ' + labelTxt + ' tickets', '#15803d');
+    } catch (err) {
+      setStatus('Network error. Will retry.', '#991b1b');
+      console.error(err);
+    }
+  }
+
+  // Tab handlers
+  document.querySelectorAll('.prio-tab').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      document.querySelectorAll('.prio-tab').forEach(function (b) {
+        b.classList.remove('active');
+        b.style.background = 'white';
+        const lvl = b.getAttribute('data-level');
+        const c = LEVEL_COLORS[lvl];
+        if (c) b.style.color = c.bg;
+      });
+      btn.classList.add('active');
+      btn.style.background = '';
+      btn.style.color = '';
+      currentLevel = btn.getAttribute('data-level');
+      tbody.innerHTML = '<tr><td colspan="5" style="padding: 18px; text-align: center; color: #6b7280; font-style: italic;">Loading ' + ((LEVEL_COLORS[currentLevel] || {}).label || currentLevel) + ' tickets&hellip;</td></tr>';
+      refresh();
+    });
+  });
+
+  refresh();
+  setInterval(refresh, REFRESH_MS);
+})();
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+<script>
+(function () {
+  const charts = {};
+  const STATS_REFRESH_MS = 30000;
+
+  const PRIORITY_COLORS = {
+    'P0': '#dc2626',
+    'P1': '#f97316',
+    'P2': '#eab308',
+    'P3': '#22c55e',
+    'P4': '#94a3b8',
+    'None': '#64748b'
+  };
+
+  const PRIORITY_REMAP = {
+    'Highest': 'P0',
+    'High': 'P1',
+    'Medium': 'P2',
+    'Low': 'P3',
+    'Lowest': 'P4'
+  };
+
+  const STATUS_COLORS = {
+    'To Do': '#3b82f6',
+    'In Progress': '#f59e0b',
+    'Done': '#10b981',
+    'Blocked': '#dc2626',
+    'In Review': '#8b5cf6'
+  };
+
+  function renderDoughnut(canvasId, labels, data, colorMap) {
+    const ctx = document.getElementById(canvasId);
+    if (!ctx) return;
+    if (charts[canvasId]) charts[canvasId].destroy();
+    const colors = labels.map(l => colorMap[l] || '#94a3b8');
+    charts[canvasId] = new Chart(ctx, {
+      type: 'doughnut',
+      data: { labels, datasets: [{ data, backgroundColor: colors, borderWidth: 1 }] },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: { legend: { position: 'bottom', labels: { font: { size: 11 }, boxWidth: 12 } } }
+      }
+    });
+  }
+
+  function renderBar(canvasId, labels, data, barColor) {
+    const ctx = document.getElementById(canvasId);
+    if (!ctx) return;
+    if (charts[canvasId]) charts[canvasId].destroy();
+    charts[canvasId] = new Chart(ctx, {
+      type: 'bar',
+      data: { labels, datasets: [{ data, backgroundColor: barColor, borderWidth: 0 }] },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        indexAxis: 'y',
+        plugins: { legend: { display: false } },
+        scales: {
+          x: { beginAtZero: true, ticks: { precision: 0, font: { size: 10 } } },
+          y: { ticks: { font: { size: 11 } } }
+        }
+      }
+    });
+  }
+
+  async function refreshStats() {
+    try {
+      const res = await fetch('/api/stats', { cache: 'no-store' });
+      if (!res.ok) {
+        document.getElementById('stats-status').textContent = 'Refresh failed (HTTP ' + res.status + ')';
+        document.getElementById('stats-status').style.color = '#991b1b';
+        return;
+      }
+      const data = await res.json();
+
+      renderDoughnut('chart-priority',
+        data.byPriority.map(p => PRIORITY_REMAP[p.priority] || p.priority),
+        data.byPriority.map(p => p.count),
+        PRIORITY_COLORS);
+
+      renderDoughnut('chart-status',
+        data.byStatus.map(s => s.status),
+        data.byStatus.map(s => s.count),
+        STATUS_COLORS);
+
+      renderBar('chart-track',
+        data.byTrack.map(t => t.track + '. ' + t.name),
+        data.byTrack.map(t => t.count),
+        '#0052cc');
+
+      renderBar('chart-assignee',
+        data.byAssignee.map(a => a.assignee),
+        data.byAssignee.map(a => a.count),
+        '#7c3aed');
+
+      const t = new Date();
+      const hh = String(t.getHours()).padStart(2, '0');
+      const mm = String(t.getMinutes()).padStart(2, '0');
+      const statusEl = document.getElementById('stats-status');
+      statusEl.textContent = 'Updated ' + hh + ':' + mm + ' • ' + (data.totalOpen || 0) + ' open tickets total';
+      statusEl.style.color = '#15803d';
+    } catch (err) {
+      console.error('Stats fetch failed:', err);
+    }
+  }
+
+  refreshStats();
+  setInterval(refreshStats, STATS_REFRESH_MS);
+})();
+</script>
+
+<script>
+(function () {
+  const grid = document.getElementById('cal-grid');
+  const monthLabel = document.getElementById('cal-month-label');
+  const statusEl = document.getElementById('calendar-status');
+  const detailEl = document.getElementById('cal-detail');
+  const detailHeading = document.getElementById('cal-detail-heading');
+  const detailBody = document.getElementById('cal-detail-body');
+
+  const PRIO_COLORS = {
+    'Highest': { bg: '#dc2626', label: 'P0' },
+    'High':    { bg: '#f97316', label: 'P1' },
+    'Medium':  { bg: '#ca8a04', label: 'P2' },
+    'Low':     { bg: '#22c55e', label: 'P3' },
+    'Lowest':  { bg: '#94a3b8', label: 'P4' }
+  };
+
+  const TRACK_NAMES = {
+    1: 'Lepton',
+    2: 'GMP',
+    3: 'Network Access',
+    4: 'Smart Market',
+    5: 'TraffiCure',
+    6: 'Rajeev sir',
+    7: 'Umang'
+  };
+
+  function epicKeyOf(t) { return t.epicKey || '__no_epic__'; }
+  function epicTitleOf(t) { return t.epicSummary || 'No epic'; }
+
+  function groupByEpic(tasks) {
+    const groups = {};
+    const order = [];
+    tasks.forEach(function (t) {
+      const k = epicKeyOf(t);
+      if (!groups[k]) {
+        groups[k] = { key: t.epicKey, title: epicTitleOf(t), tasks: [] };
+        order.push(k);
+      }
+      groups[k].tasks.push(t);
+    });
+    // Push "No epic" group to the end if present.
+    order.sort(function (a, b) {
+      if (a === '__no_epic__') return 1;
+      if (b === '__no_epic__') return -1;
+      return 0;
+    });
+    return order.map(function (k) { return groups[k]; });
+  }
+
+  const MONTH_NAMES = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+  const DAY_SHORT = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
+
+  const REFRESH_MS = 60000;
+  let viewYear, viewMonth; // month is 0-based
+  let selectedDate = null; // YYYY-MM-DD or null
+  let cachedIssues = [];
+  let selectedTrack = null; // null = all tracks, otherwise a number 1..7
+
+  const trackSelect = document.getElementById('cal-track');
+  const trackHint = document.getElementById('cal-track-hint');
+
+  function parseInitialTrack() {
+    try {
+      const params = new URLSearchParams(window.location.search);
+      const raw = params.get('track');
+      if (!raw) return null;
+      const n = parseInt(raw, 10);
+      if (!isNaN(n) && TRACK_NAMES[n]) return n;
+    } catch (e) {}
+    return null;
+  }
+
+  function updateTrackUrl() {
+    try {
+      const params = new URLSearchParams(window.location.search);
+      if (selectedTrack == null) params.delete('track');
+      else params.set('track', String(selectedTrack));
+      const qs = params.toString();
+      const newUrl = window.location.pathname + (qs ? '?' + qs : '') + window.location.hash;
+      window.history.replaceState(null, '', newUrl);
+    } catch (e) {}
+  }
+
+  function updateTrackHint() {
+    if (selectedTrack == null) {
+      trackHint.textContent = '— full team view, all 7 tracks';
+    } else {
+      trackHint.textContent = '— filtered to ' + TRACK_NAMES[selectedTrack] + ' only';
+    }
+  }
+
+  function filteredIssues() {
+    if (selectedTrack == null) return cachedIssues;
+    return cachedIssues.filter(function (i) { return i.track === selectedTrack; });
+  }
+
+  function fmtDate(d) {
+    const y = d.getFullYear();
+    const m = String(d.getMonth() + 1).padStart(2, '0');
+    const day = String(d.getDate()).padStart(2, '0');
+    return y + '-' + m + '-' + day;
+  }
+
+  function escapeHtml(s) {
+    return String(s == null ? '' : s).replace(/[&<>"']/g, function (c) {
+      return ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[c];
+    });
+  }
+
+  // First visible cell in the grid = Monday on/before the 1st of the month.
+  function getGridStart(year, month) {
+    const first = new Date(year, month, 1);
+    const dow = first.getDay(); // 0=Sun..6=Sat
+    const back = dow === 0 ? 6 : (dow - 1);
+    return new Date(year, month, 1 - back);
+  }
+
+  function groupByDate(issues) {
+    const map = {};
+    issues.forEach(function (i) {
+      if (!i.duedate) return;
+      if (!map[i.duedate]) map[i.duedate] = [];
+      map[i.duedate].push(i);
+    });
+    return map;
+  }
+
+  function renderGrid() {
+    const start = getGridStart(viewYear, viewMonth);
+    monthLabel.textContent = MONTH_NAMES[viewMonth] + ' ' + viewYear;
+
+    const todayStr = fmtDate(new Date());
+    const byDate = groupByDate(filteredIssues());
+
+    let html = '';
+    ['Mon','Tue','Wed','Thu','Fri','Sat','Sun'].forEach(function (w) {
+      html += '<div class="cal-weekday">' + w + '</div>';
+    });
+
+    for (let i = 0; i < 42; i++) {
+      const d = new Date(start.getFullYear(), start.getMonth(), start.getDate() + i);
+      const ds = fmtDate(d);
+      const tasks = byDate[ds] || [];
+
+      const classes = ['cal-day'];
+      if (d.getMonth() !== viewMonth) classes.push('other-month');
+      if (ds === todayStr) classes.push('today');
+      if (ds === selectedDate) classes.push('selected');
+
+      const isWeekend = d.getDay() === 0 || d.getDay() === 6;
+
+      html += '<div class="' + classes.join(' ') + '" data-date="' + ds + '">';
+      html += '<div class="cal-day-num' + (isWeekend ? ' weekend' : '') + '">' + d.getDate() + '</div>';
+
+      if (tasks.length > 0) {
+        groupByEpic(tasks).forEach(function (g) {
+          const epicClass = g.key ? '' : ' no-epic';
+          html += '<div class="cal-tile-epic">';
+          html += '<div class="cal-tile-epic-h' + epicClass + '">' + escapeHtml(g.title) + '</div>';
+          g.tasks.forEach(function (t) {
+            const prio = PRIO_COLORS[t.priority] || { bg: '#64748b' };
+            const rowClass = 'cal-tile-task' + (t.done ? ' done' : '');
+            html += '<a class="' + rowClass + '" href="' + t.url + '" target="_blank" data-task-link="1" title="' + escapeHtml(t.key + ' · ' + t.priority + ' · ' + t.assignee + ' · ' + t.status) + '">';
+            html += '<span class="cal-tile-task-prio" style="background:' + prio.bg + ';"></span>';
+            html += '<span class="cal-tile-task-key">' + escapeHtml(t.key) + '</span>';
+            html += '<span class="cal-tile-task-sum">' + escapeHtml(t.summary) + '</span>';
+            html += '</a>';
+          });
+          html += '</div>';
+        });
+      }
+
+      html += '</div>';
+    }
+
+    grid.innerHTML = html;
+
+    // Stop tile-click from firing when a task link is clicked.
+    grid.querySelectorAll('[data-task-link]').forEach(function (a) {
+      a.addEventListener('click', function (e) { e.stopPropagation(); });
+    });
+
+    grid.querySelectorAll('.cal-day').forEach(function (cell) {
+      cell.addEventListener('click', function () {
+        const ds = cell.getAttribute('data-date');
+        if (selectedDate === ds) {
+          selectedDate = null;
+          detailEl.style.display = 'none';
+        } else {
+          selectedDate = ds;
+          renderDetail(ds, byDate[ds] || []);
+        }
+        renderGrid();
+      });
+    });
+  }
+
+  function renderDetail(ds, tasks) {
+    const d = new Date(ds + 'T00:00:00');
+    const dateLabel = DAY_SHORT[d.getDay()] + ' ' + d.getDate() + ' ' + MONTH_NAMES[d.getMonth()] + ' ' + d.getFullYear();
+    const jql = encodeURIComponent('project = LMR AND duedate = "' + ds + '" ORDER BY priority DESC');
+    const openLink = 'https://leptonsoftware-team.atlassian.net/issues?jql=' + jql;
+
+    detailHeading.innerHTML = '📅 Tasks due ' + escapeHtml(dateLabel) +
+      ' <a href="' + openLink + '" target="_blank" style="font-size: 12px; font-weight: normal; margin-left: 10px;">Open all in Jira →</a>';
+
+    if (!tasks.length) {
+      detailBody.innerHTML = '<p style="color: #6b7280; font-style: italic; margin: 0;">Nothing scheduled this day.</p>';
+      detailEl.style.display = 'block';
+      return;
+    }
+
+    let html = '';
+    groupByEpic(tasks).forEach(function (g) {
+      const epicHeader = g.key
+        ? '<a href="https://leptonsoftware-team.atlassian.net/browse/' + encodeURIComponent(g.key) + '" target="_blank" style="color: inherit;">' + escapeHtml(g.key + ' · ' + g.title) + '</a>'
+        : '<em style="color: #94a3b8;">No epic</em>';
+      html += '<div class="cal-task-group">';
+      html += '<div class="cal-task-group-h">' + epicHeader + '</div>';
+      g.tasks.forEach(function (t) {
+        const prio = PRIO_COLORS[t.priority] || { bg: '#64748b', label: '–' };
+        const rowClass = 'cal-task-row' + (t.done ? ' done' : '');
+        html += '<div class="' + rowClass + '">';
+        html += '<a class="cal-task-key" href="' + t.url + '" target="_blank">' + escapeHtml(t.key) + '</a>';
+        html += '<span class="cal-task-prio" style="background:' + prio.bg + ';">' + prio.label + '</span>';
+        html += '<span class="cal-task-summary">' + escapeHtml(t.summary) + '</span>';
+        html += '<span class="cal-task-meta">' + escapeHtml(t.assignee) + ' · ' + escapeHtml(t.status) + '</span>';
+        html += '</div>';
+      });
+      html += '</div>';
+    });
+
+    detailBody.innerHTML = html;
+    detailEl.style.display = 'block';
+  }
+
+  function setStatus(text, color) {
+    statusEl.textContent = text;
+    statusEl.style.color = color || '#6b778c';
+  }
+
+  async function fetchData() {
+    const start = getGridStart(viewYear, viewMonth);
+    const end = new Date(start.getFullYear(), start.getMonth(), start.getDate() + 41);
+    setStatus('Loading…', '#6b778c');
+    try {
+      const res = await fetch('/api/calendar?start=' + fmtDate(start) + '&end=' + fmtDate(end), { cache: 'no-store' });
+      if (!res.ok) {
+        setStatus('Failed (HTTP ' + res.status + ')', '#991b1b');
+        cachedIssues = [];
+        renderGrid();
+        return;
+      }
+      const data = await res.json();
+      cachedIssues = data.issues || [];
+      const t = new Date();
+      const hh = String(t.getHours()).padStart(2, '0');
+      const mm = String(t.getMinutes()).padStart(2, '0');
+      const visible = filteredIssues().length;
+      setStatus('Updated ' + hh + ':' + mm + ' · ' + visible + ' task' + (visible === 1 ? '' : 's') + ' in view', '#15803d');
+      renderGrid();
+      if (selectedDate) {
+        const byDate = groupByDate(filteredIssues());
+        renderDetail(selectedDate, byDate[selectedDate] || []);
+      }
+    } catch (err) {
+      console.error('Calendar fetch failed:', err);
+      setStatus('Network error', '#991b1b');
+    }
+  }
+
+  function gotoMonth(delta) {
+    const d = new Date(viewYear, viewMonth + delta, 1);
+    viewYear = d.getFullYear();
+    viewMonth = d.getMonth();
+    selectedDate = null;
+    detailEl.style.display = 'none';
+    fetchData();
+  }
+
+  document.getElementById('cal-prev').addEventListener('click', function () { gotoMonth(-1); });
+  document.getElementById('cal-next').addEventListener('click', function () { gotoMonth(1); });
+  document.getElementById('cal-today').addEventListener('click', function () {
+    const now = new Date();
+    viewYear = now.getFullYear();
+    viewMonth = now.getMonth();
+    selectedDate = fmtDate(now);
+    fetchData();
+  });
+
+  trackSelect.addEventListener('change', function () {
+    const v = trackSelect.value;
+    selectedTrack = v === '' ? null : parseInt(v, 10);
+    updateTrackUrl();
+    updateTrackHint();
+    selectedDate = null;
+    detailEl.style.display = 'none';
+    renderGrid();
+    // Refresh status line task count for the new filter.
+    const visible = filteredIssues().length;
+    const cur = statusEl.textContent || '';
+    const m = cur.match(/Updated (\d{2}:\d{2})/);
+    if (m) {
+      setStatus('Updated ' + m[1] + ' · ' + visible + ' task' + (visible === 1 ? '' : 's') + ' in view', '#15803d');
+    }
+  });
+
+  // Initialise track from ?track= URL param (e.g. shared link ?track=4)
+  selectedTrack = parseInitialTrack();
+  if (selectedTrack != null) trackSelect.value = String(selectedTrack);
+  updateTrackHint();
+
+  const now = new Date();
+  viewYear = now.getFullYear();
+  viewMonth = now.getMonth();
+  fetchData();
+  setInterval(fetchData, REFRESH_MS);
+})();
+</script>
+</body></html>
