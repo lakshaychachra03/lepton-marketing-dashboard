@@ -56,6 +56,8 @@
   .cal-tile-task.done .cal-tile-task-sum { text-decoration: line-through; }
   .cal-tile-task-key { font-family: 'SF Mono', Monaco, monospace; font-size: 9px; color: #6b778c; margin-right: 3px; font-weight: 600; }
   .cal-tile-task-prio { display: inline-block; width: 6px; height: 6px; border-radius: 50%; margin-right: 4px; vertical-align: middle; }
+  .cal-tile-labels { display: block; margin-top: 2px; line-height: 1.4; }
+  .cal-tile-label { display: inline-block; font-size: 9px; font-weight: 600; padding: 1px 5px; border-radius: 8px; background: #eef2ff; color: #3730a3; margin-right: 3px; margin-bottom: 2px; letter-spacing: 0.1px; }
   .cal-detail { margin-top: 18px; padding: 14px 18px; background: #fffbeb; border-left: 4px solid #f59e0b; border-radius: 6px; }
   .cal-detail h3 { margin-top: 0; margin-bottom: 12px; font-size: 16px; color: #92400e; }
   .cal-task-group { margin-bottom: 14px; }
@@ -65,10 +67,51 @@
   .cal-task-row:last-child { border-bottom: none; }
   .cal-task-row.done { opacity: 0.55; }
   .cal-task-row.done .cal-task-summary { text-decoration: line-through; }
-  .cal-task-key { font-family: 'SF Mono', Monaco, monospace; font-size: 11px; font-weight: 700; color: #0052cc; min-width: 70px; }
   .cal-task-prio { display: inline-block; padding: 1px 6px; border-radius: 3px; font-size: 10px; font-weight: 700; color: white; min-width: 22px; text-align: center; }
-  .cal-task-summary { flex: 1; min-width: 200px; color: #1e293b; }
+  .cal-task-summary { flex: 1; min-width: 200px; color: #1e293b; font-weight: 600; }
   .cal-task-meta { font-size: 11px; color: #6b778c; }
+  /* Product picker */
+  .track-picker { padding: 16px 4px 8px; }
+  .track-picker-q { font-size: 15px; color: #172b4d; margin: 0 0 16px 0; font-weight: 600; }
+  .track-picker-sub { font-size: 13px; color: #6b778c; margin: -10px 0 16px 0; }
+  .picker-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 12px; }
+  .picker-btn { border: 0; border-radius: 10px; padding: 18px 16px; color: white; cursor: pointer; font-family: inherit; text-align: left; transition: transform 0.15s, box-shadow 0.2s; box-shadow: 0 2px 4px rgba(0,0,0,0.08); display: block; }
+  .picker-btn:hover { transform: translateY(-2px); box-shadow: 0 6px 14px rgba(0,0,0,0.18); }
+  .picker-num { font-size: 11px; opacity: 0.75; font-weight: 600; letter-spacing: 1px; margin-bottom: 4px; }
+  .picker-name { font-size: 17px; font-weight: 700; line-height: 1.2; }
+  .picker-sub { font-size: 11px; opacity: 0.9; margin-top: 6px; font-weight: 500; }
+  .picker-all { background: #475569; grid-column: 1 / -1; text-align: center; }
+  .picker-all .picker-name { font-size: 14px; }
+  /* Calendar toolbar */
+  .cal-toolbar { display: flex; flex-wrap: wrap; gap: 12px 16px; align-items: center; padding: 10px 0 14px 0; border-bottom: 1px solid #e5e7eb; margin-bottom: 14px; }
+  .cal-toolbar-label { font-size: 14px; color: #6b778c; }
+  .cal-toolbar-label strong { color: #172b4d; font-weight: 700; }
+  .cal-change-link { font-size: 12px; color: #0052cc; text-decoration: none; padding: 4px 8px; border-radius: 4px; background: #e3f2fd; cursor: pointer; }
+  .cal-change-link:hover { background: #bbdefb; text-decoration: none; }
+  .cal-view-toggle { display: inline-flex; border: 1px solid #dfe1e6; border-radius: 6px; overflow: hidden; }
+  .view-btn { background: white; border: 0; padding: 6px 12px; font-size: 12px; cursor: pointer; font-family: inherit; color: #6b778c; font-weight: 600; }
+  .view-btn.active { background: #0052cc; color: white; }
+  .view-btn:not(.active):hover { background: #f4f5f7; }
+  .cal-month-nav { display: flex; gap: 4px; align-items: center; margin-left: auto; }
+  .cal-month-nav #cal-month-label { font-weight: 700; min-width: 130px; text-align: center; color: #172b4d; }
+  /* Monthly plan list view */
+  .cal-list { padding: 6px 4px 4px; }
+  .cal-list-month-h { margin: 0 0 16px 0; font-size: 18px; color: #172b4d; font-weight: 700; }
+  .cal-list-day { margin-bottom: 18px; padding-bottom: 14px; border-bottom: 1px solid #e5e7eb; }
+  .cal-list-day:last-child { border-bottom: none; }
+  .cal-list-day-h { font-size: 14px; font-weight: 700; color: #0052cc; margin-bottom: 8px; }
+  .cal-list-epic { margin-left: 16px; margin-bottom: 10px; }
+  .cal-list-epic:last-child { margin-bottom: 0; }
+  .cal-list-epic-h { font-size: 11px; font-weight: 700; color: #6b778c; text-transform: uppercase; letter-spacing: 0.4px; margin-bottom: 4px; }
+  .cal-list-task { padding: 4px 0; font-size: 13px; line-height: 1.45; color: #1e293b; }
+  .cal-list-task.done { color: #94a3b8; }
+  .cal-list-task.done .cal-list-sum { text-decoration: line-through; }
+  .cal-list-mark { display: inline-block; width: 20px; color: #16a34a; font-weight: 700; font-size: 14px; }
+  .cal-list-task.done .cal-list-mark { color: #94a3b8; }
+  .cal-list-meta { color: #6b778c; font-size: 11px; }
+  .cal-list-labels { display: inline-flex; flex-wrap: wrap; gap: 4px; margin-left: 6px; vertical-align: middle; }
+  .cal-list-label { display: inline-block; font-size: 10px; font-weight: 600; padding: 1px 7px; border-radius: 10px; background: #eef2ff; color: #3730a3; letter-spacing: 0.2px; }
+  .cal-list-empty { color: #6b7280; font-style: italic; padding: 16px; text-align: center; }
 </style></head><body>
 <h1>🎯 Lepton Marketing — Live Dashboard</h1>
 <p class="meta">Each teammate's daily flow shown below. Click any link to open the filter live in Jira.</p>
@@ -148,22 +191,81 @@
 </div>
 
 <div class="section" id="calendar-section">
-  <h2 style="margin-top: 0; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 10px;">
-    <span>📅 Task Calendar
-      <span id="calendar-status" style="font-size: 12px; font-weight: normal; color: #6b778c; margin-left: 12px;">Loading&hellip;</span>
-    </span>
-    <span style="display: flex; gap: 6px; align-items: center; font-size: 14px; font-weight: normal;">
-      <button id="cal-prev" class="cal-nav-btn" title="Previous month">&#9664;</button>
-      <span id="cal-month-label" style="min-width: 150px; text-align: center; font-weight: 700; color: #172b4d;">&mdash;</span>
-      <button id="cal-next" class="cal-nav-btn" title="Next month">&#9654;</button>
-      <button id="cal-today" class="cal-nav-btn" style="margin-left: 6px;">Today</button>
-    </span>
+  <h2 style="margin-top: 0;">
+    📅 Task Calendar
+    <span id="calendar-status" style="font-size: 12px; font-weight: normal; color: #6b778c; margin-left: 12px;">&nbsp;</span>
   </h2>
-  <p style="color: #6b7280; font-size: 13px; margin: 0 0 14px 0;">All LMR tickets that have a due date (open + done). Click any day to see the projects and tasks scheduled. Auto-refreshes every 60 seconds.</p>
-  <div id="cal-grid" class="cal-grid"></div>
-  <div id="cal-detail" class="cal-detail" style="display: none;">
-    <h3 id="cal-detail-heading"></h3>
-    <div id="cal-detail-body"></div>
+
+  <!-- Product picker (visible until a product is picked) -->
+  <div id="track-picker" class="track-picker">
+    <p class="track-picker-q">Which product would you like to see the calendar for?</p>
+    <p class="track-picker-sub">Pick one. You can switch any time using "Change product".</p>
+    <div class="picker-grid">
+      <button class="picker-btn" data-track="1" style="background: #0052cc;">
+        <div class="picker-num">TRACK 1</div>
+        <div class="picker-name">Lepton</div>
+        <div class="picker-sub">Sonam ma'am · Umang · Rajeev sir</div>
+      </button>
+      <button class="picker-btn" data-track="2" style="background: #16a34a;">
+        <div class="picker-num">TRACK 2</div>
+        <div class="picker-name">GMP</div>
+        <div class="picker-sub">Manish Gupta</div>
+      </button>
+      <button class="picker-btn" data-track="3" style="background: #0891b2;">
+        <div class="picker-num">TRACK 3</div>
+        <div class="picker-name">Network Access</div>
+        <div class="picker-sub">Kshemendra</div>
+      </button>
+      <button class="picker-btn" data-track="4" style="background: #7c3aed;">
+        <div class="picker-num">TRACK 4</div>
+        <div class="picker-name">Smart Market</div>
+        <div class="picker-sub">Shubham Sinha</div>
+      </button>
+      <button class="picker-btn" data-track="5" style="background: #f97316;">
+        <div class="picker-num">TRACK 5</div>
+        <div class="picker-name">TraffiCure</div>
+        <div class="picker-sub">Umang</div>
+      </button>
+      <button class="picker-btn" data-track="6" style="background: #be185d;">
+        <div class="picker-num">TRACK 6</div>
+        <div class="picker-name">Rajeev sir</div>
+        <div class="picker-sub">Rajeev sir</div>
+      </button>
+      <button class="picker-btn" data-track="7" style="background: #ca8a04;">
+        <div class="picker-num">TRACK 7</div>
+        <div class="picker-name">Umang</div>
+        <div class="picker-sub">Umang</div>
+      </button>
+      <button class="picker-btn picker-all" data-track="">
+        <div class="picker-name">Show all (full team view)</div>
+        <div class="picker-sub">Every track combined — for the team lead view</div>
+      </button>
+    </div>
+  </div>
+
+  <!-- Calendar content (hidden until a product is picked) -->
+  <div id="calendar-content" style="display: none;">
+    <div class="cal-toolbar">
+      <span class="cal-toolbar-label">Showing: <strong id="track-title">—</strong></span>
+      <a href="#" id="change-track" class="cal-change-link">← Change product</a>
+      <span class="cal-view-toggle" role="tablist">
+        <button data-view="calendar" class="view-btn active">📅 Calendar</button>
+        <button data-view="list" class="view-btn">📋 Monthly plan</button>
+      </span>
+      <span class="cal-month-nav">
+        <button id="cal-prev" class="cal-nav-btn" title="Previous month">&#9664;</button>
+        <span id="cal-month-label">&mdash;</span>
+        <button id="cal-next" class="cal-nav-btn" title="Next month">&#9654;</button>
+        <button id="cal-today" class="cal-nav-btn" style="margin-left: 4px;">Today</button>
+      </span>
+    </div>
+    <p style="color: #6b7280; font-size: 13px; margin: 0 0 14px 0;">Click any day to see the tasks scheduled. Done tasks shown struck through. Data comes from <code style="background:#f3f4f6; padding:1px 5px; border-radius:3px;">calendar-data.js</code>.</p>
+    <div id="cal-grid" class="cal-grid"></div>
+    <div id="cal-list" class="cal-list" style="display: none;"></div>
+    <div id="cal-detail" class="cal-detail" style="display: none;">
+      <h3 id="cal-detail-heading"></h3>
+      <div id="cal-detail-body"></div>
+    </div>
   </div>
 </div>
 
@@ -620,14 +722,14 @@
 })();
 </script>
 
+<script src="calendar-data.js"></script>
 <script>
 (function () {
-  const grid = document.getElementById('cal-grid');
-  const monthLabel = document.getElementById('cal-month-label');
-  const statusEl = document.getElementById('calendar-status');
-  const detailEl = document.getElementById('cal-detail');
-  const detailHeading = document.getElementById('cal-detail-heading');
-  const detailBody = document.getElementById('cal-detail-body');
+  // ---- Static config (matches the 7 tracks shown in the product picker) ----
+  const TRACK_NAMES = {
+    1: 'Lepton', 2: 'GMP', 3: 'Network Access',
+    4: 'Smart Market', 5: 'TraffiCure', 6: 'Rajeev sir', 7: 'Umang'
+  };
 
   const PRIO_COLORS = {
     'Highest': { bg: '#dc2626', label: 'P0' },
@@ -637,21 +739,59 @@
     'Lowest':  { bg: '#94a3b8', label: 'P4' }
   };
 
-  function epicKeyOf(t) { return t.epicKey || '__no_epic__'; }
+  const STATUS_LABELS = {
+    'todo': 'To Do',
+    'in-progress': 'In Progress',
+    'done': 'Done'
+  };
+
+  // ---- Normalize events from window.CALENDAR_EVENTS into the shape the
+  // renderers below expect. Lets users write a simpler schema in
+  // calendar-data.js (date / title / epic / labels / track / status / ...)
+  // while the renderers still see (duedate / summary / epicSummary / ...).
+  function normalize(events) {
+    return (events || []).map(function (e) {
+      const status = String(e.status || 'todo').toLowerCase();
+      const prioRaw = String(e.priority || 'medium').toLowerCase();
+      const prio = prioRaw.charAt(0).toUpperCase() + prioRaw.slice(1);
+      return {
+        duedate: e.date,
+        summary: e.title || '(untitled)',
+        epicSummary: e.epic || null,
+        labels: Array.isArray(e.labels) ? e.labels : [],
+        track: typeof e.track === 'number' ? e.track : null,
+        status: STATUS_LABELS[status] || e.status || 'To Do',
+        done: status === 'done',
+        priority: PRIO_COLORS[prio] ? prio : 'Medium',
+        assignee: e.owner || ''
+      };
+    }).filter(function (e) { return e.duedate; });
+  }
+
   function epicTitleOf(t) { return t.epicSummary || 'No epic'; }
+
+  function displayLabels(labels) {
+    if (!labels || !labels.length) return [];
+    return labels.filter(function (l) {
+      const s = String(l).trim();
+      if (!s) return false;
+      if (/^[1-7]$/.test(s)) return false;
+      if (/^stakeholder-/i.test(s)) return false;
+      return true;
+    });
+  }
 
   function groupByEpic(tasks) {
     const groups = {};
     const order = [];
     tasks.forEach(function (t) {
-      const k = epicKeyOf(t);
+      const k = t.epicSummary || '__no_epic__';
       if (!groups[k]) {
-        groups[k] = { key: t.epicKey, title: epicTitleOf(t), tasks: [] };
+        groups[k] = { key: t.epicSummary, title: epicTitleOf(t), tasks: [] };
         order.push(k);
       }
       groups[k].tasks.push(t);
     });
-    // Push "No epic" group to the end if present.
     order.sort(function (a, b) {
       if (a === '__no_epic__') return 1;
       if (b === '__no_epic__') return -1;
@@ -662,11 +802,52 @@
 
   const MONTH_NAMES = ['January','February','March','April','May','June','July','August','September','October','November','December'];
   const DAY_SHORT = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
+  const DAY_LONG = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
 
-  const REFRESH_MS = 60000;
-  let viewYear, viewMonth; // month is 0-based
-  let selectedDate = null; // YYYY-MM-DD or null
+  let viewYear, viewMonth;
+  let selectedDate = null;
   let cachedIssues = [];
+  let selectedTrack = null; // null = picker visible; 'all' = show all; 1..7 = filter to that track
+  let viewMode = 'calendar'; // 'calendar' or 'list'
+
+  const pickerEl = document.getElementById('track-picker');
+  const contentEl = document.getElementById('calendar-content');
+  const trackTitleEl = document.getElementById('track-title');
+  const grid = document.getElementById('cal-grid');
+  const listEl = document.getElementById('cal-list');
+  const monthLabel = document.getElementById('cal-month-label');
+  const statusEl = document.getElementById('calendar-status');
+  const detailEl = document.getElementById('cal-detail');
+  const detailHeading = document.getElementById('cal-detail-heading');
+  const detailBody = document.getElementById('cal-detail-body');
+
+  function parseInitial() {
+    try {
+      const params = new URLSearchParams(window.location.search);
+      const raw = params.get('track');
+      const v = params.get('view');
+      const init = { track: null, view: 'calendar' };
+      if (raw === '') init.track = 'all';
+      else if (raw) {
+        const n = parseInt(raw, 10);
+        if (!isNaN(n) && TRACK_NAMES[n]) init.track = n;
+      }
+      if (v === 'list' || v === 'calendar') init.view = v;
+      return init;
+    } catch (_e) { return { track: null, view: 'calendar' }; }
+  }
+
+  function updateUrl() {
+    try {
+      const params = new URLSearchParams(window.location.search);
+      if (selectedTrack == null) params.delete('track');
+      else if (selectedTrack === 'all') params.set('track', '');
+      else params.set('track', String(selectedTrack));
+      params.set('view', viewMode);
+      const newUrl = window.location.pathname + (params.toString() ? '?' + params.toString() : '') + window.location.hash;
+      window.history.replaceState({}, '', newUrl);
+    } catch (_e) {}
+  }
 
   function fmtDate(d) {
     const y = d.getFullYear();
@@ -681,10 +862,9 @@
     });
   }
 
-  // First visible cell in the grid = Monday on/before the 1st of the month.
   function getGridStart(year, month) {
     const first = new Date(year, month, 1);
-    const dow = first.getDay(); // 0=Sun..6=Sat
+    const dow = first.getDay();
     const back = dow === 0 ? 6 : (dow - 1);
     return new Date(year, month, 1 - back);
   }
@@ -699,12 +879,63 @@
     return map;
   }
 
+  function filteredIssues() {
+    if (selectedTrack == null || selectedTrack === 'all') return cachedIssues;
+    return cachedIssues.filter(function (i) { return i.track === selectedTrack; });
+  }
+
+  function setStatus(text, color) {
+    statusEl.textContent = text;
+    statusEl.style.color = color || '#6b778c';
+  }
+
+  function updateToolbarTitle() {
+    if (selectedTrack === 'all' || selectedTrack == null) {
+      trackTitleEl.textContent = 'All tracks';
+    } else {
+      trackTitleEl.textContent = selectedTrack + '. ' + TRACK_NAMES[selectedTrack];
+    }
+  }
+
+  function showPicker() {
+    pickerEl.style.display = 'block';
+    contentEl.style.display = 'none';
+    setStatus('');
+  }
+
+  function showCalendar() {
+    pickerEl.style.display = 'none';
+    contentEl.style.display = 'block';
+    updateToolbarTitle();
+    updateUrl();
+    renderCurrent();
+  }
+
+  function renderCurrent() {
+    const visible = filteredIssues().length;
+    setStatus(visible + ' tasks in view', '#15803d');
+    if (viewMode === 'list') {
+      grid.style.display = 'none';
+      detailEl.style.display = 'none';
+      listEl.style.display = 'block';
+      renderList();
+    } else {
+      listEl.style.display = 'none';
+      grid.style.display = 'grid';
+      renderGrid();
+      if (selectedDate) {
+        const byDate = groupByDate(filteredIssues());
+        renderDetail(selectedDate, byDate[selectedDate] || []);
+      }
+    }
+  }
+
   function renderGrid() {
     const start = getGridStart(viewYear, viewMonth);
     monthLabel.textContent = MONTH_NAMES[viewMonth] + ' ' + viewYear;
 
     const todayStr = fmtDate(new Date());
-    const byDate = groupByDate(cachedIssues);
+    const byDate = groupByDate(filteredIssues());
 
     let html = '';
     ['Mon','Tue','Wed','Thu','Fri','Sat','Sun'].forEach(function (w) {
@@ -734,11 +965,18 @@
           g.tasks.forEach(function (t) {
             const prio = PRIO_COLORS[t.priority] || { bg: '#64748b' };
             const rowClass = 'cal-tile-task' + (t.done ? ' done' : '');
-            html += '<a class="' + rowClass + '" href="' + t.url + '" target="_blank" data-task-link="1" title="' + escapeHtml(t.key + ' · ' + t.priority + ' · ' + t.assignee + ' · ' + t.status) + '">';
+            html += '<div class="' + rowClass + '" title="' + escapeHtml(t.priority + ' · ' + (t.assignee || '') + ' · ' + t.status) + '">';
             html += '<span class="cal-tile-task-prio" style="background:' + prio.bg + ';"></span>';
-            html += '<span class="cal-tile-task-key">' + escapeHtml(t.key) + '</span>';
             html += '<span class="cal-tile-task-sum">' + escapeHtml(t.summary) + '</span>';
-            html += '</a>';
+            const tileLabels = displayLabels(t.labels);
+            if (tileLabels.length) {
+              html += '<span class="cal-tile-labels">';
+              tileLabels.forEach(function (l) {
+                html += '<span class="cal-tile-label">' + escapeHtml(l) + '</span>';
+              });
+              html += '</span>';
+            }
+            html += '</div>';
           });
           html += '</div>';
         });
@@ -748,11 +986,6 @@
     }
 
     grid.innerHTML = html;
-
-    // Stop tile-click from firing when a task link is clicked.
-    grid.querySelectorAll('[data-task-link]').forEach(function (a) {
-      a.addEventListener('click', function (e) { e.stopPropagation(); });
-    });
 
     grid.querySelectorAll('.cal-day').forEach(function (cell) {
       cell.addEventListener('click', function () {
@@ -772,11 +1005,8 @@
   function renderDetail(ds, tasks) {
     const d = new Date(ds + 'T00:00:00');
     const dateLabel = DAY_SHORT[d.getDay()] + ' ' + d.getDate() + ' ' + MONTH_NAMES[d.getMonth()] + ' ' + d.getFullYear();
-    const jql = encodeURIComponent('project = LMR AND duedate = "' + ds + '" ORDER BY priority DESC');
-    const openLink = 'https://leptonsoftware-team.atlassian.net/issues?jql=' + jql;
 
-    detailHeading.innerHTML = '📅 Tasks due ' + escapeHtml(dateLabel) +
-      ' <a href="' + openLink + '" target="_blank" style="font-size: 12px; font-weight: normal; margin-left: 10px;">Open all in Jira →</a>';
+    detailHeading.textContent = '📅 Tasks due ' + dateLabel;
 
     if (!tasks.length) {
       detailBody.innerHTML = '<p style="color: #6b7280; font-style: italic; margin: 0;">Nothing scheduled this day.</p>';
@@ -787,7 +1017,7 @@
     let html = '';
     groupByEpic(tasks).forEach(function (g) {
       const epicHeader = g.key
-        ? '<a href="https://leptonsoftware-team.atlassian.net/browse/' + encodeURIComponent(g.key) + '" target="_blank" style="color: inherit;">' + escapeHtml(g.key + ' · ' + g.title) + '</a>'
+        ? escapeHtml(g.title)
         : '<em style="color: #94a3b8;">No epic</em>';
       html += '<div class="cal-task-group">';
       html += '<div class="cal-task-group-h">' + epicHeader + '</div>';
@@ -795,10 +1025,18 @@
         const prio = PRIO_COLORS[t.priority] || { bg: '#64748b', label: '–' };
         const rowClass = 'cal-task-row' + (t.done ? ' done' : '');
         html += '<div class="' + rowClass + '">';
-        html += '<a class="cal-task-key" href="' + t.url + '" target="_blank">' + escapeHtml(t.key) + '</a>';
         html += '<span class="cal-task-prio" style="background:' + prio.bg + ';">' + prio.label + '</span>';
         html += '<span class="cal-task-summary">' + escapeHtml(t.summary) + '</span>';
-        html += '<span class="cal-task-meta">' + escapeHtml(t.assignee) + ' · ' + escapeHtml(t.status) + '</span>';
+        const detailLabels = displayLabels(t.labels);
+        if (detailLabels.length) {
+          html += '<span class="cal-list-labels">';
+          detailLabels.forEach(function (l) {
+            html += '<span class="cal-list-label">' + escapeHtml(l) + '</span>';
+          });
+          html += '</span>';
+        }
+        const meta = [t.assignee, t.status].filter(Boolean).join(' · ');
+        if (meta) html += '<span class="cal-task-meta">' + escapeHtml(meta) + '</span>';
         html += '</div>';
       });
       html += '</div>';
@@ -808,39 +1046,95 @@
     detailEl.style.display = 'block';
   }
 
-  function setStatus(text, color) {
-    statusEl.textContent = text;
-    statusEl.style.color = color || '#6b778c';
+  function renderList() {
+    monthLabel.textContent = MONTH_NAMES[viewMonth] + ' ' + viewYear;
+    const monthStr = String(viewYear) + '-' + String(viewMonth + 1).padStart(2, '0');
+    const issues = filteredIssues().filter(function (i) {
+      return i.duedate && i.duedate.indexOf(monthStr) === 0;
+    });
+    const byDate = groupByDate(issues);
+    const dates = Object.keys(byDate).sort();
+
+    const trackLabel = (selectedTrack === 'all' || selectedTrack == null)
+      ? 'All tracks'
+      : (selectedTrack + '. ' + TRACK_NAMES[selectedTrack]);
+
+    let html = '<div class="cal-list-month-h">📋 ' + escapeHtml(trackLabel) + ' &mdash; ' +
+               MONTH_NAMES[viewMonth] + ' ' + viewYear + ' plan</div>';
+
+    if (!dates.length) {
+      html += '<div class="cal-list-empty">Nothing scheduled this month for ' + escapeHtml(trackLabel) + '.</div>';
+      listEl.innerHTML = html;
+      return;
+    }
+
+    dates.forEach(function (ds) {
+      const d = new Date(ds + 'T00:00:00');
+      const dayLabel = DAY_LONG[d.getDay()] + ' ' + d.getDate() + ' ' + MONTH_NAMES[d.getMonth()];
+      html += '<div class="cal-list-day">';
+      html += '<div class="cal-list-day-h">' + escapeHtml(dayLabel) + '</div>';
+
+      groupByEpic(byDate[ds]).forEach(function (g) {
+        html += '<div class="cal-list-epic">';
+        html += '<div class="cal-list-epic-h">' + escapeHtml(g.title) + '</div>';
+        g.tasks.forEach(function (t) {
+          const mark = t.done ? '✓' : '◯';
+          const rowClass = 'cal-list-task' + (t.done ? ' done' : '');
+          html += '<div class="' + rowClass + '">';
+          html += '<span class="cal-list-mark">' + mark + '</span>';
+          html += '<span class="cal-list-sum">' + escapeHtml(t.summary) + '</span>';
+          const rowLabels = displayLabels(t.labels);
+          if (rowLabels.length) {
+            html += '<span class="cal-list-labels">';
+            rowLabels.forEach(function (l) {
+              html += '<span class="cal-list-label">' + escapeHtml(l) + '</span>';
+            });
+            html += '</span>';
+          }
+          const meta = [t.assignee, t.status].filter(Boolean).join(' · ');
+          if (meta) html += '<span class="cal-list-meta"> &middot; ' + escapeHtml(meta) + '</span>';
+          html += '</div>';
+        });
+        html += '</div>';
+      });
+
+      html += '</div>';
+    });
+
+    listEl.innerHTML = html;
   }
 
-  async function fetchData() {
-    const start = getGridStart(viewYear, viewMonth);
-    const end = new Date(start.getFullYear(), start.getMonth(), start.getDate() + 41);
-    setStatus('Loading…', '#6b778c');
-    try {
-      const res = await fetch('/api/calendar?start=' + fmtDate(start) + '&end=' + fmtDate(end), { cache: 'no-store' });
-      if (!res.ok) {
-        setStatus('Failed (HTTP ' + res.status + ')', '#991b1b');
-        cachedIssues = [];
-        renderGrid();
-        return;
-      }
-      const data = await res.json();
-      cachedIssues = data.issues || [];
-      const t = new Date();
-      const hh = String(t.getHours()).padStart(2, '0');
-      const mm = String(t.getMinutes()).padStart(2, '0');
-      setStatus('Updated ' + hh + ':' + mm + ' · ' + cachedIssues.length + ' tasks in view', '#15803d');
-      renderGrid();
-      if (selectedDate) {
-        const byDate = groupByDate(cachedIssues);
-        renderDetail(selectedDate, byDate[selectedDate] || []);
-      }
-    } catch (err) {
-      console.error('Calendar fetch failed:', err);
-      setStatus('Network error', '#991b1b');
-    }
-  }
+  // ---- Wire up the picker / toolbar / month nav ----
+  pickerEl.querySelectorAll('.picker-btn').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      const v = btn.getAttribute('data-track');
+      if (v === '') selectedTrack = 'all';
+      else selectedTrack = parseInt(v, 10);
+      showCalendar();
+    });
+  });
+
+  document.getElementById('change-track').addEventListener('click', function (ev) {
+    ev.preventDefault();
+    selectedTrack = null;
+    selectedDate = null;
+    detailEl.style.display = 'none';
+    updateUrl();
+    showPicker();
+  });
+
+  document.querySelectorAll('.cal-view-toggle .view-btn').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      const v = btn.getAttribute('data-view');
+      if (v === viewMode) return;
+      viewMode = v;
+      document.querySelectorAll('.cal-view-toggle .view-btn').forEach(function (b) {
+        b.classList.toggle('active', b.getAttribute('data-view') === viewMode);
+      });
+      updateUrl();
+      renderCurrent();
+    });
+  });
 
   function gotoMonth(delta) {
     const d = new Date(viewYear, viewMonth + delta, 1);
@@ -848,7 +1142,7 @@
     viewMonth = d.getMonth();
     selectedDate = null;
     detailEl.style.display = 'none';
-    fetchData();
+    renderCurrent();
   }
 
   document.getElementById('cal-prev').addEventListener('click', function () { gotoMonth(-1); });
@@ -858,14 +1152,25 @@
     viewYear = now.getFullYear();
     viewMonth = now.getMonth();
     selectedDate = fmtDate(now);
-    fetchData();
+    renderCurrent();
+  });
+
+  // ---- Boot ----
+  cachedIssues = normalize(window.CALENDAR_EVENTS);
+
+  const init = parseInitial();
+  selectedTrack = init.track;
+  viewMode = init.view;
+  document.querySelectorAll('.cal-view-toggle .view-btn').forEach(function (b) {
+    b.classList.toggle('active', b.getAttribute('data-view') === viewMode);
   });
 
   const now = new Date();
   viewYear = now.getFullYear();
   viewMonth = now.getMonth();
-  fetchData();
-  setInterval(fetchData, REFRESH_MS);
+
+  if (selectedTrack == null) showPicker();
+  else showCalendar();
 })();
 </script>
 </body></html>

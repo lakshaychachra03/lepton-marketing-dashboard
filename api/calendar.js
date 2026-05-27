@@ -91,6 +91,7 @@ export default async function handler(req, res) {
           epicKey,
           epicSummary,
           track,
+          labels,
           url: `https://${JIRA_BASE_URL}/browse/${issue.key}`
         });
       });

@@ -56,6 +56,8 @@
   .cal-tile-task.done .cal-tile-task-sum { text-decoration: line-through; }
   .cal-tile-task-key { font-family: 'SF Mono', Monaco, monospace; font-size: 9px; color: #6b778c; margin-right: 3px; font-weight: 600; }
   .cal-tile-task-prio { display: inline-block; width: 6px; height: 6px; border-radius: 50%; margin-right: 4px; vertical-align: middle; }
+  .cal-tile-labels { display: block; margin-top: 2px; line-height: 1.4; }
+  .cal-tile-label { display: inline-block; font-size: 9px; font-weight: 600; padding: 1px 5px; border-radius: 8px; background: #eef2ff; color: #3730a3; margin-right: 3px; margin-bottom: 2px; letter-spacing: 0.1px; }
   .cal-detail { margin-top: 18px; padding: 14px 18px; background: #fffbeb; border-left: 4px solid #f59e0b; border-radius: 6px; }
   .cal-detail h3 { margin-top: 0; margin-bottom: 12px; font-size: 16px; color: #92400e; }
   .cal-task-group { margin-bottom: 14px; }
@@ -110,6 +112,8 @@
   .cal-list-key { font-family: 'SF Mono', Monaco, monospace; font-size: 11px; color: #0052cc; font-weight: 700; margin-right: 6px; text-decoration: none; }
   .cal-list-key:hover { text-decoration: underline; }
   .cal-list-meta { color: #6b778c; font-size: 11px; }
+  .cal-list-labels { display: inline-flex; flex-wrap: wrap; gap: 4px; margin-left: 6px; vertical-align: middle; }
+  .cal-list-label { display: inline-block; font-size: 10px; font-weight: 600; padding: 1px 7px; border-radius: 10px; background: #eef2ff; color: #3730a3; letter-spacing: 0.2px; }
   .cal-list-empty { color: #6b7280; font-style: italic; padding: 16px; text-align: center; }
 </style></head><body>
 
@@ -142,49 +146,49 @@
   // and epics, mix of Done/In Progress/To Do, mix of priorities.
   const MOCK_ISSUES = [
     // ---- Track 1 · Lepton — "May Newsletter Campaign" epic ----
-    { key: 'LMR-210', summary: 'May newsletter — draft copy', priority: 'High',    assignee: 'Chetna Bhatia',  duedate: '2026-05-15', status: 'Done',        done: true,  issuetype: 'Task', epicKey: 'LMR-101', epicSummary: 'May Newsletter Campaign', track: 1, url: '#' },
-    { key: 'LMR-211', summary: 'May newsletter — final send',  priority: 'Highest', assignee: 'Chetna Bhatia',  duedate: '2026-05-20', status: 'In Progress', done: false, issuetype: 'Task', epicKey: 'LMR-101', epicSummary: 'May Newsletter Campaign', track: 1, url: '#' },
-    { key: 'LMR-212', summary: 'Newsletter open-rate retro',   priority: 'Medium',  assignee: 'Lakshay Chachra', duedate: '2026-05-27', status: 'To Do',       done: false, issuetype: 'Task', epicKey: 'LMR-101', epicSummary: 'May Newsletter Campaign', track: 1, url: '#' },
-    { key: 'LMR-213', summary: 'Lepton LinkedIn post #14',     priority: 'Medium',  assignee: 'Lakshay Chachra', duedate: '2026-05-25', status: 'To Do',       done: false, issuetype: 'Task', epicKey: null,      epicSummary: null,                       track: 1, url: '#' },
+    { key: 'LMR-210', summary: 'May newsletter — draft copy', priority: 'High',    assignee: 'Chetna Bhatia',  duedate: '2026-05-15', status: 'Done',        done: true,  issuetype: 'Task', epicKey: 'LMR-101', epicSummary: 'May Newsletter Campaign', track: 1, labels: ['newsletter', 'email'], url: '#' },
+    { key: 'LMR-211', summary: 'May newsletter — final send',  priority: 'Highest', assignee: 'Chetna Bhatia',  duedate: '2026-05-20', status: 'In Progress', done: false, issuetype: 'Task', epicKey: 'LMR-101', epicSummary: 'May Newsletter Campaign', track: 1, labels: ['newsletter', 'email'], url: '#' },
+    { key: 'LMR-212', summary: 'Newsletter open-rate retro',   priority: 'Medium',  assignee: 'Lakshay Chachra', duedate: '2026-05-27', status: 'To Do',       done: false, issuetype: 'Task', epicKey: 'LMR-101', epicSummary: 'May Newsletter Campaign', track: 1, labels: ['newsletter', 'analytics'], url: '#' },
+    { key: 'LMR-213', summary: 'Lepton LinkedIn post #14',     priority: 'Medium',  assignee: 'Lakshay Chachra', duedate: '2026-05-25', status: 'To Do',       done: false, issuetype: 'Task', epicKey: null,      epicSummary: null,                       track: 1, labels: ['linkedin'], url: '#' },
 
     // ---- Track 2 · GMP — "GMP Q2 Webinar Series" epic ----
-    { key: 'LMR-220', summary: 'Webinar speaker confirmations', priority: 'High',    assignee: 'Plash Saini',    duedate: '2026-05-13', status: 'Done',        done: true,  issuetype: 'Task', epicKey: 'LMR-102', epicSummary: 'GMP Q2 Webinar Series', track: 2, url: '#' },
-    { key: 'LMR-221', summary: 'Webinar landing page live',     priority: 'High',    assignee: 'Plash Saini',    duedate: '2026-05-21', status: 'In Progress', done: false, issuetype: 'Task', epicKey: 'LMR-102', epicSummary: 'GMP Q2 Webinar Series', track: 2, url: '#' },
-    { key: 'LMR-222', summary: 'Webinar promo email blast',     priority: 'Highest', assignee: 'Chetna Bhatia',  duedate: '2026-05-26', status: 'To Do',       done: false, issuetype: 'Task', epicKey: 'LMR-102', epicSummary: 'GMP Q2 Webinar Series', track: 2, url: '#' },
-    { key: 'LMR-223', summary: 'Webinar Q&A prep doc',          priority: 'Medium',  assignee: 'Swadhin Saraf',  duedate: '2026-06-03', status: 'To Do',       done: false, issuetype: 'Task', epicKey: 'LMR-102', epicSummary: 'GMP Q2 Webinar Series', track: 2, url: '#' },
+    { key: 'LMR-220', summary: 'Webinar speaker confirmations', priority: 'High',    assignee: 'Plash Saini',    duedate: '2026-05-13', status: 'Done',        done: true,  issuetype: 'Task', epicKey: 'LMR-102', epicSummary: 'GMP Q2 Webinar Series', track: 2, labels: ['webinar'], url: '#' },
+    { key: 'LMR-221', summary: 'Webinar landing page live',     priority: 'High',    assignee: 'Plash Saini',    duedate: '2026-05-21', status: 'In Progress', done: false, issuetype: 'Task', epicKey: 'LMR-102', epicSummary: 'GMP Q2 Webinar Series', track: 2, labels: ['webinar', 'website'], url: '#' },
+    { key: 'LMR-222', summary: 'Webinar promo email blast',     priority: 'Highest', assignee: 'Chetna Bhatia',  duedate: '2026-05-26', status: 'To Do',       done: false, issuetype: 'Task', epicKey: 'LMR-102', epicSummary: 'GMP Q2 Webinar Series', track: 2, labels: ['webinar', 'email'], url: '#' },
+    { key: 'LMR-223', summary: 'Webinar Q&A prep doc',          priority: 'Medium',  assignee: 'Swadhin Saraf',  duedate: '2026-06-03', status: 'To Do',       done: false, issuetype: 'Task', epicKey: 'LMR-102', epicSummary: 'GMP Q2 Webinar Series', track: 2, labels: ['webinar'], url: '#' },
 
     // ---- Track 3 · Network Access — "USA Co-op Outreach May" epic ----
-    { key: 'LMR-230', summary: 'Co-op target list — research',  priority: 'Medium',  assignee: 'Swadhin Saraf',  duedate: '2026-05-14', status: 'Done',        done: true,  issuetype: 'Task', epicKey: 'LMR-103', epicSummary: 'USA Co-op Outreach May', track: 3, url: '#' },
-    { key: 'LMR-231', summary: 'Cold email sequence v1 draft',  priority: 'High',    assignee: 'Swadhin Saraf',  duedate: '2026-05-19', status: 'In Progress', done: false, issuetype: 'Task', epicKey: 'LMR-103', epicSummary: 'USA Co-op Outreach May', track: 3, url: '#' },
-    { key: 'LMR-232', summary: 'Cold email — batch 1 send',     priority: 'Highest', assignee: 'Swadhin Saraf',  duedate: '2026-05-25', status: 'To Do',       done: false, issuetype: 'Task', epicKey: 'LMR-103', epicSummary: 'USA Co-op Outreach May', track: 3, url: '#' },
-    { key: 'LMR-233', summary: 'Follow-up call list',           priority: 'High',    assignee: 'Lakshay Chachra', duedate: '2026-05-29', status: 'To Do',       done: false, issuetype: 'Task', epicKey: 'LMR-103', epicSummary: 'USA Co-op Outreach May', track: 3, url: '#' },
+    { key: 'LMR-230', summary: 'Co-op target list — research',  priority: 'Medium',  assignee: 'Swadhin Saraf',  duedate: '2026-05-14', status: 'Done',        done: true,  issuetype: 'Task', epicKey: 'LMR-103', epicSummary: 'USA Co-op Outreach May', track: 3, labels: ['outbound', 'usa'], url: '#' },
+    { key: 'LMR-231', summary: 'Cold email sequence v1 draft',  priority: 'High',    assignee: 'Swadhin Saraf',  duedate: '2026-05-19', status: 'In Progress', done: false, issuetype: 'Task', epicKey: 'LMR-103', epicSummary: 'USA Co-op Outreach May', track: 3, labels: ['outbound', 'email', 'usa'], url: '#' },
+    { key: 'LMR-232', summary: 'Cold email — batch 1 send',     priority: 'Highest', assignee: 'Swadhin Saraf',  duedate: '2026-05-25', status: 'To Do',       done: false, issuetype: 'Task', epicKey: 'LMR-103', epicSummary: 'USA Co-op Outreach May', track: 3, labels: ['outbound', 'email', 'usa'], url: '#' },
+    { key: 'LMR-233', summary: 'Follow-up call list',           priority: 'High',    assignee: 'Lakshay Chachra', duedate: '2026-05-29', status: 'To Do',       done: false, issuetype: 'Task', epicKey: 'LMR-103', epicSummary: 'USA Co-op Outreach May', track: 3, labels: ['outbound', 'usa'], url: '#' },
 
     // ---- Track 4 · Smart Market — "Q2 Brand Refresh" epic ----
-    { key: 'LMR-200', summary: 'Logo v1 — final review',        priority: 'High',    assignee: 'Shubham Sinha',  duedate: '2026-05-12', status: 'Done',        done: true,  issuetype: 'Task', epicKey: 'LMR-100', epicSummary: 'Q2 Brand Refresh', track: 4, url: '#' },
-    { key: 'LMR-201', summary: 'Logo v2 — design iteration',    priority: 'Highest', assignee: 'Shubham Sinha',  duedate: '2026-05-22', status: 'In Progress', done: false, issuetype: 'Task', epicKey: 'LMR-100', epicSummary: 'Q2 Brand Refresh', track: 4, url: '#' },
-    { key: 'LMR-202', summary: 'Footer logo placement',         priority: 'Low',     assignee: 'Designer Intern', duedate: '2026-05-22', status: 'Done',        done: true,  issuetype: 'Task', epicKey: 'LMR-100', epicSummary: 'Q2 Brand Refresh', track: 4, url: '#' },
-    { key: 'LMR-203', summary: 'Brand guidelines PDF',          priority: 'High',    assignee: 'Shubham Sinha',  duedate: '2026-05-28', status: 'In Progress', done: false, issuetype: 'Task', epicKey: 'LMR-100', epicSummary: 'Q2 Brand Refresh', track: 4, url: '#' },
+    { key: 'LMR-200', summary: 'Logo v1 — final review',        priority: 'High',    assignee: 'Shubham Sinha',  duedate: '2026-05-12', status: 'Done',        done: true,  issuetype: 'Task', epicKey: 'LMR-100', epicSummary: 'Q2 Brand Refresh', track: 4, labels: ['design', 'branding'], url: '#' },
+    { key: 'LMR-201', summary: 'Logo v2 — design iteration',    priority: 'Highest', assignee: 'Shubham Sinha',  duedate: '2026-05-22', status: 'In Progress', done: false, issuetype: 'Task', epicKey: 'LMR-100', epicSummary: 'Q2 Brand Refresh', track: 4, labels: ['design', 'branding'], url: '#' },
+    { key: 'LMR-202', summary: 'Footer logo placement',         priority: 'Low',     assignee: 'Designer Intern', duedate: '2026-05-22', status: 'Done',        done: true,  issuetype: 'Task', epicKey: 'LMR-100', epicSummary: 'Q2 Brand Refresh', track: 4, labels: ['design', 'website'], url: '#' },
+    { key: 'LMR-203', summary: 'Brand guidelines PDF',          priority: 'High',    assignee: 'Shubham Sinha',  duedate: '2026-05-28', status: 'In Progress', done: false, issuetype: 'Task', epicKey: 'LMR-100', epicSummary: 'Q2 Brand Refresh', track: 4, labels: ['design', 'branding'], url: '#' },
 
     // ---- Track 4 · Smart Market — "Instagram Reels 100D" epic ----
-    { key: 'LMR-240', summary: 'Reel #4 — script lock',         priority: 'Medium',  assignee: 'Plash Saini',    duedate: '2026-05-12', status: 'Done',        done: true,  issuetype: 'Task', epicKey: 'LMR-104', epicSummary: 'Instagram Reels 100D', track: 4, url: '#' },
-    { key: 'LMR-241', summary: 'Reel #5 — shoot day',           priority: 'Medium',  assignee: 'Plash Saini',    duedate: '2026-05-18', status: 'In Progress', done: false, issuetype: 'Task', epicKey: 'LMR-104', epicSummary: 'Instagram Reels 100D', track: 4, url: '#' },
-    { key: 'LMR-242', summary: 'Reel #6 — edit & captions',     priority: 'High',    assignee: 'Plash Saini',    duedate: '2026-05-22', status: 'To Do',       done: false, issuetype: 'Task', epicKey: 'LMR-104', epicSummary: 'Instagram Reels 100D', track: 4, url: '#' },
-    { key: 'LMR-243', summary: 'Reel #7 — publish',             priority: 'Medium',  assignee: 'Plash Saini',    duedate: '2026-05-28', status: 'To Do',       done: false, issuetype: 'Task', epicKey: 'LMR-104', epicSummary: 'Instagram Reels 100D', track: 4, url: '#' },
+    { key: 'LMR-240', summary: 'Reel #4 — script lock',         priority: 'Medium',  assignee: 'Plash Saini',    duedate: '2026-05-12', status: 'Done',        done: true,  issuetype: 'Task', epicKey: 'LMR-104', epicSummary: 'Instagram Reels 100D', track: 4, labels: ['instagram', 'reel'], url: '#' },
+    { key: 'LMR-241', summary: 'Reel #5 — shoot day',           priority: 'Medium',  assignee: 'Plash Saini',    duedate: '2026-05-18', status: 'In Progress', done: false, issuetype: 'Task', epicKey: 'LMR-104', epicSummary: 'Instagram Reels 100D', track: 4, labels: ['instagram', 'reel', 'video'], url: '#' },
+    { key: 'LMR-242', summary: 'Reel #6 — edit & captions',     priority: 'High',    assignee: 'Plash Saini',    duedate: '2026-05-22', status: 'To Do',       done: false, issuetype: 'Task', epicKey: 'LMR-104', epicSummary: 'Instagram Reels 100D', track: 4, labels: ['instagram', 'reel', 'video'], url: '#' },
+    { key: 'LMR-243', summary: 'Reel #7 — publish',             priority: 'Medium',  assignee: 'Plash Saini',    duedate: '2026-05-28', status: 'To Do',       done: false, issuetype: 'Task', epicKey: 'LMR-104', epicSummary: 'Instagram Reels 100D', track: 4, labels: ['instagram', 'reel'], url: '#' },
 
     // ---- Track 5 · TraffiCure — "TraffiCure PR Push" epic ----
-    { key: 'LMR-250', summary: 'PR pitch — tier-1 outlets',     priority: 'High',    assignee: 'Lakshay Chachra', duedate: '2026-05-15', status: 'Done',        done: true,  issuetype: 'Task', epicKey: 'LMR-105', epicSummary: 'TraffiCure PR Push', track: 5, url: '#' },
-    { key: 'LMR-251', summary: 'Press coverage follow-up',      priority: 'High',    assignee: 'Lakshay Chachra', duedate: '2026-05-22', status: 'In Progress', done: false, issuetype: 'Task', epicKey: 'LMR-105', epicSummary: 'TraffiCure PR Push', track: 5, url: '#' },
-    { key: 'LMR-252', summary: 'Case study — Mumbai BMC',       priority: 'Medium',  assignee: 'Chetna Bhatia',  duedate: '2026-05-27', status: 'To Do',       done: false, issuetype: 'Task', epicKey: 'LMR-105', epicSummary: 'TraffiCure PR Push', track: 5, url: '#' },
+    { key: 'LMR-250', summary: 'PR pitch — tier-1 outlets',     priority: 'High',    assignee: 'Lakshay Chachra', duedate: '2026-05-15', status: 'Done',        done: true,  issuetype: 'Task', epicKey: 'LMR-105', epicSummary: 'TraffiCure PR Push', track: 5, labels: ['pr', 'press'], url: '#' },
+    { key: 'LMR-251', summary: 'Press coverage follow-up',      priority: 'High',    assignee: 'Lakshay Chachra', duedate: '2026-05-22', status: 'In Progress', done: false, issuetype: 'Task', epicKey: 'LMR-105', epicSummary: 'TraffiCure PR Push', track: 5, labels: ['pr', 'press'], url: '#' },
+    { key: 'LMR-252', summary: 'Case study — Mumbai BMC',       priority: 'Medium',  assignee: 'Chetna Bhatia',  duedate: '2026-05-27', status: 'To Do',       done: false, issuetype: 'Task', epicKey: 'LMR-105', epicSummary: 'TraffiCure PR Push', track: 5, labels: ['case-study', 'pr'], url: '#' },
 
     // ---- Track 6 · Rajeev sir — no epic ----
-    { key: 'LMR-260', summary: 'Rajeev sir LinkedIn post #8',   priority: 'Medium',  assignee: 'Lakshay Chachra', duedate: '2026-05-20', status: 'In Progress', done: false, issuetype: 'Task', epicKey: null,      epicSummary: null,                       track: 6, url: '#' },
-    { key: 'LMR-261', summary: 'Rajeev sir — award nomination', priority: 'High',    assignee: 'Lakshay Chachra', duedate: '2026-05-24', status: 'To Do',       done: false, issuetype: 'Task', epicKey: null,      epicSummary: null,                       track: 6, url: '#' },
+    { key: 'LMR-260', summary: 'Rajeev sir LinkedIn post #8',   priority: 'Medium',  assignee: 'Lakshay Chachra', duedate: '2026-05-20', status: 'In Progress', done: false, issuetype: 'Task', epicKey: null,      epicSummary: null,                       track: 6, labels: ['linkedin', 'stakeholder-rajeev-sir'], url: '#' },
+    { key: 'LMR-261', summary: 'Rajeev sir — award nomination', priority: 'High',    assignee: 'Lakshay Chachra', duedate: '2026-05-24', status: 'To Do',       done: false, issuetype: 'Task', epicKey: null,      epicSummary: null,                       track: 6, labels: ['award', 'stakeholder-rajeev-sir'], url: '#' },
 
     // ---- Track 7 · Umang — no epic ----
-    { key: 'LMR-270', summary: 'Umang LinkedIn post #5',        priority: 'Medium',  assignee: 'Lakshay Chachra', duedate: '2026-05-21', status: 'In Progress', done: false, issuetype: 'Task', epicKey: null,      epicSummary: null,                       track: 7, url: '#' },
+    { key: 'LMR-270', summary: 'Umang LinkedIn post #5',        priority: 'Medium',  assignee: 'Lakshay Chachra', duedate: '2026-05-21', status: 'In Progress', done: false, issuetype: 'Task', epicKey: null,      epicSummary: null,                       track: 7, labels: ['linkedin', 'stakeholder-umang'], url: '#' },
 
     // ---- Leading / trailing month edges ----
-    { key: 'LMR-280', summary: 'April retro deck',              priority: 'Low',     assignee: 'Lakshay Chachra', duedate: '2026-04-29', status: 'Done',        done: true,  issuetype: 'Task', epicKey: null,      epicSummary: null,                       track: 1, url: '#' }
+    { key: 'LMR-280', summary: 'April retro deck',              priority: 'Low',     assignee: 'Lakshay Chachra', duedate: '2026-04-29', status: 'Done',        done: true,  issuetype: 'Task', epicKey: null,      epicSummary: null,                       track: 1, labels: ['retro'], url: '#' }
   ];
 
   const LEVEL_TO_PRIORITY = { p0: 'Highest', p1: 'High', p2: 'Medium', p3: 'Low', p4: 'Lowest' };
@@ -902,6 +906,19 @@
   function epicKeyOf(t) { return t.epicKey || '__no_epic__'; }
   function epicTitleOf(t) { return t.epicSummary || 'No epic'; }
 
+  // Strip track numbers (1-7) and stakeholder-* labels — those are already
+  // reflected by the track picker/grouping. Show everything else.
+  function displayLabels(labels) {
+    if (!labels || !labels.length) return [];
+    return labels.filter(function (l) {
+      const s = String(l).trim();
+      if (!s) return false;
+      if (/^[1-7]$/.test(s)) return false;
+      if (/^stakeholder-/i.test(s)) return false;
+      return true;
+    });
+  }
+
   function groupByEpic(tasks) {
     const groups = {};
     const order = [];
@@ -1089,6 +1106,14 @@
             html += '<span class="cal-tile-task-prio" style="background:' + prio.bg + ';"></span>';
             html += '<span class="cal-tile-task-key">' + escapeHtml(t.key) + '</span>';
             html += '<span class="cal-tile-task-sum">' + escapeHtml(t.summary) + '</span>';
+            const tileLabels = displayLabels(t.labels);
+            if (tileLabels.length) {
+              html += '<span class="cal-tile-labels">';
+              tileLabels.forEach(function (l) {
+                html += '<span class="cal-tile-label">' + escapeHtml(l) + '</span>';
+              });
+              html += '</span>';
+            }
             html += '</a>';
           });
           html += '</div>';
@@ -1149,6 +1174,14 @@
         html += '<a class="cal-task-key" href="' + t.url + '" target="_blank">' + escapeHtml(t.key) + '</a>';
         html += '<span class="cal-task-prio" style="background:' + prio.bg + ';">' + prio.label + '</span>';
         html += '<span class="cal-task-summary">' + escapeHtml(t.summary) + '</span>';
+        const detailLabels = displayLabels(t.labels);
+        if (detailLabels.length) {
+          html += '<span class="cal-list-labels">';
+          detailLabels.forEach(function (l) {
+            html += '<span class="cal-list-label">' + escapeHtml(l) + '</span>';
+          });
+          html += '</span>';
+        }
         html += '<span class="cal-task-meta">' + escapeHtml(t.assignee) + ' · ' + escapeHtml(t.status) + '</span>';
         html += '</div>';
       });
@@ -1199,6 +1232,14 @@
           html += '<span class="cal-list-mark">' + mark + '</span>';
           html += '<a class="cal-list-key" href="' + t.url + '" target="_blank">' + escapeHtml(t.key) + '</a>';
           html += '<span class="cal-list-sum">' + escapeHtml(t.summary) + '</span>';
+          const rowLabels = displayLabels(t.labels);
+          if (rowLabels.length) {
+            html += '<span class="cal-list-labels">';
+            rowLabels.forEach(function (l) {
+              html += '<span class="cal-list-label">' + escapeHtml(l) + '</span>';
+            });
+            html += '</span>';
+          }
           html += '<span class="cal-list-meta"> &middot; ' + escapeHtml(t.assignee) + ' &middot; ' + escapeHtml(t.status) + '</span>';
           html += '</div>';
         });
