@@ -9,8 +9,8 @@ const VITIKA_DATE = '2026-05-28';
 const MESSAGES = {
   vitika: "Hi Swadhin,\n\nReminder to follow up with Vitika today.\n\nThanks.",
   fridayReels: "Hi Swadhin,\n\nHeads up for the weekend. Please plan to shoot at least 5-6 reels for SmartMarket over Saturday and Sunday.\n\nThanks.",
-  saturdayReels: "Hi Swadhin,\n\nGood morning. Reminder to start the SmartMarket reels today, aiming for 2-3 by EOD. Full target for the weekend is 5-6.\n\nThanks.",
-  sundayReels: "Hi Swadhin,\n\nGood morning. Reminder to wrap up the SmartMarket reels today. Target was 5-6 across the weekend.\n\nThanks."
+  saturdayReels: "Hi Swadhin,\n\nGood morning. Two weekend priorities:\n\n1. SmartMarket reels — aim for 2-3 today (target 5-6 across the weekend).\n2. Drip Nurture Sequence (LMR-57) — work on this today, due Mon 1 Jun EOD.\n   https://leptonsoftware-team.atlassian.net/browse/LMR-57\n\nThanks.",
+  sundayReels: "Hi Swadhin,\n\nGood morning. Two weekend priorities to wrap up today:\n\n1. SmartMarket reels — finish remaining (target 5-6 total).\n2. Drip Nurture Sequence (LMR-57) — final push, due Mon 1 Jun EOD.\n   https://leptonsoftware-team.atlassian.net/browse/LMR-57\n\nThanks."
 };
 
 export default async function handler(req, res) {
