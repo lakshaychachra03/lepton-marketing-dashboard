@@ -18,6 +18,8 @@
 //      status    'todo' | 'in-progress' | 'done'
 //      priority  'highest' | 'high' | 'medium' | 'low'
 //      owner     'Plash Saini'             — assignee name, shown in detail panel
+//      desc      'Long description text…'  — shown when the task is clicked open
+//                                            (can include line breaks — use \n)
 //
 //  TRACKS
 //    1 = Lepton          2 = GMP            3 = Network Access
