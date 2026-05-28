@@ -96,4 +96,38 @@ window.CALENDAR_EVENTS = [
   { date: '2026-06-25', title: 'LinkedIn post — #8', track: 4, owner: 'Swadhin Saraf', epic: 'Smart Market — June LinkedIn (Tue & Thu)', labels: ['linkedin'] },
   { date: '2026-06-30', title: 'LinkedIn post — #9', track: 4, owner: 'Swadhin Saraf', epic: 'Smart Market — June LinkedIn (Tue & Thu)', labels: ['linkedin'] },
 
+  // ===========================================================================
+  // UMANG (track 7) — LinkedIn posts (Mon/Wed/Fri, 29 May – 29 Jun 2026)
+  // Owner: Swadhin Saraf
+  // ===========================================================================
+  { date: '2026-05-29', title: 'LinkedIn post — #1',  track: 7, owner: 'Swadhin Saraf', epic: 'Umang — June LinkedIn (MWF)', labels: ['linkedin'] },
+  { date: '2026-06-01', title: 'LinkedIn post — #2',  track: 7, owner: 'Swadhin Saraf', epic: 'Umang — June LinkedIn (MWF)', labels: ['linkedin'] },
+  { date: '2026-06-03', title: 'LinkedIn post — #3',  track: 7, owner: 'Swadhin Saraf', epic: 'Umang — June LinkedIn (MWF)', labels: ['linkedin'] },
+  { date: '2026-06-05', title: 'LinkedIn post — #4',  track: 7, owner: 'Swadhin Saraf', epic: 'Umang — June LinkedIn (MWF)', labels: ['linkedin'] },
+  { date: '2026-06-08', title: 'LinkedIn post — #5',  track: 7, owner: 'Swadhin Saraf', epic: 'Umang — June LinkedIn (MWF)', labels: ['linkedin'] },
+  { date: '2026-06-10', title: 'LinkedIn post — #6',  track: 7, owner: 'Swadhin Saraf', epic: 'Umang — June LinkedIn (MWF)', labels: ['linkedin'] },
+  { date: '2026-06-12', title: 'LinkedIn post — #7',  track: 7, owner: 'Swadhin Saraf', epic: 'Umang — June LinkedIn (MWF)', labels: ['linkedin'] },
+  { date: '2026-06-15', title: 'LinkedIn post — #8',  track: 7, owner: 'Swadhin Saraf', epic: 'Umang — June LinkedIn (MWF)', labels: ['linkedin'] },
+  { date: '2026-06-17', title: 'LinkedIn post — #9',  track: 7, owner: 'Swadhin Saraf', epic: 'Umang — June LinkedIn (MWF)', labels: ['linkedin'] },
+  { date: '2026-06-19', title: 'LinkedIn post — #10', track: 7, owner: 'Swadhin Saraf', epic: 'Umang — June LinkedIn (MWF)', labels: ['linkedin'] },
+  { date: '2026-06-22', title: 'LinkedIn post — #11', track: 7, owner: 'Swadhin Saraf', epic: 'Umang — June LinkedIn (MWF)', labels: ['linkedin'] },
+  { date: '2026-06-24', title: 'LinkedIn post — #12', track: 7, owner: 'Swadhin Saraf', epic: 'Umang — June LinkedIn (MWF)', labels: ['linkedin'] },
+  { date: '2026-06-26', title: 'LinkedIn post — #13', track: 7, owner: 'Swadhin Saraf', epic: 'Umang — June LinkedIn (MWF)', labels: ['linkedin'] },
+  { date: '2026-06-29', title: 'LinkedIn post — #14', track: 7, owner: 'Swadhin Saraf', epic: 'Umang — June LinkedIn (MWF)', labels: ['linkedin'] },
+
+  // ===========================================================================
+  // RAJEEV SIR (track 6) — LinkedIn posts (Mon & Fri only, 29 May – 29 Jun 2026)
+  // Owner: Swadhin Saraf
+  // ===========================================================================
+  { date: '2026-05-29', title: 'LinkedIn post — #1',  track: 6, owner: 'Swadhin Saraf', epic: 'Rajeev sir — June LinkedIn (Mon & Fri)', labels: ['linkedin'] },
+  { date: '2026-06-01', title: 'LinkedIn post — #2',  track: 6, owner: 'Swadhin Saraf', epic: 'Rajeev sir — June LinkedIn (Mon & Fri)', labels: ['linkedin'] },
+  { date: '2026-06-05', title: 'LinkedIn post — #3',  track: 6, owner: 'Swadhin Saraf', epic: 'Rajeev sir — June LinkedIn (Mon & Fri)', labels: ['linkedin'] },
+  { date: '2026-06-08', title: 'LinkedIn post — #4',  track: 6, owner: 'Swadhin Saraf', epic: 'Rajeev sir — June LinkedIn (Mon & Fri)', labels: ['linkedin'] },
+  { date: '2026-06-12', title: 'LinkedIn post — #5',  track: 6, owner: 'Swadhin Saraf', epic: 'Rajeev sir — June LinkedIn (Mon & Fri)', labels: ['linkedin'] },
+  { date: '2026-06-15', title: 'LinkedIn post — #6',  track: 6, owner: 'Swadhin Saraf', epic: 'Rajeev sir — June LinkedIn (Mon & Fri)', labels: ['linkedin'] },
+  { date: '2026-06-19', title: 'LinkedIn post — #7',  track: 6, owner: 'Swadhin Saraf', epic: 'Rajeev sir — June LinkedIn (Mon & Fri)', labels: ['linkedin'] },
+  { date: '2026-06-22', title: 'LinkedIn post — #8',  track: 6, owner: 'Swadhin Saraf', epic: 'Rajeev sir — June LinkedIn (Mon & Fri)', labels: ['linkedin'] },
+  { date: '2026-06-26', title: 'LinkedIn post — #9',  track: 6, owner: 'Swadhin Saraf', epic: 'Rajeev sir — June LinkedIn (Mon & Fri)', labels: ['linkedin'] },
+  { date: '2026-06-29', title: 'LinkedIn post — #10', track: 6, owner: 'Swadhin Saraf', epic: 'Rajeev sir — June LinkedIn (Mon & Fri)', labels: ['linkedin'] },
+
 ];
