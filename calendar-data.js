@@ -26,9 +26,72 @@
 
 window.CALENDAR_EVENTS = [
 
-  // Add events here. Example:
-  // { date: '2026-06-15', title: 'Task name',
-  //   epic: 'Campaign name', labels: ['linkedin', 'video'],
-  //   track: 4, status: 'todo', owner: 'Plash Saini' },
+  // ===========================================================================
+  // SMART MARKET (track 4) — Email Marketing (Mon/Wed/Fri, 29 May – 29 Jun 2026)
+  // Owner: Swadhin + Lakshay
+  // ===========================================================================
+  { date: '2026-05-29', title: 'Email campaign send — #1',  track: 4, owner: 'Swadhin + Lakshay', epic: 'Smart Market — Email Marketing (MWF)', labels: ['email'], priority: 'high' },
+  { date: '2026-06-01', title: 'Email campaign send — #2',  track: 4, owner: 'Swadhin + Lakshay', epic: 'Smart Market — Email Marketing (MWF)', labels: ['email'], priority: 'high' },
+  { date: '2026-06-03', title: 'Email campaign send — #3',  track: 4, owner: 'Swadhin + Lakshay', epic: 'Smart Market — Email Marketing (MWF)', labels: ['email'], priority: 'high' },
+  { date: '2026-06-05', title: 'Email campaign send — #4',  track: 4, owner: 'Swadhin + Lakshay', epic: 'Smart Market — Email Marketing (MWF)', labels: ['email'], priority: 'high' },
+  { date: '2026-06-08', title: 'Email campaign send — #5',  track: 4, owner: 'Swadhin + Lakshay', epic: 'Smart Market — Email Marketing (MWF)', labels: ['email'], priority: 'high' },
+  { date: '2026-06-10', title: 'Email campaign send — #6',  track: 4, owner: 'Swadhin + Lakshay', epic: 'Smart Market — Email Marketing (MWF)', labels: ['email'], priority: 'high' },
+  { date: '2026-06-12', title: 'Email campaign send — #7',  track: 4, owner: 'Swadhin + Lakshay', epic: 'Smart Market — Email Marketing (MWF)', labels: ['email'], priority: 'high' },
+  { date: '2026-06-15', title: 'Email campaign send — #8',  track: 4, owner: 'Swadhin + Lakshay', epic: 'Smart Market — Email Marketing (MWF)', labels: ['email'], priority: 'high' },
+  { date: '2026-06-17', title: 'Email campaign send — #9',  track: 4, owner: 'Swadhin + Lakshay', epic: 'Smart Market — Email Marketing (MWF)', labels: ['email'], priority: 'high' },
+  { date: '2026-06-19', title: 'Email campaign send — #10', track: 4, owner: 'Swadhin + Lakshay', epic: 'Smart Market — Email Marketing (MWF)', labels: ['email'], priority: 'high' },
+  { date: '2026-06-22', title: 'Email campaign send — #11', track: 4, owner: 'Swadhin + Lakshay', epic: 'Smart Market — Email Marketing (MWF)', labels: ['email'], priority: 'high' },
+  { date: '2026-06-24', title: 'Email campaign send — #12', track: 4, owner: 'Swadhin + Lakshay', epic: 'Smart Market — Email Marketing (MWF)', labels: ['email'], priority: 'high' },
+  { date: '2026-06-26', title: 'Email campaign send — #13', track: 4, owner: 'Swadhin + Lakshay', epic: 'Smart Market — Email Marketing (MWF)', labels: ['email'], priority: 'high' },
+  { date: '2026-06-29', title: 'Email campaign send — #14', track: 4, owner: 'Swadhin + Lakshay', epic: 'Smart Market — Email Marketing (MWF)', labels: ['email'], priority: 'high' },
+
+  // ===========================================================================
+  // SMART MARKET (track 4) — Daily Instagram (1 – 30 Jun 2026)
+  // Owner: Plash Saini
+  // ===========================================================================
+  { date: '2026-06-01', title: 'Instagram post — Day 1',  track: 4, owner: 'Plash Saini', epic: 'Smart Market — June Daily Instagram', labels: ['instagram'] },
+  { date: '2026-06-02', title: 'Instagram post — Day 2',  track: 4, owner: 'Plash Saini', epic: 'Smart Market — June Daily Instagram', labels: ['instagram'] },
+  { date: '2026-06-03', title: 'Instagram post — Day 3',  track: 4, owner: 'Plash Saini', epic: 'Smart Market — June Daily Instagram', labels: ['instagram'] },
+  { date: '2026-06-04', title: 'Instagram post — Day 4',  track: 4, owner: 'Plash Saini', epic: 'Smart Market — June Daily Instagram', labels: ['instagram'] },
+  { date: '2026-06-05', title: 'Instagram post — Day 5',  track: 4, owner: 'Plash Saini', epic: 'Smart Market — June Daily Instagram', labels: ['instagram'] },
+  { date: '2026-06-06', title: 'Instagram post — Day 6',  track: 4, owner: 'Plash Saini', epic: 'Smart Market — June Daily Instagram', labels: ['instagram'] },
+  { date: '2026-06-07', title: 'Instagram post — Day 7',  track: 4, owner: 'Plash Saini', epic: 'Smart Market — June Daily Instagram', labels: ['instagram'] },
+  { date: '2026-06-08', title: 'Instagram post — Day 8',  track: 4, owner: 'Plash Saini', epic: 'Smart Market — June Daily Instagram', labels: ['instagram'] },
+  { date: '2026-06-09', title: 'Instagram post — Day 9',  track: 4, owner: 'Plash Saini', epic: 'Smart Market — June Daily Instagram', labels: ['instagram'] },
+  { date: '2026-06-10', title: 'Instagram post — Day 10', track: 4, owner: 'Plash Saini', epic: 'Smart Market — June Daily Instagram', labels: ['instagram'] },
+  { date: '2026-06-11', title: 'Instagram post — Day 11', track: 4, owner: 'Plash Saini', epic: 'Smart Market — June Daily Instagram', labels: ['instagram'] },
+  { date: '2026-06-12', title: 'Instagram post — Day 12', track: 4, owner: 'Plash Saini', epic: 'Smart Market — June Daily Instagram', labels: ['instagram'] },
+  { date: '2026-06-13', title: 'Instagram post — Day 13', track: 4, owner: 'Plash Saini', epic: 'Smart Market — June Daily Instagram', labels: ['instagram'] },
+  { date: '2026-06-14', title: 'Instagram post — Day 14', track: 4, owner: 'Plash Saini', epic: 'Smart Market — June Daily Instagram', labels: ['instagram'] },
+  { date: '2026-06-15', title: 'Instagram post — Day 15', track: 4, owner: 'Plash Saini', epic: 'Smart Market — June Daily Instagram', labels: ['instagram'] },
+  { date: '2026-06-16', title: 'Instagram post — Day 16', track: 4, owner: 'Plash Saini', epic: 'Smart Market — June Daily Instagram', labels: ['instagram'] },
+  { date: '2026-06-17', title: 'Instagram post — Day 17', track: 4, owner: 'Plash Saini', epic: 'Smart Market — June Daily Instagram', labels: ['instagram'] },
+  { date: '2026-06-18', title: 'Instagram post — Day 18', track: 4, owner: 'Plash Saini', epic: 'Smart Market — June Daily Instagram', labels: ['instagram'] },
+  { date: '2026-06-19', title: 'Instagram post — Day 19', track: 4, owner: 'Plash Saini', epic: 'Smart Market — June Daily Instagram', labels: ['instagram'] },
+  { date: '2026-06-20', title: 'Instagram post — Day 20', track: 4, owner: 'Plash Saini', epic: 'Smart Market — June Daily Instagram', labels: ['instagram'] },
+  { date: '2026-06-21', title: 'Instagram post — Day 21', track: 4, owner: 'Plash Saini', epic: 'Smart Market — June Daily Instagram', labels: ['instagram'] },
+  { date: '2026-06-22', title: 'Instagram post — Day 22', track: 4, owner: 'Plash Saini', epic: 'Smart Market — June Daily Instagram', labels: ['instagram'] },
+  { date: '2026-06-23', title: 'Instagram post — Day 23', track: 4, owner: 'Plash Saini', epic: 'Smart Market — June Daily Instagram', labels: ['instagram'] },
+  { date: '2026-06-24', title: 'Instagram post — Day 24', track: 4, owner: 'Plash Saini', epic: 'Smart Market — June Daily Instagram', labels: ['instagram'] },
+  { date: '2026-06-25', title: 'Instagram post — Day 25', track: 4, owner: 'Plash Saini', epic: 'Smart Market — June Daily Instagram', labels: ['instagram'] },
+  { date: '2026-06-26', title: 'Instagram post — Day 26', track: 4, owner: 'Plash Saini', epic: 'Smart Market — June Daily Instagram', labels: ['instagram'] },
+  { date: '2026-06-27', title: 'Instagram post — Day 27', track: 4, owner: 'Plash Saini', epic: 'Smart Market — June Daily Instagram', labels: ['instagram'] },
+  { date: '2026-06-28', title: 'Instagram post — Day 28', track: 4, owner: 'Plash Saini', epic: 'Smart Market — June Daily Instagram', labels: ['instagram'] },
+  { date: '2026-06-29', title: 'Instagram post — Day 29', track: 4, owner: 'Plash Saini', epic: 'Smart Market — June Daily Instagram', labels: ['instagram'] },
+  { date: '2026-06-30', title: 'Instagram post — Day 30', track: 4, owner: 'Plash Saini', epic: 'Smart Market — June Daily Instagram', labels: ['instagram'] },
+
+  // ===========================================================================
+  // SMART MARKET (track 4) — LinkedIn posts (Tue & Thu, Jun 2026)
+  // Owner: Swadhin Saraf
+  // ===========================================================================
+  { date: '2026-06-02', title: 'LinkedIn post — #1', track: 4, owner: 'Swadhin Saraf', epic: 'Smart Market — June LinkedIn (Tue & Thu)', labels: ['linkedin'] },
+  { date: '2026-06-04', title: 'LinkedIn post — #2', track: 4, owner: 'Swadhin Saraf', epic: 'Smart Market — June LinkedIn (Tue & Thu)', labels: ['linkedin'] },
+  { date: '2026-06-09', title: 'LinkedIn post — #3', track: 4, owner: 'Swadhin Saraf', epic: 'Smart Market — June LinkedIn (Tue & Thu)', labels: ['linkedin'] },
+  { date: '2026-06-11', title: 'LinkedIn post — #4', track: 4, owner: 'Swadhin Saraf', epic: 'Smart Market — June LinkedIn (Tue & Thu)', labels: ['linkedin'] },
+  { date: '2026-06-16', title: 'LinkedIn post — #5', track: 4, owner: 'Swadhin Saraf', epic: 'Smart Market — June LinkedIn (Tue & Thu)', labels: ['linkedin'] },
+  { date: '2026-06-18', title: 'LinkedIn post — #6', track: 4, owner: 'Swadhin Saraf', epic: 'Smart Market — June LinkedIn (Tue & Thu)', labels: ['linkedin'] },
+  { date: '2026-06-23', title: 'LinkedIn post — #7', track: 4, owner: 'Swadhin Saraf', epic: 'Smart Market — June LinkedIn (Tue & Thu)', labels: ['linkedin'] },
+  { date: '2026-06-25', title: 'LinkedIn post — #8', track: 4, owner: 'Swadhin Saraf', epic: 'Smart Market — June LinkedIn (Tue & Thu)', labels: ['linkedin'] },
+  { date: '2026-06-30', title: 'LinkedIn post — #9', track: 4, owner: 'Swadhin Saraf', epic: 'Smart Market — June LinkedIn (Tue & Thu)', labels: ['linkedin'] },
 
 ];
