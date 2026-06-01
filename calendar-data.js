@@ -97,6 +97,24 @@ window.CALENDAR_EVENTS = [
   { date: '2026-06-30', title: 'LinkedIn post — #9', track: 4, owner: 'Swadhin Saraf', epic: 'Smart Market — June LinkedIn (Tue & Thu)', labels: ['linkedin'] },
 
   // ===========================================================================
+  // TRAFFICURE (track 5) — Instagram posts (Tue/Thu/Sat, Jun 2026)
+  // Owner: Plash Saini
+  // ===========================================================================
+  { date: '2026-06-02', title: 'Instagram post — #1',  track: 5, owner: 'Plash Saini', epic: 'TraffiCure — June Instagram (Tue/Thu/Sat)', labels: ['instagram'] },
+  { date: '2026-06-04', title: 'Instagram post — #2',  track: 5, owner: 'Plash Saini', epic: 'TraffiCure — June Instagram (Tue/Thu/Sat)', labels: ['instagram'] },
+  { date: '2026-06-06', title: 'Instagram post — #3',  track: 5, owner: 'Plash Saini', epic: 'TraffiCure — June Instagram (Tue/Thu/Sat)', labels: ['instagram'] },
+  { date: '2026-06-09', title: 'Instagram post — #4',  track: 5, owner: 'Plash Saini', epic: 'TraffiCure — June Instagram (Tue/Thu/Sat)', labels: ['instagram'] },
+  { date: '2026-06-11', title: 'Instagram post — #5',  track: 5, owner: 'Plash Saini', epic: 'TraffiCure — June Instagram (Tue/Thu/Sat)', labels: ['instagram'] },
+  { date: '2026-06-13', title: 'Instagram post — #6',  track: 5, owner: 'Plash Saini', epic: 'TraffiCure — June Instagram (Tue/Thu/Sat)', labels: ['instagram'] },
+  { date: '2026-06-16', title: 'Instagram post — #7',  track: 5, owner: 'Plash Saini', epic: 'TraffiCure — June Instagram (Tue/Thu/Sat)', labels: ['instagram'] },
+  { date: '2026-06-18', title: 'Instagram post — #8',  track: 5, owner: 'Plash Saini', epic: 'TraffiCure — June Instagram (Tue/Thu/Sat)', labels: ['instagram'] },
+  { date: '2026-06-20', title: 'Instagram post — #9',  track: 5, owner: 'Plash Saini', epic: 'TraffiCure — June Instagram (Tue/Thu/Sat)', labels: ['instagram'] },
+  { date: '2026-06-23', title: 'Instagram post — #10', track: 5, owner: 'Plash Saini', epic: 'TraffiCure — June Instagram (Tue/Thu/Sat)', labels: ['instagram'] },
+  { date: '2026-06-25', title: 'Instagram post — #11', track: 5, owner: 'Plash Saini', epic: 'TraffiCure — June Instagram (Tue/Thu/Sat)', labels: ['instagram'] },
+  { date: '2026-06-27', title: 'Instagram post — #12', track: 5, owner: 'Plash Saini', epic: 'TraffiCure — June Instagram (Tue/Thu/Sat)', labels: ['instagram'] },
+  { date: '2026-06-30', title: 'Instagram post — #13', track: 5, owner: 'Plash Saini', epic: 'TraffiCure — June Instagram (Tue/Thu/Sat)', labels: ['instagram'] },
+
+  // ===========================================================================
   // UMANG (track 7) — LinkedIn posts (Mon/Wed/Fri, 29 May – 29 Jun 2026)
   // Owner: Swadhin Saraf
   // ===========================================================================
