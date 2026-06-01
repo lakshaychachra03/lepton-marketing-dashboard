@@ -115,6 +115,24 @@ window.CALENDAR_EVENTS = [
   { date: '2026-06-30', title: 'Instagram post — #13', track: 5, owner: 'Plash Saini', epic: 'TraffiCure — June Instagram (Tue/Thu/Sat)', labels: ['instagram'] },
 
   // ===========================================================================
+  // TRAFFICURE (track 5) — LinkedIn posts (Mon/Wed/Fri, Jun 2026)
+  // Owner: Swadhin Saraf
+  // ===========================================================================
+  { date: '2026-06-01', title: 'LinkedIn post — #1',  track: 5, owner: 'Swadhin Saraf', epic: 'TraffiCure — June LinkedIn (MWF)', labels: ['linkedin'] },
+  { date: '2026-06-03', title: 'LinkedIn post — #2',  track: 5, owner: 'Swadhin Saraf', epic: 'TraffiCure — June LinkedIn (MWF)', labels: ['linkedin'] },
+  { date: '2026-06-05', title: 'LinkedIn post — #3',  track: 5, owner: 'Swadhin Saraf', epic: 'TraffiCure — June LinkedIn (MWF)', labels: ['linkedin'] },
+  { date: '2026-06-08', title: 'LinkedIn post — #4',  track: 5, owner: 'Swadhin Saraf', epic: 'TraffiCure — June LinkedIn (MWF)', labels: ['linkedin'] },
+  { date: '2026-06-10', title: 'LinkedIn post — #5',  track: 5, owner: 'Swadhin Saraf', epic: 'TraffiCure — June LinkedIn (MWF)', labels: ['linkedin'] },
+  { date: '2026-06-12', title: 'LinkedIn post — #6',  track: 5, owner: 'Swadhin Saraf', epic: 'TraffiCure — June LinkedIn (MWF)', labels: ['linkedin'] },
+  { date: '2026-06-15', title: 'LinkedIn post — #7',  track: 5, owner: 'Swadhin Saraf', epic: 'TraffiCure — June LinkedIn (MWF)', labels: ['linkedin'] },
+  { date: '2026-06-17', title: 'LinkedIn post — #8',  track: 5, owner: 'Swadhin Saraf', epic: 'TraffiCure — June LinkedIn (MWF)', labels: ['linkedin'] },
+  { date: '2026-06-19', title: 'LinkedIn post — #9',  track: 5, owner: 'Swadhin Saraf', epic: 'TraffiCure — June LinkedIn (MWF)', labels: ['linkedin'] },
+  { date: '2026-06-22', title: 'LinkedIn post — #10', track: 5, owner: 'Swadhin Saraf', epic: 'TraffiCure — June LinkedIn (MWF)', labels: ['linkedin'] },
+  { date: '2026-06-24', title: 'LinkedIn post — #11', track: 5, owner: 'Swadhin Saraf', epic: 'TraffiCure — June LinkedIn (MWF)', labels: ['linkedin'] },
+  { date: '2026-06-26', title: 'LinkedIn post — #12', track: 5, owner: 'Swadhin Saraf', epic: 'TraffiCure — June LinkedIn (MWF)', labels: ['linkedin'] },
+  { date: '2026-06-29', title: 'LinkedIn post — #13', track: 5, owner: 'Swadhin Saraf', epic: 'TraffiCure — June LinkedIn (MWF)', labels: ['linkedin'] },
+
+  // ===========================================================================
   // UMANG (track 7) — LinkedIn posts (Mon/Wed/Fri, 29 May – 29 Jun 2026)
   // Owner: Swadhin Saraf
   // ===========================================================================
