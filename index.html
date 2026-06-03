@@ -1,20 +1,22 @@
 <!DOCTYPE html>
 <html><head><meta charset="UTF-8"><title>Lepton Marketing Dashboard</title>
 <style>
-  body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; max-width: 1300px; margin: 30px auto; padding: 20px; background: #f6f7f8; color: #172b4d; }
-  h1 { color: #0052cc; border-bottom: 3px solid #0052cc; padding-bottom: 10px; font-size: 30px; }
-  h2 { color: #172b4d; margin-top: 32px; border-bottom: 2px solid #dfe1e6; padding-bottom: 6px; }
-  h3 { color: #172b4d; margin-top: 18px; margin-bottom: 8px; font-size: 18px; }
-  .section { background: white; padding: 18px 24px; border-radius: 8px; margin-bottom: 20px; box-shadow: 0 1px 2px rgba(0,0,0,0.05); }
-  .person-flow { padding: 18px 22px; border-radius: 10px; margin-bottom: 18px; box-shadow: 0 1px 4px rgba(0,0,0,0.05); border-left: 5px solid; }
-  .person-flow h2 { margin-top: 0; border: none; padding: 0; font-size: 22px; }
-  .flow-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 8px; margin-top: 10px; }
-  .flow-card { background: white; padding: 10px 12px; border-radius: 6px; border-left: 3px solid; }
-  .flow-card.morning { border-left-color: #dc2626; }
+  body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; max-width: 1300px; margin: 30px auto; padding: 20px; background: linear-gradient(180deg, #f8fafc 0%, #f1f5f9 100%); color: #0f172a; }
+  h1 { color: #0f172a; border-bottom: 2px solid #e2e8f0; padding-bottom: 12px; font-size: 28px; font-weight: 800; letter-spacing: -0.02em; }
+  h2 { color: #0f172a; margin-top: 32px; border-bottom: 1px solid #e2e8f0; padding-bottom: 8px; font-weight: 700; letter-spacing: -0.01em; }
+  h3 { color: #1e293b; margin-top: 18px; margin-bottom: 8px; font-size: 17px; font-weight: 700; }
+  .section { background: white; padding: 18px 24px; border-radius: 10px; margin-bottom: 20px; box-shadow: 0 1px 3px rgba(15,23,42,0.06), 0 1px 2px rgba(15,23,42,0.03); border: 1px solid #f1f5f9; }
+  .person-flow { padding: 22px 26px; border-radius: 12px; margin-bottom: 18px; box-shadow: 0 1px 3px rgba(15,23,42,0.08), 0 1px 2px rgba(15,23,42,0.04); border-left: 5px solid; transition: box-shadow 0.18s; }
+  .person-flow:hover { box-shadow: 0 4px 12px rgba(15,23,42,0.10), 0 2px 4px rgba(15,23,42,0.05); }
+  .person-flow h2 { margin-top: 0; border: none; padding: 0; font-size: 21px; font-weight: 700; letter-spacing: -0.01em; }
+  .flow-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 8px; margin-top: 14px; }
+  .flow-card { background: white; padding: 10px 12px; border-radius: 8px; border-left: 3px solid; box-shadow: 0 1px 2px rgba(15,23,42,0.04); transition: transform 0.12s, box-shadow 0.12s; }
+  .flow-card:hover { transform: translateY(-1px); box-shadow: 0 2px 6px rgba(15,23,42,0.08); }
+  .flow-card.morning { border-left-color: #ef4444; }
   .flow-card.now { border-left-color: #f59e0b; }
   .flow-card.evening { border-left-color: #6366f1; }
-  .flow-card.weekly { border-left-color: #0891b2; }
-  .flow-card h4 { margin: 0 0 4px 0; font-size: 12px; color: #1e293b; }
+  .flow-card.weekly { border-left-color: #0d9488; }
+  .flow-card h4 { margin: 0 0 4px 0; font-size: 12px; color: #1e293b; font-weight: 700; }
   .flow-card a { display: block; padding: 2px 0; color: #2563eb; text-decoration: none; font-weight: 600; font-size: 12px; }
   .flow-card a:hover { text-decoration: underline; }
   .track { background: white; padding: 14px 20px; border-radius: 8px; margin-bottom: 14px; box-shadow: 0 1px 2px rgba(0,0,0,0.05); border-left: 4px solid #0052cc; }
@@ -136,7 +138,7 @@
   .cal-plan-status.done { background: #047857; color: #ffffff; }
   .cal-plan-empty { color: #6b7280; font-style: italic; padding: 30px; text-align: center; border: 1px dashed #e5e7eb; border-radius: 8px; }
   /* BAUs section under each person's Daily Flow - auto-derived from calendar-data.js */
-  .bau-section { margin-top: 16px; padding-top: 14px; border-top: 1px dashed rgba(15, 23, 42, 0.12); }
+  .bau-section { margin-top: 10px; margin-bottom: 16px; padding: 14px 16px; background: rgba(255, 255, 255, 0.6); border-radius: 10px; border: 1px dashed rgba(15, 23, 42, 0.12); }
   .bau-section-h { font-size: 11px; font-weight: 700; color: #475569; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 10px; display: flex; align-items: center; gap: 6px; }
   .bau-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 8px; }
   .bau-card { background: white; padding: 10px 12px; border-radius: 6px; border-left: 3px solid #16a34a; }
@@ -357,10 +359,10 @@
   </div>
 </div>
 
-<div id="swadhin" class="person-flow" style="border-left-color: #dc2626; background: #fef2f2;">
-<h2 style="color: #dc2626;">🟢 Swadhin Saraf — Daily Flow</h2>
+<div id="swadhin" class="person-flow" style="border-left-color: #ef4444; background: linear-gradient(135deg, #fff5f5 0%, #ffffff 60%);">
+<h2 style="color: #b91c1c;">Swadhin Saraf <span style="color: #94a3b8; font-weight: 500; font-size: 14px;">— Daily Flow</span></h2>
 <div class="flow-grid">
-<div class="flow-card morning"><h4>🔥 Top priorities NOW</h4><a href="https://leptonsoftware-team.atlassian.net/issues?jql=project%20%3D%20LMR%20AND%20assignee%20%3D%20%22712020%3A262e57bb-d008-4e8f-973a-734d3b19e12e%22%20AND%20statusCategory%20%21%3D%20Done%20AND%20priority%20in%20%28Highest%2C%20High%29%20ORDER%20BY%20priority%20DESC%2C%20duedate%20ASC" target="_blank">OPEN →</a></div>
+<div class="flow-card morning"><h4>⭐ Top priorities</h4><a href="https://leptonsoftware-team.atlassian.net/issues?jql=project%20%3D%20LMR%20AND%20assignee%20%3D%20%22712020%3A262e57bb-d008-4e8f-973a-734d3b19e12e%22%20AND%20statusCategory%20%21%3D%20Done%20AND%20priority%20in%20%28Highest%2C%20High%29%20ORDER%20BY%20priority%20DESC%2C%20duedate%20ASC" target="_blank">OPEN →</a></div>
 <div class="flow-card now"><h4>⭐ All Highest</h4><a href="https://leptonsoftware-team.atlassian.net/issues?jql=project%20%3D%20LMR%20AND%20assignee%20%3D%20%22712020%3A262e57bb-d008-4e8f-973a-734d3b19e12e%22%20AND%20priority%20%3D%20Highest%20AND%20statusCategory%20%21%3D%20Done%20ORDER%20BY%20duedate%20ASC" target="_blank">OPEN →</a></div>
 <div class="flow-card now"><h4>📋 All open tickets</h4><a href="https://leptonsoftware-team.atlassian.net/issues?jql=project%20%3D%20LMR%20AND%20assignee%20%3D%20%22712020%3A262e57bb-d008-4e8f-973a-734d3b19e12e%22%20AND%20statusCategory%20%21%3D%20Done%20ORDER%20BY%20priority%20DESC%2C%20duedate%20ASC" target="_blank">OPEN →</a></div>
 <div class="flow-card now"><h4>🚧 In Progress</h4><a href="https://leptonsoftware-team.atlassian.net/issues?jql=project%20%3D%20LMR%20AND%20assignee%20%3D%20%22712020%3A262e57bb-d008-4e8f-973a-734d3b19e12e%22%20AND%20status%20%3D%20%22In%20Progress%22%20ORDER%20BY%20priority%20DESC" target="_blank">OPEN →</a></div>
@@ -371,10 +373,10 @@
 <div class="flow-card weekly"><h4>✅ Done this week</h4><a href="https://leptonsoftware-team.atlassian.net/issues?jql=project%20%3D%20LMR%20AND%20assignee%20%3D%20%22712020%3A262e57bb-d008-4e8f-973a-734d3b19e12e%22%20AND%20status%20%3D%20Done%20AND%20statusCategoryChangedDate%20%3E%3D%20startOfWeek%28%29%20ORDER%20BY%20updated%20DESC" target="_blank">OPEN →</a></div>
 <div class="flow-card weekly"><h4>🌫 Stale 7+ days</h4><a href="https://leptonsoftware-team.atlassian.net/issues?jql=project%20%3D%20LMR%20AND%20assignee%20%3D%20%22712020%3A262e57bb-d008-4e8f-973a-734d3b19e12e%22%20AND%20status%20%3D%20%22To%20Do%22%20AND%20updated%20%3C%3D%20-7d%20ORDER%20BY%20updated%20ASC" target="_blank">OPEN →</a></div>
 </div></div>
-<div id="lakshay" class="person-flow" style="border-left-color: #7c3aed; background: #f5f3ff;">
-<h2 style="color: #7c3aed;">🟣 Lakshay Chachra — Daily Flow</h2>
+<div id="lakshay" class="person-flow" style="border-left-color: #8b5cf6; background: linear-gradient(135deg, #faf7ff 0%, #ffffff 60%);">
+<h2 style="color: #6d28d9;">Lakshay Chachra <span style="color: #94a3b8; font-weight: 500; font-size: 14px;">— Daily Flow</span></h2>
 <div class="flow-grid">
-<div class="flow-card morning"><h4>🔥 Top priorities NOW</h4><a href="https://leptonsoftware-team.atlassian.net/issues?jql=project%20%3D%20LMR%20AND%20assignee%20%3D%20%22712020%3Ac30d55c4-5bfe-4564-847a-df50d29665a3%22%20AND%20statusCategory%20%21%3D%20Done%20AND%20priority%20in%20%28Highest%2C%20High%29%20ORDER%20BY%20priority%20DESC%2C%20duedate%20ASC" target="_blank">OPEN →</a></div>
+<div class="flow-card morning"><h4>⭐ Top priorities</h4><a href="https://leptonsoftware-team.atlassian.net/issues?jql=project%20%3D%20LMR%20AND%20assignee%20%3D%20%22712020%3Ac30d55c4-5bfe-4564-847a-df50d29665a3%22%20AND%20statusCategory%20%21%3D%20Done%20AND%20priority%20in%20%28Highest%2C%20High%29%20ORDER%20BY%20priority%20DESC%2C%20duedate%20ASC" target="_blank">OPEN →</a></div>
 <div class="flow-card now"><h4>⭐ All Highest</h4><a href="https://leptonsoftware-team.atlassian.net/issues?jql=project%20%3D%20LMR%20AND%20assignee%20%3D%20%22712020%3Ac30d55c4-5bfe-4564-847a-df50d29665a3%22%20AND%20priority%20%3D%20Highest%20AND%20statusCategory%20%21%3D%20Done%20ORDER%20BY%20duedate%20ASC" target="_blank">OPEN →</a></div>
 <div class="flow-card now"><h4>📋 All open tickets</h4><a href="https://leptonsoftware-team.atlassian.net/issues?jql=project%20%3D%20LMR%20AND%20assignee%20%3D%20%22712020%3Ac30d55c4-5bfe-4564-847a-df50d29665a3%22%20AND%20statusCategory%20%21%3D%20Done%20ORDER%20BY%20priority%20DESC%2C%20duedate%20ASC" target="_blank">OPEN →</a></div>
 <div class="flow-card now"><h4>🚧 In Progress</h4><a href="https://leptonsoftware-team.atlassian.net/issues?jql=project%20%3D%20LMR%20AND%20assignee%20%3D%20%22712020%3Ac30d55c4-5bfe-4564-847a-df50d29665a3%22%20AND%20status%20%3D%20%22In%20Progress%22%20ORDER%20BY%20priority%20DESC" target="_blank">OPEN →</a></div>
@@ -385,10 +387,10 @@
 <div class="flow-card weekly"><h4>✅ Done this week</h4><a href="https://leptonsoftware-team.atlassian.net/issues?jql=project%20%3D%20LMR%20AND%20assignee%20%3D%20%22712020%3Ac30d55c4-5bfe-4564-847a-df50d29665a3%22%20AND%20status%20%3D%20Done%20AND%20statusCategoryChangedDate%20%3E%3D%20startOfWeek%28%29%20ORDER%20BY%20updated%20DESC" target="_blank">OPEN →</a></div>
 <div class="flow-card weekly"><h4>🌫 Stale 7+ days</h4><a href="https://leptonsoftware-team.atlassian.net/issues?jql=project%20%3D%20LMR%20AND%20assignee%20%3D%20%22712020%3Ac30d55c4-5bfe-4564-847a-df50d29665a3%22%20AND%20status%20%3D%20%22To%20Do%22%20AND%20updated%20%3C%3D%20-7d%20ORDER%20BY%20updated%20ASC" target="_blank">OPEN →</a></div>
 </div></div>
-<div id="chetna" class="person-flow" style="border-left-color: #ca8a04; background: #fefce8;">
-<h2 style="color: #ca8a04;">🟡 Chetna Bhatia — Daily Flow</h2>
+<div id="chetna" class="person-flow" style="border-left-color: #f59e0b; background: linear-gradient(135deg, #fffaf0 0%, #ffffff 60%);">
+<h2 style="color: #b45309;">Chetna Bhatia <span style="color: #94a3b8; font-weight: 500; font-size: 14px;">— Daily Flow</span></h2>
 <div class="flow-grid">
-<div class="flow-card morning"><h4>🔥 Top priorities NOW</h4><a href="https://leptonsoftware-team.atlassian.net/issues?jql=project%20%3D%20LMR%20AND%20assignee%20%3D%20%22712020%3A1a3f2ee1-53d8-44de-91f6-b088ef327f3e%22%20AND%20statusCategory%20%21%3D%20Done%20AND%20priority%20in%20%28Highest%2C%20High%29%20ORDER%20BY%20priority%20DESC%2C%20duedate%20ASC" target="_blank">OPEN →</a></div>
+<div class="flow-card morning"><h4>⭐ Top priorities</h4><a href="https://leptonsoftware-team.atlassian.net/issues?jql=project%20%3D%20LMR%20AND%20assignee%20%3D%20%22712020%3A1a3f2ee1-53d8-44de-91f6-b088ef327f3e%22%20AND%20statusCategory%20%21%3D%20Done%20AND%20priority%20in%20%28Highest%2C%20High%29%20ORDER%20BY%20priority%20DESC%2C%20duedate%20ASC" target="_blank">OPEN →</a></div>
 <div class="flow-card now"><h4>⭐ All Highest</h4><a href="https://leptonsoftware-team.atlassian.net/issues?jql=project%20%3D%20LMR%20AND%20assignee%20%3D%20%22712020%3A1a3f2ee1-53d8-44de-91f6-b088ef327f3e%22%20AND%20priority%20%3D%20Highest%20AND%20statusCategory%20%21%3D%20Done%20ORDER%20BY%20duedate%20ASC" target="_blank">OPEN →</a></div>
 <div class="flow-card now"><h4>📋 All open tickets</h4><a href="https://leptonsoftware-team.atlassian.net/issues?jql=project%20%3D%20LMR%20AND%20assignee%20%3D%20%22712020%3A1a3f2ee1-53d8-44de-91f6-b088ef327f3e%22%20AND%20statusCategory%20%21%3D%20Done%20ORDER%20BY%20priority%20DESC%2C%20duedate%20ASC" target="_blank">OPEN →</a></div>
 <div class="flow-card now"><h4>🚧 In Progress</h4><a href="https://leptonsoftware-team.atlassian.net/issues?jql=project%20%3D%20LMR%20AND%20assignee%20%3D%20%22712020%3A1a3f2ee1-53d8-44de-91f6-b088ef327f3e%22%20AND%20status%20%3D%20%22In%20Progress%22%20ORDER%20BY%20priority%20DESC" target="_blank">OPEN →</a></div>
@@ -399,10 +401,10 @@
 <div class="flow-card weekly"><h4>✅ Done this week</h4><a href="https://leptonsoftware-team.atlassian.net/issues?jql=project%20%3D%20LMR%20AND%20assignee%20%3D%20%22712020%3A1a3f2ee1-53d8-44de-91f6-b088ef327f3e%22%20AND%20status%20%3D%20Done%20AND%20statusCategoryChangedDate%20%3E%3D%20startOfWeek%28%29%20ORDER%20BY%20updated%20DESC" target="_blank">OPEN →</a></div>
 <div class="flow-card weekly"><h4>🌫 Stale 7+ days</h4><a href="https://leptonsoftware-team.atlassian.net/issues?jql=project%20%3D%20LMR%20AND%20assignee%20%3D%20%22712020%3A1a3f2ee1-53d8-44de-91f6-b088ef327f3e%22%20AND%20status%20%3D%20%22To%20Do%22%20AND%20updated%20%3C%3D%20-7d%20ORDER%20BY%20updated%20ASC" target="_blank">OPEN →</a></div>
 </div></div>
-<div id="plash" class="person-flow" style="border-left-color: #0891b2; background: #ecfeff;">
-<h2 style="color: #0891b2;">🔵 Plash Saini — Daily Flow</h2>
+<div id="plash" class="person-flow" style="border-left-color: #14b8a6; background: linear-gradient(135deg, #f0fdfa 0%, #ffffff 60%);">
+<h2 style="color: #0f766e;">Plash Saini <span style="color: #94a3b8; font-weight: 500; font-size: 14px;">— Daily Flow</span></h2>
 <div class="flow-grid">
-<div class="flow-card morning"><h4>🔥 Top priorities NOW</h4><a href="https://leptonsoftware-team.atlassian.net/issues?jql=project%20%3D%20LMR%20AND%20assignee%20%3D%20%22712020%3A7d2a8edd-cd85-447a-8953-ec9fa7333218%22%20AND%20statusCategory%20%21%3D%20Done%20AND%20priority%20in%20%28Highest%2C%20High%29%20ORDER%20BY%20priority%20DESC%2C%20duedate%20ASC" target="_blank">OPEN →</a></div>
+<div class="flow-card morning"><h4>⭐ Top priorities</h4><a href="https://leptonsoftware-team.atlassian.net/issues?jql=project%20%3D%20LMR%20AND%20assignee%20%3D%20%22712020%3A7d2a8edd-cd85-447a-8953-ec9fa7333218%22%20AND%20statusCategory%20%21%3D%20Done%20AND%20priority%20in%20%28Highest%2C%20High%29%20ORDER%20BY%20priority%20DESC%2C%20duedate%20ASC" target="_blank">OPEN →</a></div>
 <div class="flow-card now"><h4>⭐ All Highest</h4><a href="https://leptonsoftware-team.atlassian.net/issues?jql=project%20%3D%20LMR%20AND%20assignee%20%3D%20%22712020%3A7d2a8edd-cd85-447a-8953-ec9fa7333218%22%20AND%20priority%20%3D%20Highest%20AND%20statusCategory%20%21%3D%20Done%20ORDER%20BY%20duedate%20ASC" target="_blank">OPEN →</a></div>
 <div class="flow-card now"><h4>📋 All open tickets</h4><a href="https://leptonsoftware-team.atlassian.net/issues?jql=project%20%3D%20LMR%20AND%20assignee%20%3D%20%22712020%3A7d2a8edd-cd85-447a-8953-ec9fa7333218%22%20AND%20statusCategory%20%21%3D%20Done%20ORDER%20BY%20priority%20DESC%2C%20duedate%20ASC" target="_blank">OPEN →</a></div>
 <div class="flow-card now"><h4>🚧 In Progress</h4><a href="https://leptonsoftware-team.atlassian.net/issues?jql=project%20%3D%20LMR%20AND%20assignee%20%3D%20%22712020%3A7d2a8edd-cd85-447a-8953-ec9fa7333218%22%20AND%20status%20%3D%20%22In%20Progress%22%20ORDER%20BY%20priority%20DESC" target="_blank">OPEN →</a></div>
@@ -575,7 +577,7 @@
 </div>
 </div>
 <div class="section"><h2>⚠️ Team-wide critical views</h2><ul class="flat">
-<li><a href="https://leptonsoftware-team.atlassian.net/issues?jql=project%20%3D%20LMR%20AND%20priority%20in%20%28Highest%2C%20High%29%20AND%20statusCategory%20%21%3D%20Done%20ORDER%20BY%20priority%20DESC" target="_blank">🔥 Top priorities (all team)</a></li>
+<li><a href="https://leptonsoftware-team.atlassian.net/issues?jql=project%20%3D%20LMR%20AND%20priority%20in%20%28Highest%2C%20High%29%20AND%20statusCategory%20%21%3D%20Done%20ORDER%20BY%20priority%20DESC" target="_blank">⭐ Top priorities (all team)</a></li>
 <li><a href="https://leptonsoftware-team.atlassian.net/issues?jql=project%20%3D%20LMR%20AND%20updated%20%3E%3D%20-7d%20ORDER%20BY%20updated%20DESC" target="_blank">⏰ Recent activity (7 days)</a></li>
 <li><a href="https://leptonsoftware-team.atlassian.net/issues?jql=project%20%3D%20LMR%20AND%20status%20%3D%20%22In%20Progress%22" target="_blank">🚧 In Progress (team)</a></li>
 <li><a href="https://leptonsoftware-team.atlassian.net/issues?jql=project%20%3D%20LMR%20AND%20status%20%3D%20%22To%20Do%22%20AND%20updated%20%3C%3D%20-14d" target="_blank">🌫 Stale 14+ days (team)</a></li>
@@ -1556,7 +1558,10 @@
     });
     html += '</div>';
     bauDiv.innerHTML = html;
-    personEl.appendChild(bauDiv);
+    // BAUs go FIRST (above the tactical flow grid) per Lakshay's request
+    const flowGrid = personEl.querySelector('.flow-grid');
+    if (flowGrid) personEl.insertBefore(bauDiv, flowGrid);
+    else personEl.appendChild(bauDiv);
   });
 })();
 </script>
