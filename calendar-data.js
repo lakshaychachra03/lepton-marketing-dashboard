@@ -259,7 +259,10 @@ window.PLAN_DATA = {
         channel: '2.1.7', name: 'Accommodations',
         cadence: '-', period: '-',
         status: 'blocked', statusLabel: 'Definition pending',
-        detail: 'Category definition to be clarified with marketing leadership.'
+        detail: 'Category definition to be clarified with marketing leadership.',
+        comments: [
+          { author: 'Lakshay', date: '2026-06-03', text: 'Blocked: definition of this category is unclear. Need to confirm with marketing leadership what "Accommodations" covers in the GMP context before this can move.' }
+        ]
       },
       {
         channel: '2.1.8', name: 'SI partner relations',
