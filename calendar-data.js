@@ -166,20 +166,20 @@ window.CALENDAR_EVENTS = [
 
   // ===========================================================================
   // GMP (track 2) - June Instagram (MWF, 3 - 29 Jun 2026)
-  // Owner: Lakshay Chachra
+  // Owner: Plash Saini
   // ===========================================================================
-  { date: '2026-06-03', title: 'Instagram post - #1',  track: 2, owner: 'Lakshay Chachra', epic: 'GMP - June Instagram (MWF)', labels: ['instagram'] },
-  { date: '2026-06-05', title: 'Instagram post - #2',  track: 2, owner: 'Lakshay Chachra', epic: 'GMP - June Instagram (MWF)', labels: ['instagram'] },
-  { date: '2026-06-08', title: 'Instagram post - #3',  track: 2, owner: 'Lakshay Chachra', epic: 'GMP - June Instagram (MWF)', labels: ['instagram'] },
-  { date: '2026-06-10', title: 'Instagram post - #4',  track: 2, owner: 'Lakshay Chachra', epic: 'GMP - June Instagram (MWF)', labels: ['instagram'] },
-  { date: '2026-06-12', title: 'Instagram post - #5',  track: 2, owner: 'Lakshay Chachra', epic: 'GMP - June Instagram (MWF)', labels: ['instagram'] },
-  { date: '2026-06-15', title: 'Instagram post - #6',  track: 2, owner: 'Lakshay Chachra', epic: 'GMP - June Instagram (MWF)', labels: ['instagram'] },
-  { date: '2026-06-17', title: 'Instagram post - #7',  track: 2, owner: 'Lakshay Chachra', epic: 'GMP - June Instagram (MWF)', labels: ['instagram'] },
-  { date: '2026-06-19', title: 'Instagram post - #8',  track: 2, owner: 'Lakshay Chachra', epic: 'GMP - June Instagram (MWF)', labels: ['instagram'] },
-  { date: '2026-06-22', title: 'Instagram post - #9',  track: 2, owner: 'Lakshay Chachra', epic: 'GMP - June Instagram (MWF)', labels: ['instagram'] },
-  { date: '2026-06-24', title: 'Instagram post - #10', track: 2, owner: 'Lakshay Chachra', epic: 'GMP - June Instagram (MWF)', labels: ['instagram'] },
-  { date: '2026-06-26', title: 'Instagram post - #11', track: 2, owner: 'Lakshay Chachra', epic: 'GMP - June Instagram (MWF)', labels: ['instagram'] },
-  { date: '2026-06-29', title: 'Instagram post - #12', track: 2, owner: 'Lakshay Chachra', epic: 'GMP - June Instagram (MWF)', labels: ['instagram'] },
+  { date: '2026-06-03', title: 'Instagram post - #1',  track: 2, owner: 'Plash Saini', epic: 'GMP - June Instagram (MWF)', labels: ['instagram'] },
+  { date: '2026-06-05', title: 'Instagram post - #2',  track: 2, owner: 'Plash Saini', epic: 'GMP - June Instagram (MWF)', labels: ['instagram'] },
+  { date: '2026-06-08', title: 'Instagram post - #3',  track: 2, owner: 'Plash Saini', epic: 'GMP - June Instagram (MWF)', labels: ['instagram'] },
+  { date: '2026-06-10', title: 'Instagram post - #4',  track: 2, owner: 'Plash Saini', epic: 'GMP - June Instagram (MWF)', labels: ['instagram'] },
+  { date: '2026-06-12', title: 'Instagram post - #5',  track: 2, owner: 'Plash Saini', epic: 'GMP - June Instagram (MWF)', labels: ['instagram'] },
+  { date: '2026-06-15', title: 'Instagram post - #6',  track: 2, owner: 'Plash Saini', epic: 'GMP - June Instagram (MWF)', labels: ['instagram'] },
+  { date: '2026-06-17', title: 'Instagram post - #7',  track: 2, owner: 'Plash Saini', epic: 'GMP - June Instagram (MWF)', labels: ['instagram'] },
+  { date: '2026-06-19', title: 'Instagram post - #8',  track: 2, owner: 'Plash Saini', epic: 'GMP - June Instagram (MWF)', labels: ['instagram'] },
+  { date: '2026-06-22', title: 'Instagram post - #9',  track: 2, owner: 'Plash Saini', epic: 'GMP - June Instagram (MWF)', labels: ['instagram'] },
+  { date: '2026-06-24', title: 'Instagram post - #10', track: 2, owner: 'Plash Saini', epic: 'GMP - June Instagram (MWF)', labels: ['instagram'] },
+  { date: '2026-06-26', title: 'Instagram post - #11', track: 2, owner: 'Plash Saini', epic: 'GMP - June Instagram (MWF)', labels: ['instagram'] },
+  { date: '2026-06-29', title: 'Instagram post - #12', track: 2, owner: 'Plash Saini', epic: 'GMP - June Instagram (MWF)', labels: ['instagram'] },
 
 ];
 
