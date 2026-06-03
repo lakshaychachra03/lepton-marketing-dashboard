@@ -210,6 +210,29 @@ window.CALENDAR_EVENTS = [
 //    }
 // =============================================================================
 
+// =============================================================================
+//  MANUAL BAUs - for recurring work that doesn't sit on the calendar
+//  (e.g. ongoing PR, account management, weekly standups). Auto-derived BAUs
+//  from CALENDAR_EVENTS still show alongside these.
+//
+//  STRUCTURE:
+//    window.MANUAL_BAUS = {
+//      <personId>: [
+//        { title: 'PR for Trafficure', track: 5, cadence: 'Ongoing', detail: '...' }
+//      ]
+//    }
+// =============================================================================
+window.MANUAL_BAUS = {
+  'chetna': [
+    {
+      title: 'PR for Trafficure',
+      track: 5,
+      cadence: 'Ongoing',
+      detail: 'PR and outreach for the Trafficure product. Press pitches, media coordination, story development.'
+    }
+  ]
+};
+
 window.PLAN_DATA = {
 
   // ===========================================================================
