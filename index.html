@@ -186,6 +186,20 @@
   .modal-comments-empty { font-size: 12px; color: #94a3b8; font-style: italic; padding: 4px 0; }
   .modal-comments-help { font-size: 11px; color: #94a3b8; margin-top: 10px; padding: 8px 10px; background: #f1f5f9; border-radius: 4px; }
   .modal-comments-help code { background: #e2e8f0; padding: 1px 5px; border-radius: 3px; font-size: 10px; }
+  /* Day-summary modal task list (when you click a whole calendar day cell) */
+  .day-modal-list { margin-top: 6px; }
+  .day-modal-epic-h { font-size: 11px; font-weight: 700; color: #6b778c; text-transform: uppercase; letter-spacing: 0.4px; margin: 12px 0 6px 0; }
+  .day-modal-epic-h:first-child { margin-top: 0; }
+  .day-modal-task-row { display: flex; gap: 10px; align-items: flex-start; padding: 8px 10px; background: #f8fafc; border-radius: 6px; margin-bottom: 6px; cursor: pointer; transition: background 0.12s; border-left: 3px solid #e2e8f0; }
+  .day-modal-task-row:hover { background: #eef2ff; border-left-color: #6366f1; }
+  .day-modal-task-row.done { opacity: 0.65; }
+  .day-modal-task-row.done .day-modal-task-sum { text-decoration: line-through; }
+  .day-modal-task-prio { display: inline-block; width: 26px; flex-shrink: 0; padding: 2px 0; text-align: center; border-radius: 4px; color: white; font-size: 10px; font-weight: 700; line-height: 1.4; }
+  .day-modal-task-body { flex: 1; min-width: 0; }
+  .day-modal-task-sum { font-size: 14px; color: #1e293b; font-weight: 600; line-height: 1.35; }
+  .day-modal-task-meta { font-size: 11px; color: #6b778c; margin-top: 3px; }
+  .day-modal-task-labels { display: inline-flex; flex-wrap: wrap; gap: 4px; margin-top: 4px; }
+  .day-modal-task-label { display: inline-block; font-size: 10px; font-weight: 600; padding: 1px 7px; border-radius: 10px; background: #eef2ff; color: #3730a3; }
 </style></head><body>
 <h1>🎯 Lepton Marketing — Live Dashboard</h1>
 <p class="meta">Each teammate's daily flow shown below. Click any link to open the filter live in Jira.</p>
@@ -1138,11 +1152,59 @@
 
     grid.innerHTML = html;
 
-    // Clicking a task block in the tile → open the detail modal.
-    // For single-task epics, the WHOLE epic block is clickable (data-task-idx on the epic div).
-    // For multi-task epics, individual task rows are clickable.
-    // stopPropagation so the day-cell click below doesn't also fire.
-    grid.querySelectorAll('.cal-tile-epic[data-task-idx], .cal-tile-task[data-task-idx]').forEach(function (el) {
+    // Whole-cell click: opens a day-summary modal with ALL tasks for that day.
+    // Inside the modal, individual tasks remain drillable into their own modal.
+    grid.querySelectorAll('.cal-day').forEach(function (cell) {
+      cell.addEventListener('click', function () {
+        const ds = cell.getAttribute('data-date');
+        const tasks = byDate[ds] || [];
+        if (tasks.length === 0) return;  // empty days don't open a modal
+        openDayModal(ds, tasks);
+      });
+    });
+  }
+
+  function openDayModal(dateStr, tasks) {
+    if (!tasks || !tasks.length) return;
+    const d = new Date(dateStr + 'T00:00:00');
+    const dateLabel = DAY_LONG[d.getDay()] + ', ' + d.getDate() + ' ' + MONTH_NAMES[d.getMonth()] + ' ' + d.getFullYear();
+    modalEpicEl.textContent = tasks.length + ' task' + (tasks.length === 1 ? '' : 's') + ' scheduled';
+    modalEpicEl.className = 'task-modal-epic';
+    modalTitleEl.textContent = dateLabel;
+    modalTitleEl.className = 'task-modal-title';
+    modalMetaEl.innerHTML = '';
+
+    let html = '<div class="day-modal-list">';
+    groupByEpic(tasks).forEach(function (g) {
+      if (g.key) html += '<div class="day-modal-epic-h">' + escapeHtml(g.title) + '</div>';
+      else html += '<div class="day-modal-epic-h" style="color:#94a3b8; font-style:italic;">No epic</div>';
+      g.tasks.forEach(function (t) {
+        const prio = PRIO_COLORS[t.priority] || { bg: '#64748b', label: '·' };
+        const cls = 'day-modal-task-row' + (t.done ? ' done' : '');
+        const tIdx = cachedIssues.indexOf(t);
+        html += '<div class="' + cls + '" data-task-idx="' + tIdx + '" title="Click for full task details">';
+        html += '<span class="day-modal-task-prio" style="background:' + prio.bg + ';">' + (prio.label || '·') + '</span>';
+        html += '<div class="day-modal-task-body">';
+        html += '<div class="day-modal-task-sum">' + escapeHtml(t.summary) + '</div>';
+        const meta = [t.assignee, t.status].filter(Boolean).join(' · ');
+        if (meta) html += '<div class="day-modal-task-meta">' + escapeHtml(meta) + '</div>';
+        const dlabels = displayLabels(t.labels);
+        if (dlabels.length) {
+          html += '<div class="day-modal-task-labels">';
+          dlabels.forEach(function (l) { html += '<span class="day-modal-task-label">' + escapeHtml(l) + '</span>'; });
+          html += '</div>';
+        }
+        html += '</div>';
+        html += '</div>';
+      });
+    });
+    html += '</div>';
+    modalDescEl.innerHTML = html;
+    modalDescEl.className = 'task-modal-desc';
+    hideModalComments();
+
+    // Drill-down: click a task inside the day modal → open that task's individual modal
+    modalDescEl.querySelectorAll('.day-modal-task-row[data-task-idx]').forEach(function (el) {
       el.addEventListener('click', function (e) {
         e.stopPropagation();
         const idx = parseInt(el.getAttribute('data-task-idx'), 10);
@@ -1151,19 +1213,8 @@
       });
     });
 
-    grid.querySelectorAll('.cal-day').forEach(function (cell) {
-      cell.addEventListener('click', function () {
-        const ds = cell.getAttribute('data-date');
-        if (selectedDate === ds) {
-          selectedDate = null;
-          detailEl.style.display = 'none';
-        } else {
-          selectedDate = ds;
-          renderDetail(ds, byDate[ds] || []);
-        }
-        renderGrid();
-      });
-    });
+    modalEl.style.display = 'flex';
+    modalEl.setAttribute('aria-hidden', 'false');
   }
 
   function renderDetail(ds, tasks) {
