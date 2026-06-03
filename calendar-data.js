@@ -167,3 +167,128 @@ window.CALENDAR_EVENTS = [
   { date: '2026-06-29', title: 'LinkedIn post — #10', track: 6, owner: 'Swadhin Saraf', epic: 'Rajeev sir — June LinkedIn (Mon & Fri)', labels: ['linkedin'] },
 
 ];
+
+// =============================================================================
+//  PLAN DATA — third tab on the product calendar ("Plan" view)
+// -----------------------------------------------------------------------------
+//  Channel-by-channel status for items that may or may not have fixed dates
+//  yet. Use this for stakeholder visibility into the marketing plan as a whole.
+//
+//  STRUCTURE:
+//    window.PLAN_DATA = {
+//      <track-number>: {
+//        title:    'Header for this product\'s plan',
+//        intro:    'One-line context shown under the header',
+//        sections: [
+//          {
+//            channel:     '2.1.5',           // category number (your taxonomy)
+//            name:        'LinkedIn',         // category name
+//            cadence:     'At least 1/week', // frequency / pattern
+//            period:      'Ongoing',          // when it applies
+//            status:      'active',           // active | in-progress | planned | blocked | skip
+//            statusLabel: 'Active',           // human label for the status pill
+//            detail:      'Long description ...'
+//          },
+//          ...
+//        ]
+//      }
+//    }
+// =============================================================================
+
+window.PLAN_DATA = {
+
+  // ===========================================================================
+  // GMP (track 2)
+  // ===========================================================================
+  2: {
+    title: 'GMP - Marketing Plan',
+    intro: 'Channel-by-channel status of the GMP marketing plan. Items here may or may not have specific calendar dates yet.',
+    sections: [
+      {
+        channel: '2.1.1', name: 'Instagram',
+        cadence: 'MWF', period: 'June 2026',
+        status: 'active', statusLabel: 'Active',
+        detail: 'Posts go out Monday, Wednesday, Friday throughout June. See Calendar tab for the specific dates.'
+      },
+      {
+        channel: '2.1.2', name: 'Website',
+        cadence: 'Continuous', period: 'Ongoing',
+        status: 'in-progress', statusLabel: 'In progress',
+        detail: 'New Blogs page being added. Other GMP website content under revamp. Not tracked on calendar.'
+      },
+      {
+        channel: '2.1.3', name: 'Webinar',
+        cadence: 'TBD', period: 'Q3 2026',
+        status: 'planned', statusLabel: 'Planned',
+        detail: 'Topic: "Cut your Google Maps bill 30%". Speaker, date, and promotion plan to be locked.'
+      },
+      {
+        channel: '2.1.4', name: 'Accelerator partnership',
+        cadence: 'TBD', period: 'Q3 2026',
+        status: 'planned', statusLabel: 'Planned',
+        detail: 'Outreach to Sequoia Surge, YC India, Antler, Microsoft for Startups, AngelList. Offer: Lepton-as-default mapping partner for Series A/B portfolio companies.'
+      },
+      {
+        channel: '2.1.5', name: 'LinkedIn',
+        cadence: 'At least 1/week', period: 'Ongoing',
+        status: 'active', statusLabel: 'Active',
+        detail: 'Day not fixed. Minimum one post per week. Goes out when content is ready.'
+      },
+      {
+        channel: '2.1.6', name: 'Case study',
+        cadence: 'TBD', period: 'Q3 2026',
+        status: 'planned', statusLabel: 'Planned',
+        detail: 'Priority queue: Pune TraffiCure (RMI) → Eagle Fleet (Mobility) → Domino\'s / Burger King (QSR) → first closed Solar win → REA India (PropTech) → Tata Digital.'
+      },
+      {
+        channel: '2.1.7', name: 'Accommodations',
+        cadence: '-', period: '-',
+        status: 'blocked', statusLabel: 'Definition pending',
+        detail: 'Category definition to be clarified with marketing leadership.'
+      },
+      {
+        channel: '2.1.8', name: 'SI partner relations',
+        cadence: 'TBD', period: 'Q3 2026',
+        status: 'planned', statusLabel: 'Planned',
+        detail: 'Targets: TCS, Wipro, L&T, Tech Mahindra, Infosys. Offer: Lepton as the GMP implementation arm for SI-led govt RFPs (state-level citizen apps, Dial 112, e-Governance).'
+      },
+      {
+        channel: '2.1.9', name: 'Inward partners',
+        cadence: 'TBD', period: 'Q3 2026',
+        status: 'planned', statusLabel: 'Planned',
+        detail: 'Partners that refer leads into Lepton: Razorpay, Cashfree, Shiprocket, Delhivery, Unicommerce, accelerator portfolios. Also activate Google Partner Advantage MDF + PPF programs.'
+      },
+      {
+        channel: '2.1.10', name: 'Events',
+        cadence: 'Per calendar', period: '2026',
+        status: 'planned', statusLabel: 'Planned',
+        detail: 'Anchors: Map the Way Mumbai, Map the Way 2026 (location TBD), Lepton X Google GeoSmart Event (year-end). Tradeshows: Renewable Energy India Expo (Sept), Intersolar India (Feb), GITEX Dubai (Oct for MEA seed).'
+      },
+      {
+        channel: '2.1.11', name: 'PR',
+        cadence: 'TBD', period: 'Q3 2026',
+        status: 'planned', statusLabel: 'Planned',
+        detail: 'Pitch Pune TraffiCure story to ET / Mint / Indian Express (urban mobility angle). Census 2027 / Mahakumbh 2028 to Business Standard (govt angle). Founder POV in YourStory / Inc42.'
+      },
+      {
+        channel: '2.1.12', name: 'Email campaigns',
+        cadence: 'TBD', period: 'Brevo setup underway',
+        status: 'in-progress', statusLabel: 'WIP',
+        detail: 'Plan to be defined once Brevo setup for GMP is complete. 31,446 India contacts already loaded in LI-GMP list (#94), ready for segmentation.'
+      },
+      {
+        channel: '2.1.13', name: 'Region-based marketing',
+        cadence: 'TBD', period: 'Q3 2026',
+        status: 'planned', statusLabel: 'Planned',
+        detail: 'India = central (Manish + Umang, regional RBLs for North+East, South, West). Middle East + Bangladesh = Pranav Sharma. Africa OUT of scope for GMP.'
+      },
+      {
+        channel: '2.1.14', name: 'Competitor analysis',
+        cadence: 'Quarterly refresh', period: 'Completed',
+        status: 'done', statusLabel: 'Done',
+        detail: 'Competitor analyses completed for GMP reseller, NetworkAccess, RfMaps, SmartMarket. Refresh on quarterly cadence.'
+      }
+    ]
+  }
+
+};
