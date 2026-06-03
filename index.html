@@ -1530,35 +1530,33 @@
     if (epics.length === 0) {
       bauDiv.innerHTML = '<div class="bau-section-h">🔁 BAUs (recurring work)</div>'
         + '<div class="bau-empty">No recurring BAUs detected from the calendar yet.</div>';
-      personEl.appendChild(bauDiv);
-      return;
+    } else {
+      epics.sort(function (a, b) {
+        return (a.track || 0) - (b.track || 0) || a.epic.localeCompare(b.epic);
+      });
+      let html = '<div class="bau-section-h">🔁 BAUs (recurring work, from calendar)</div><div class="bau-grid">';
+      epics.forEach(function (g) {
+        const dates = g.items.map(function (e) { return e.date; }).sort();
+        const first = dates[0];
+        const last = dates[dates.length - 1];
+        const trackLabel = TRACK_LABELS_BAU[g.track] || ('Track ' + (g.track || '?'));
+        const labelPills = Object.keys(g.labels).map(function (l) {
+          return '<span class="bau-card-pill">' + esc(l) + '</span>';
+        }).join('');
+        html += '<div class="bau-card">';
+        html += '<div class="bau-card-title">' + esc(g.epic) + '</div>';
+        html += '<div class="bau-card-meta">'
+              + '<span class="bau-card-track">' + esc(trackLabel) + '</span> · '
+              + g.items.length + ' items · ' + esc(first) + ' → ' + esc(last)
+              + labelPills
+              + '</div>';
+        html += '</div>';
+      });
+      html += '</div>';
+      bauDiv.innerHTML = html;
     }
 
-    epics.sort(function (a, b) {
-      return (a.track || 0) - (b.track || 0) || a.epic.localeCompare(b.epic);
-    });
-
-    let html = '<div class="bau-section-h">🔁 BAUs (recurring work, from calendar)</div><div class="bau-grid">';
-    epics.forEach(function (g) {
-      const dates = g.items.map(function (e) { return e.date; }).sort();
-      const first = dates[0];
-      const last = dates[dates.length - 1];
-      const trackLabel = TRACK_LABELS_BAU[g.track] || ('Track ' + (g.track || '?'));
-      const labelPills = Object.keys(g.labels).map(function (l) {
-        return '<span class="bau-card-pill">' + esc(l) + '</span>';
-      }).join('');
-      html += '<div class="bau-card">';
-      html += '<div class="bau-card-title">' + esc(g.epic) + '</div>';
-      html += '<div class="bau-card-meta">'
-            + '<span class="bau-card-track">' + esc(trackLabel) + '</span> · '
-            + g.items.length + ' items · ' + esc(first) + ' → ' + esc(last)
-            + labelPills
-            + '</div>';
-      html += '</div>';
-    });
-    html += '</div>';
-    bauDiv.innerHTML = html;
-    // BAUs go FIRST (above the tactical flow grid) per Lakshay's request
+    // BAUs go FIRST (above the tactical flow grid) — same for empty and populated cases
     const flowGrid = personEl.querySelector('.flow-grid');
     if (flowGrid) personEl.insertBefore(bauDiv, flowGrid);
     else personEl.appendChild(bauDiv);
