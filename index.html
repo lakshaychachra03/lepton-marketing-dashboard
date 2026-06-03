@@ -118,7 +118,8 @@
   .cal-plan { padding: 6px 4px 4px; }
   .cal-plan-h { margin: 0 0 8px 0; font-size: 18px; color: #172b4d; font-weight: 700; }
   .cal-plan-intro { color: #6b7280; font-size: 13px; margin: 0 0 20px 0; }
-  .cal-plan-row { display: grid; grid-template-columns: 90px 1fr 140px 130px; gap: 12px 18px; padding: 14px 4px; border-bottom: 1px solid #e5e7eb; align-items: start; }
+  .cal-plan-row { display: grid; grid-template-columns: 90px 1fr 140px 130px; gap: 12px 18px; padding: 14px 8px; border-bottom: 1px solid #e5e7eb; align-items: start; cursor: pointer; transition: background 0.12s; border-radius: 4px; }
+  .cal-plan-row:hover { background: #f8fafc; }
   .cal-plan-row:last-child { border-bottom: none; }
   .cal-plan-num { font-weight: 700; color: #0052cc; font-size: 13px; }
   .cal-plan-name { font-weight: 700; color: #172b4d; font-size: 14px; }
@@ -1018,9 +1019,9 @@
     }
     let html = '<h2 class="cal-plan-h">' + escapeHtml(data.title || 'Plan') + '</h2>';
     if (data.intro) html += '<p class="cal-plan-intro">' + escapeHtml(data.intro) + '</p>';
-    (data.sections || []).forEach(function (s) {
+    (data.sections || []).forEach(function (s, idx) {
       const statusKey = s.status || 'planned';
-      html += '<div class="cal-plan-row">';
+      html += '<div class="cal-plan-row" data-plan-idx="' + idx + '" title="Click to see full details">';
       html += '<div><div class="cal-plan-num">' + escapeHtml(s.channel || '') + '</div></div>';
       html += '<div>';
       html += '<div class="cal-plan-name">' + escapeHtml(s.name || '') + '</div>';
@@ -1035,6 +1036,15 @@
       html += '</div>';
     });
     planEl.innerHTML = html;
+
+    // Click any plan row → open the universal task modal with full section detail
+    planEl.onclick = function (ev) {
+      const row = ev.target.closest('.cal-plan-row[data-plan-idx]');
+      if (!row) return;
+      const i = parseInt(row.getAttribute('data-plan-idx'), 10);
+      const section = (data.sections || [])[i];
+      if (section) openPlanModal(section);
+    };
   }
 
   function renderGrid() {
@@ -1305,6 +1315,41 @@
   function closeTaskModal() {
     modalEl.style.display = 'none';
     modalEl.setAttribute('aria-hidden', 'true');
+  }
+
+  // Universal Plan-row modal: reuses the same modal shell as tasks
+  function openPlanModal(s) {
+    if (!s) return;
+    modalEpicEl.textContent = 'Channel ' + (s.channel || '');
+    modalEpicEl.className = 'task-modal-epic';
+    modalTitleEl.textContent = s.name || '';
+    modalTitleEl.className = 'task-modal-title';
+
+    const statusKey = s.status || 'planned';
+    let metaHtml = '';
+    metaHtml += '<div class="task-modal-meta-row"><span class="task-modal-meta-label">📌 Status</span><span class="cal-plan-status ' + statusKey + '">' + escapeHtml(s.statusLabel || statusKey) + '</span></div>';
+    if (s.cadence) {
+      metaHtml += '<div class="task-modal-meta-row"><span class="task-modal-meta-label">🔄 Cadence</span><span class="task-modal-meta-val">' + escapeHtml(s.cadence) + '</span></div>';
+    }
+    if (s.period) {
+      metaHtml += '<div class="task-modal-meta-row"><span class="task-modal-meta-label">📅 Period</span><span class="task-modal-meta-val">' + escapeHtml(s.period) + '</span></div>';
+    }
+    if (s.owner) {
+      metaHtml += '<div class="task-modal-meta-row"><span class="task-modal-meta-label">👤 Owner</span><span class="task-modal-meta-val">' + escapeHtml(s.owner) + '</span></div>';
+    }
+    modalMetaEl.innerHTML = metaHtml;
+
+    const longText = s.progress || s.detail || '';
+    if (longText && longText.trim()) {
+      modalDescEl.textContent = longText;
+      modalDescEl.className = 'task-modal-desc';
+    } else {
+      modalDescEl.textContent = 'No additional description.';
+      modalDescEl.className = 'task-modal-desc empty';
+    }
+
+    modalEl.style.display = 'flex';
+    modalEl.setAttribute('aria-hidden', 'false');
   }
 
   modalEl.querySelectorAll('[data-close-modal]').forEach(function (el) {
