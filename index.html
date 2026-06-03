@@ -135,6 +135,16 @@
   .cal-plan-status.skip { background: #f1f5f9; color: #475569; }
   .cal-plan-status.done { background: #047857; color: #ffffff; }
   .cal-plan-empty { color: #6b7280; font-style: italic; padding: 30px; text-align: center; border: 1px dashed #e5e7eb; border-radius: 8px; }
+  /* BAUs section under each person's Daily Flow - auto-derived from calendar-data.js */
+  .bau-section { margin-top: 16px; padding-top: 14px; border-top: 1px dashed rgba(15, 23, 42, 0.12); }
+  .bau-section-h { font-size: 11px; font-weight: 700; color: #475569; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 10px; display: flex; align-items: center; gap: 6px; }
+  .bau-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 8px; }
+  .bau-card { background: white; padding: 10px 12px; border-radius: 6px; border-left: 3px solid #16a34a; }
+  .bau-card-title { font-size: 12px; font-weight: 700; color: #172b4d; margin-bottom: 4px; line-height: 1.35; }
+  .bau-card-meta { font-size: 11px; color: #6b778c; line-height: 1.5; }
+  .bau-card-pill { display: inline-block; padding: 1px 6px; background: #eef2ff; color: #3730a3; border-radius: 8px; font-weight: 600; font-size: 10px; margin-left: 4px; }
+  .bau-card-track { display: inline-block; padding: 1px 6px; background: #f0fdf4; color: #166534; border-radius: 8px; font-weight: 700; font-size: 10px; }
+  .bau-empty { font-size: 12px; color: #94a3b8; font-style: italic; padding: 8px 0; }
   /* Individual task rows keep cursor (single-task epics highlight via the wrapping epic block).
      The cal-tile-task[data-task-idx]:hover only fires for multi-task epics. */
   .cal-tile-task[data-task-idx] { cursor: pointer; }
@@ -1426,6 +1436,83 @@
 
   if (selectedTrack == null) showPicker();
   else showCalendar();
+})();
+
+// =============================================================================
+//  BAUs section - auto-derived from window.CALENDAR_EVENTS
+//  For each person's "Daily Flow" section, adds a "BAUs (recurring work)"
+//  panel grouping their owned events by epic, with count + date range + track.
+// =============================================================================
+(function () {
+  const PEOPLE = {
+    'swadhin': ['Swadhin Saraf', 'Swadhin + Lakshay'],
+    'lakshay': ['Lakshay Chachra', 'Swadhin + Lakshay'],
+    'chetna':  ['Chetna Bhatia'],
+    'plash':   ['Plash Saini']
+  };
+  const TRACK_LABELS_BAU = { 1: 'Lepton', 2: 'GMP', 3: 'Network Access', 4: 'Smart Market', 5: 'TraffiCure', 6: 'Rajeev sir', 7: 'Umang' };
+  const events = window.CALENDAR_EVENTS || [];
+
+  function esc(s) {
+    return String(s == null ? '' : s)
+      .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;').replace(/'/g, '&#39;');
+  }
+
+  Object.keys(PEOPLE).forEach(function (personId) {
+    const personEl = document.getElementById(personId);
+    if (!personEl) return;
+
+    const names = PEOPLE[personId];
+    const byKey = {};
+    events.forEach(function (e) {
+      if (!e.epic || !e.owner) return;
+      if (names.indexOf(e.owner) === -1) return;
+      const k = e.epic + '|' + (e.track || '');
+      if (!byKey[k]) byKey[k] = { epic: e.epic, track: e.track, items: [], labels: {} };
+      byKey[k].items.push(e);
+      (e.labels || []).forEach(function (l) { byKey[k].labels[l] = true; });
+    });
+
+    const epics = Object.keys(byKey).map(function (k) { return byKey[k]; });
+
+    const bauDiv = document.createElement('div');
+    bauDiv.className = 'bau-section';
+    bauDiv.id = personId + '-baus';
+
+    if (epics.length === 0) {
+      bauDiv.innerHTML = '<div class="bau-section-h">🔁 BAUs (recurring work)</div>'
+        + '<div class="bau-empty">No recurring BAUs detected from the calendar yet.</div>';
+      personEl.appendChild(bauDiv);
+      return;
+    }
+
+    epics.sort(function (a, b) {
+      return (a.track || 0) - (b.track || 0) || a.epic.localeCompare(b.epic);
+    });
+
+    let html = '<div class="bau-section-h">🔁 BAUs (recurring work, from calendar)</div><div class="bau-grid">';
+    epics.forEach(function (g) {
+      const dates = g.items.map(function (e) { return e.date; }).sort();
+      const first = dates[0];
+      const last = dates[dates.length - 1];
+      const trackLabel = TRACK_LABELS_BAU[g.track] || ('Track ' + (g.track || '?'));
+      const labelPills = Object.keys(g.labels).map(function (l) {
+        return '<span class="bau-card-pill">' + esc(l) + '</span>';
+      }).join('');
+      html += '<div class="bau-card">';
+      html += '<div class="bau-card-title">' + esc(g.epic) + '</div>';
+      html += '<div class="bau-card-meta">'
+            + '<span class="bau-card-track">' + esc(trackLabel) + '</span> · '
+            + g.items.length + ' items · ' + esc(first) + ' → ' + esc(last)
+            + labelPills
+            + '</div>';
+      html += '</div>';
+    });
+    html += '</div>';
+    bauDiv.innerHTML = html;
+    personEl.appendChild(bauDiv);
+  });
 })();
 </script>
 </body></html>
