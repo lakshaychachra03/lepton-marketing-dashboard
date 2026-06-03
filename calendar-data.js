@@ -29,11 +29,9 @@
 window.CALENDAR_EVENTS = [
 
   // ===========================================================================
-  // SMART MARKET (track 4) — Email Marketing (Mon/Wed/Fri, 29 May – 29 Jun 2026)
-  // Owner: Swadhin + Lakshay
+  // SMART MARKET (track 4) — Email Marketing (Mon/Wed/Fri, 3 – 29 Jun 2026)
+  // Owner: Swadhin + Lakshay  (work in progress — pre-3 Jun entries removed)
   // ===========================================================================
-  { date: '2026-05-29', title: 'Email campaign send — #1',  track: 4, owner: 'Swadhin + Lakshay', epic: 'Smart Market — Email Marketing (MWF)', labels: ['email'], priority: 'high' },
-  { date: '2026-06-01', title: 'Email campaign send — #2',  track: 4, owner: 'Swadhin + Lakshay', epic: 'Smart Market — Email Marketing (MWF)', labels: ['email'], priority: 'high' },
   { date: '2026-06-03', title: 'Email campaign send — #3',  track: 4, owner: 'Swadhin + Lakshay', epic: 'Smart Market — Email Marketing (MWF)', labels: ['email'], priority: 'high' },
   { date: '2026-06-05', title: 'Email campaign send — #4',  track: 4, owner: 'Swadhin + Lakshay', epic: 'Smart Market — Email Marketing (MWF)', labels: ['email'], priority: 'high' },
   { date: '2026-06-08', title: 'Email campaign send — #5',  track: 4, owner: 'Swadhin + Lakshay', epic: 'Smart Market — Email Marketing (MWF)', labels: ['email'], priority: 'high' },
@@ -304,6 +302,106 @@ window.PLAN_DATA = {
         cadence: 'Quarterly refresh', period: 'Completed',
         status: 'done', statusLabel: 'Done',
         detail: 'Competitor analyses completed for GMP reseller, NetworkAccess, RfMaps, SmartMarket. Refresh on quarterly cadence.'
+      }
+    ]
+  },
+
+  // ===========================================================================
+  // SMART MARKET (track 4)
+  // ===========================================================================
+  4: {
+    title: 'Smart Market - Marketing Plan',
+    intro: 'Channel-by-channel status of the Smart Market marketing plan. Items here may or may not have specific calendar dates yet.',
+    sections: [
+      {
+        channel: '4.1.1', name: 'Instagram',
+        cadence: 'Daily', period: 'June 2026',
+        status: 'active', statusLabel: 'Active',
+        detail: 'Daily Instagram posts throughout June. See Calendar tab for specific dates. Owner: Plash Saini.'
+      },
+      {
+        channel: '4.1.2', name: 'LinkedIn',
+        cadence: 'Tue & Thu', period: 'June 2026',
+        status: 'active', statusLabel: 'Active',
+        detail: 'LinkedIn posts every Tuesday and Thursday in June. Owner: Swadhin Saraf.'
+      },
+      {
+        channel: '4.1.3', name: 'Email campaigns',
+        cadence: 'MWF', period: '3 - 29 Jun 2026',
+        status: 'in-progress', statusLabel: 'WIP',
+        detail: 'MWF cadence from 3 Jun onwards (pre-3 Jun entries removed). Work in progress. Owner: Swadhin + Lakshay.'
+      },
+      {
+        channel: '4.1.4', name: 'Website',
+        cadence: 'Continuous', period: 'Pending launch',
+        status: 'in-progress', statusLabel: 'WIP',
+        detail: 'Content being finalised and getting ready for launch.'
+      },
+      {
+        channel: '4.1.5', name: 'Events',
+        cadence: 'TBD', period: 'TBD',
+        status: 'planned', statusLabel: 'Planned',
+        detail: 'Events to be planned.'
+      },
+      {
+        channel: '4.1.6', name: 'Competitor analysis',
+        cadence: 'Quarterly refresh', period: 'Completed',
+        status: 'done', statusLabel: 'Done',
+        detail: 'Competitor analysis complete.'
+      },
+      {
+        channel: '4.1.7', name: 'PR',
+        cadence: 'TBD', period: 'TBD',
+        status: 'planned', statusLabel: 'Planned',
+        detail: 'PR plan yet to be defined.'
+      },
+      {
+        channel: '4.1.8', name: 'Twitter',
+        cadence: 'TBD', period: 'TBD',
+        status: 'planned', statusLabel: 'Planned',
+        detail: 'Twitter cadence yet to be defined.'
+      },
+      {
+        channel: '4.1.9', name: 'Custom decks',
+        cadence: 'On demand', period: 'Ongoing',
+        status: 'in-progress', statusLabel: 'WIP',
+        detail: 'Custom decks being built as required.'
+      },
+      {
+        channel: '4.1.10', name: 'Case studies',
+        cadence: 'TBD', period: 'Pending sales input',
+        status: 'blocked', statusLabel: 'Pending sales',
+        detail: 'Case studies to come from sales team. Marketing awaiting customer references and content.'
+      },
+      {
+        channel: '4.1.11', name: 'Product demo videos',
+        cadence: 'Ongoing', period: 'In progress',
+        status: 'in-progress', statusLabel: 'WIP',
+        detail: 'Product demo videos in production.'
+      },
+      {
+        channel: '4.1.12', name: 'Logo finalisation',
+        cadence: '-', period: 'In progress',
+        status: 'in-progress', statusLabel: 'WIP',
+        detail: 'Logo finalisation work in progress.'
+      },
+      {
+        channel: '4.1.13', name: 'Blogs',
+        cadence: 'At least 1/week', period: 'Ongoing',
+        status: 'active', statusLabel: 'Active',
+        detail: 'Minimum one blog post per week.'
+      },
+      {
+        channel: '4.1.14', name: 'Newsletters',
+        cadence: 'TBD', period: 'Pending website launch',
+        status: 'blocked', statusLabel: 'Pending website',
+        detail: 'Newsletter strategy to be planned once the website is live.'
+      },
+      {
+        channel: '4.1.15', name: 'Usage videos',
+        cadence: 'TBD', period: 'TBD',
+        status: 'planned', statusLabel: 'Planned',
+        detail: 'Usage videos plan yet to be defined.'
       }
     ]
   }
