@@ -1506,6 +1506,8 @@
       .replace(/"/g, '&quot;').replace(/'/g, '&#39;');
   }
 
+  const manualBaus = window.MANUAL_BAUS || {};
+
   Object.keys(PEOPLE).forEach(function (personId) {
     const personEl = document.getElementById(personId);
     if (!personEl) return;
@@ -1522,19 +1524,36 @@
     });
 
     const epics = Object.keys(byKey).map(function (k) { return byKey[k]; });
+    const manuals = manualBaus[personId] || [];
+    const totalCount = epics.length + manuals.length;
 
     const bauDiv = document.createElement('div');
     bauDiv.className = 'bau-section';
     bauDiv.id = personId + '-baus';
 
-    if (epics.length === 0) {
+    if (totalCount === 0) {
       bauDiv.innerHTML = '<div class="bau-section-h">🔁 BAUs (recurring work)</div>'
         + '<div class="bau-empty">No recurring BAUs detected from the calendar yet.</div>';
     } else {
       epics.sort(function (a, b) {
         return (a.track || 0) - (b.track || 0) || a.epic.localeCompare(b.epic);
       });
-      let html = '<div class="bau-section-h">🔁 BAUs (recurring work, from calendar)</div><div class="bau-grid">';
+      let html = '<div class="bau-section-h">🔁 BAUs (recurring work)</div><div class="bau-grid">';
+
+      // Manual BAUs first (ongoing items without dates)
+      manuals.forEach(function (m) {
+        const trackLabel = TRACK_LABELS_BAU[m.track] || (m.track ? 'Track ' + m.track : '');
+        html += '<div class="bau-card">';
+        html += '<div class="bau-card-title">' + esc(m.title) + '</div>';
+        html += '<div class="bau-card-meta">';
+        if (trackLabel) html += '<span class="bau-card-track">' + esc(trackLabel) + '</span> · ';
+        html += esc(m.cadence || 'Ongoing');
+        if (m.detail) html += ' · ' + esc(m.detail);
+        html += '</div>';
+        html += '</div>';
+      });
+
+      // Auto-derived BAUs from calendar
       epics.forEach(function (g) {
         const dates = g.items.map(function (e) { return e.date; }).sort();
         const first = dates[0];
