@@ -459,9 +459,9 @@ window.PLAN_DATA = {
       },
       {
         channel: '5.1.4', name: 'Website',
-        cadence: 'Continuous', period: 'Revamp underway',
+        cadence: 'Continuous', period: 'Minor changes underway',
         status: 'in-progress', statusLabel: 'WIP',
-        detail: 'TraffiCure website revamp in progress (LMR-193). Owner: Swadhin Saraf.'
+        detail: 'TraffiCure website needs some changes (not a full revamp). Tracked under LMR-193. Owner: Swadhin Saraf.'
       },
       {
         channel: '5.1.5', name: 'Events',
@@ -500,22 +500,16 @@ window.PLAN_DATA = {
         detail: 'Demo video production status to be confirmed.'
       },
       {
-        channel: '5.1.11', name: 'Logo finalisation',
-        cadence: '-', period: 'TBD',
-        status: 'blocked', statusLabel: 'Status pending',
-        detail: 'Logo finalisation status to be confirmed (finalised vs in progress).'
+        channel: '5.1.11', name: 'Blogs',
+        cadence: 'TBD', period: 'TBD',
+        status: 'planned', statusLabel: 'Planned',
+        detail: 'Blog cadence and topics for TraffiCure to be defined.'
       },
       {
-        channel: '5.1.12', name: 'Blogs',
+        channel: '5.1.12', name: 'Newsletters',
         cadence: 'TBD', period: 'TBD',
-        status: 'blocked', statusLabel: 'Status pending',
-        detail: 'Blog cadence and topics for TraffiCure to be confirmed.'
-      },
-      {
-        channel: '5.1.13', name: 'Newsletters',
-        cadence: 'TBD', period: 'TBD',
-        status: 'blocked', statusLabel: 'Status pending',
-        detail: 'Newsletter status to be confirmed. Possibly pending website revamp completion (like Smart Market).'
+        status: 'planned', statusLabel: 'Planned',
+        detail: 'Newsletter strategy to be planned.'
       },
       {
         channel: '5.1.14', name: 'SEO',
