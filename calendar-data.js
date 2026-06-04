@@ -512,19 +512,19 @@ window.PLAN_DATA = {
         detail: 'Newsletter strategy to be planned.'
       },
       {
-        channel: '5.1.14', name: 'SEO',
+        channel: '5.1.13', name: 'SEO',
         cadence: 'Ongoing', period: 'Strategy in progress',
         status: 'in-progress', statusLabel: 'WIP',
         detail: 'TraffiCure SEO strategy in progress (LMR-194). SEO-optimised content topics to be given to Umang (LMR-182). Owner: Swadhin Saraf.'
       },
       {
-        channel: '5.1.15', name: 'Wikipedia',
+        channel: '5.1.14', name: 'Wikipedia',
         cadence: 'One-time', period: 'Drafting',
         status: 'planned', statusLabel: 'Planned',
         detail: 'Wikipedia page for TraffiCure (LMR-196). Notability evidence ready: 8+ independent press articles covering the Pune Traffic Police pilot. Drafting next via Articles for Creation (AfC). Owner: Lakshay Chachra.'
       },
       {
-        channel: '5.1.16', name: 'International outreach',
+        channel: '5.1.15', name: 'International outreach',
         cadence: 'TBD', period: 'TBD',
         status: 'planned', statusLabel: 'Planned',
         detail: 'TraffiCure International Reachout Strategy (LMR-197) — geos and approach to be defined. Owner: Swadhin Saraf.'
