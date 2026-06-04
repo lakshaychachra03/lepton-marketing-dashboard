@@ -477,9 +477,9 @@ window.PLAN_DATA = {
       },
       {
         channel: '5.1.7', name: 'Twitter / X',
-        cadence: 'TBD', period: 'TBD',
-        status: 'blocked', statusLabel: 'Status pending',
-        detail: 'Twitter / X presence and cadence to be confirmed.'
+        cadence: 'Ongoing', period: 'In progress',
+        status: 'in-progress', statusLabel: 'WIP',
+        detail: 'Twitter / X presence underway. Twitter bots issue resolved.'
       },
       {
         channel: '5.1.8', name: 'Custom decks',
@@ -496,8 +496,8 @@ window.PLAN_DATA = {
       {
         channel: '5.1.10', name: 'Product demo videos',
         cadence: 'TBD', period: 'TBD',
-        status: 'blocked', statusLabel: 'Status pending',
-        detail: 'Demo video production status to be confirmed.'
+        status: 'tbd', statusLabel: 'TBD',
+        detail: 'Product demo video production to be decided.'
       },
       {
         channel: '5.1.11', name: 'Blogs',
