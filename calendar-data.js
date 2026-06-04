@@ -181,6 +181,17 @@ window.CALENDAR_EVENTS = [
   { date: '2026-06-26', title: 'Instagram post - #11', track: 2, owner: 'Plash Saini', epic: 'GMP - June Instagram (MWF)', labels: ['instagram'] },
   { date: '2026-06-29', title: 'Instagram post - #12', track: 2, owner: 'Plash Saini', epic: 'GMP - June Instagram (MWF)', labels: ['instagram'] },
 
+  // ===========================================================================
+  // P0 PRIORITIES (4 Jun 2026 session with Swadhin)
+  // All P0, all surfaced today. Update individual dates as work progresses.
+  // ===========================================================================
+  { date: '2026-06-04', title: 'Brevo email campaign setup', track: 2, owner: 'Swadhin + Lakshay', epic: 'P0 priorities (4 Jun session)', labels: ['p0', 'email'], priority: 'highest', desc: 'P0 from Swadhin session 4 Jun. Set up Brevo email campaigns for GMP — segment the 31K India contacts, prepare templates, schedule sends. Joint ownership: Swadhin + Lakshay.' },
+  { date: '2026-06-04', title: 'Data collection', track: 1, owner: 'Swadhin Saraf', epic: 'P0 priorities (4 Jun session)', labels: ['p0', 'data'], priority: 'highest', desc: 'P0 from Swadhin session 4 Jun. Data collection across products — scope to be defined by Swadhin.' },
+  { date: '2026-06-04', title: 'Lepton website content (source of truth)', track: 1, owner: 'Swadhin Saraf', epic: 'P0 priorities (4 Jun session)', labels: ['p0', 'website'], priority: 'highest', desc: 'P0 from Swadhin session 4 Jun. Establish single source of truth for Lepton website content.' },
+  { date: '2026-06-04', title: 'LinkedIn post for TraffiCure', track: 5, owner: 'Swadhin Saraf', epic: 'P0 priorities (4 Jun session)', labels: ['p0', 'linkedin'], priority: 'highest', desc: 'P0 from Swadhin session 4 Jun. Write and publish a LinkedIn post for TraffiCure.' },
+  { date: '2026-06-04', title: 'Pipedrive: merge duplicates + manage overall', track: 1, owner: 'Swadhin Saraf', epic: 'P0 priorities (4 Jun session)', labels: ['p0', 'pipedrive', 'crm'], priority: 'highest', desc: 'P0 from Swadhin session 4 Jun. Merge duplicate records in Pipedrive and manage the Pipedrive CRM overall.' },
+  { date: '2026-06-04', title: 'LinkedIn strategy for Lepton', track: 1, owner: 'Swadhin Saraf', epic: 'P0 priorities (4 Jun session)', labels: ['p0', 'linkedin', 'strategy'], priority: 'highest', desc: 'P0 from Swadhin session 4 Jun. Define and document LinkedIn strategy for Lepton brand.' },
+
 ];
 
 // =============================================================================
