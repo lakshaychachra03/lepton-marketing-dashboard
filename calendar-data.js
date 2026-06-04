@@ -502,14 +502,14 @@ window.PLAN_DATA = {
       {
         channel: '5.1.11', name: 'Blogs',
         cadence: 'TBD', period: 'TBD',
-        status: 'planned', statusLabel: 'Planned',
-        detail: 'Blog cadence and topics for TraffiCure to be defined.'
+        status: 'tbd', statusLabel: 'TBD',
+        detail: 'Blog cadence and topics for TraffiCure to be decided.'
       },
       {
         channel: '5.1.12', name: 'Newsletters',
         cadence: 'TBD', period: 'TBD',
-        status: 'planned', statusLabel: 'Planned',
-        detail: 'Newsletter strategy to be planned.'
+        status: 'tbd', statusLabel: 'TBD',
+        detail: 'Newsletter strategy to be decided.'
       },
       {
         channel: '5.1.13', name: 'SEO',
