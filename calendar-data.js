@@ -430,6 +430,112 @@ window.PLAN_DATA = {
         detail: 'Usage videos plan yet to be defined.'
       }
     ]
+  },
+
+  // ===========================================================================
+  // TRAFFICURE (track 5)
+  // ===========================================================================
+  5: {
+    title: 'TraffiCure - Marketing Plan',
+    intro: 'Channel-by-channel status of the TraffiCure marketing plan. Items here may or may not have specific calendar dates yet.',
+    sections: [
+      {
+        channel: '5.1.1', name: 'Instagram',
+        cadence: 'Tue / Thu / Sat', period: 'June 2026',
+        status: 'active', statusLabel: 'Active',
+        detail: 'Instagram posts on Tuesday, Thursday, Saturday throughout June. See Calendar tab for specific dates. Owner: Plash Saini.'
+      },
+      {
+        channel: '5.1.2', name: 'LinkedIn',
+        cadence: 'MWF', period: 'June 2026',
+        status: 'active', statusLabel: 'Active',
+        detail: 'LinkedIn posts Mon/Wed/Fri throughout June. Owner: Swadhin Saraf.'
+      },
+      {
+        channel: '5.1.3', name: 'Email campaigns',
+        cadence: 'TBD', period: 'TBD',
+        status: 'blocked', statusLabel: 'Status pending',
+        detail: 'Status, cadence, and ownership to be confirmed. Does TraffiCure run its own email campaigns or piggyback on GMP / Smart Market?'
+      },
+      {
+        channel: '5.1.4', name: 'Website',
+        cadence: 'Continuous', period: 'Revamp underway',
+        status: 'in-progress', statusLabel: 'WIP',
+        detail: 'TraffiCure website revamp in progress (LMR-193). Owner: Swadhin Saraf.'
+      },
+      {
+        channel: '5.1.5', name: 'Events',
+        cadence: 'TBD', period: 'TBD',
+        status: 'blocked', statusLabel: 'Status pending',
+        detail: 'No TraffiCure-specific events tracked yet. Confirm planned events / industry expos / govt summits.'
+      },
+      {
+        channel: '5.1.6', name: 'PR',
+        cadence: 'Ongoing', period: 'Active',
+        status: 'active', statusLabel: 'Active',
+        detail: 'PR and outreach for TraffiCure. Lead angle: Pune Traffic Police pilot (8+ independent press articles already published). Owner: Chetna Bhatia.'
+      },
+      {
+        channel: '5.1.7', name: 'Twitter / X',
+        cadence: 'TBD', period: 'TBD',
+        status: 'blocked', statusLabel: 'Status pending',
+        detail: 'Twitter / X presence and cadence to be confirmed.'
+      },
+      {
+        channel: '5.1.8', name: 'Custom decks',
+        cadence: 'On demand', period: 'Ongoing',
+        status: 'in-progress', statusLabel: 'WIP',
+        detail: 'Lepton Partnership Deck (TraffiCure) exists in Drive. Custom decks updated as required.'
+      },
+      {
+        channel: '5.1.9', name: 'Case studies',
+        cadence: 'TBD', period: 'In progress',
+        status: 'in-progress', statusLabel: 'WIP',
+        detail: 'Pune Traffic Police TraffiCure deployment story is the lead case study. Avg speed up 20 to 26.8 km/h (+34%) in 45-day pilot. Formal case study write-up pending.'
+      },
+      {
+        channel: '5.1.10', name: 'Product demo videos',
+        cadence: 'TBD', period: 'TBD',
+        status: 'blocked', statusLabel: 'Status pending',
+        detail: 'Demo video production status to be confirmed.'
+      },
+      {
+        channel: '5.1.11', name: 'Logo finalisation',
+        cadence: '-', period: 'TBD',
+        status: 'blocked', statusLabel: 'Status pending',
+        detail: 'Logo finalisation status to be confirmed (finalised vs in progress).'
+      },
+      {
+        channel: '5.1.12', name: 'Blogs',
+        cadence: 'TBD', period: 'TBD',
+        status: 'blocked', statusLabel: 'Status pending',
+        detail: 'Blog cadence and topics for TraffiCure to be confirmed.'
+      },
+      {
+        channel: '5.1.13', name: 'Newsletters',
+        cadence: 'TBD', period: 'TBD',
+        status: 'blocked', statusLabel: 'Status pending',
+        detail: 'Newsletter status to be confirmed. Possibly pending website revamp completion (like Smart Market).'
+      },
+      {
+        channel: '5.1.14', name: 'SEO',
+        cadence: 'Ongoing', period: 'Strategy in progress',
+        status: 'in-progress', statusLabel: 'WIP',
+        detail: 'TraffiCure SEO strategy in progress (LMR-194). SEO-optimised content topics to be given to Umang (LMR-182). Owner: Swadhin Saraf.'
+      },
+      {
+        channel: '5.1.15', name: 'Wikipedia',
+        cadence: 'One-time', period: 'Drafting',
+        status: 'planned', statusLabel: 'Planned',
+        detail: 'Wikipedia page for TraffiCure (LMR-196). Notability evidence ready: 8+ independent press articles covering the Pune Traffic Police pilot. Drafting next via Articles for Creation (AfC). Owner: Lakshay Chachra.'
+      },
+      {
+        channel: '5.1.16', name: 'International outreach',
+        cadence: 'TBD', period: 'TBD',
+        status: 'planned', statusLabel: 'Planned',
+        detail: 'TraffiCure International Reachout Strategy (LMR-197) — geos and approach to be defined. Owner: Swadhin Saraf.'
+      }
+    ]
   }
 
 };
