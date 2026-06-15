@@ -27,10 +27,18 @@ window.TEAM_TODOS = {
 
   swadhin: [],
 
-  lakshay: [],
+  lakshay: [
+    { title: 'Update Jira + marketing dashboard & fix changes', status: 'todo', due: '', jira: '', comments: [] },
+    { title: 'Run testing task + final verdict to Swadhin', status: 'todo', due: '', jira: 'LMR-208', comments: [] },
+    { title: 'Learn GA4 + GSC; work on TraffiCure strategy (with Swadhin)', status: 'todo', due: '', jira: '', comments: [] },
+  ],
 
   chetna: [],
 
-  plash: [],
+  plash: [
+    { title: 'NetworkAccess carousel — content creation', status: 'todo', due: '', jira: '', comments: [] },
+    { title: 'TraffiCure carousel — designing', status: 'todo', due: '', jira: '', comments: [] },
+    { title: 'SmartMarket IG & LinkedIn page', status: 'todo', due: '', jira: '', comments: [] },
+  ],
 
 };
