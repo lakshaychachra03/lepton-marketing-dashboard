@@ -223,6 +223,26 @@ window.CALENDAR_EVENTS = [
 //    }
 // =============================================================================
 window.MANUAL_BAUS = {
+  'lakshay': [
+    {
+      title: 'Update Jira + marketing dashboard',
+      track: 1,
+      cadence: 'To do',
+      detail: 'Update Jira and the marketing dashboard, and fix the outstanding changes.'
+    },
+    {
+      title: 'Testing task + final verdict to Swadhin',
+      track: 1,
+      cadence: 'To do',
+      detail: 'Complete the data / scraping-tool testing task and share the final verdict with Swadhin.'
+    },
+    {
+      title: 'Learn GA4 + GSC; TraffiCure strategy',
+      track: 5,
+      cadence: 'To do',
+      detail: 'Learn Google Analytics 4 (GA4) and Google Search Console (GSC), and work on the TraffiCure strategy (led with Swadhin).'
+    }
+  ],
   'chetna': [
     {
       title: 'PR for Trafficure',

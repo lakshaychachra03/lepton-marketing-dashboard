@@ -15,11 +15,30 @@
 //   JIRA_EMAIL, JIRA_TOKEN, JIRA_BASE_URL  - already set
 
 import crypto from 'crypto';
+import { getTodos, saveTodos, redisConfigured } from '../lib/redis.js';
 
 const TICKET_LINE = /^\s*(?:[-*•]\s*)?(LMR[-_ ]?\d+)\s*[:|\-—]\s*(.+?)\s*$/;
 const DONE_KEYWORDS = /^(done|complete[d]?|finished|completed|closed|✅)$/i;
 const IN_PROGRESS_KEYWORDS = /^(in[\s-]?progress|started|working|wip|🚧)$/i;
 const TODO_KEYWORDS = /^(todo|to[\s-]?do|reset|reopen)$/i;
+
+// --- Team To-Dos board (Slack DM -> Upstash Redis) --------------------------
+const SLACK_TO_PERSON = {
+  'U0APAD6MDS4': 'swadhin',
+  'U0B2ZSFA4NM': 'lakshay',
+  'U0B2Y0CH9MG': 'chetna',
+  'U0B2UJD2E5T': 'plash'
+};
+const PERSON_NAMES = { swadhin: 'Swadhin', lakshay: 'Lakshay', chetna: 'Chetna', plash: 'Plash' };
+function capName(p) { return PERSON_NAMES[p] || p; }
+function todoId() { return Date.now().toString(36) + Math.random().toString(36).slice(2, 7); }
+function todoStatusIcon(s) { return s === 'done' ? ':white_check_mark:' : (s === 'prog' ? ':construction:' : ':white_large_square:'); }
+function resolveTodoIndex(list, arg) {
+  const n = parseInt(arg, 10);
+  if (!isNaN(n) && String(n) === arg.trim()) return n - 1;            // by number
+  const q = arg.trim().toLowerCase();
+  return list.findIndex(function (t) { return String(t.title).toLowerCase().indexOf(q) !== -1; });  // by text
+}
 
 export const config = {
   api: {
@@ -123,14 +142,8 @@ async function handleEvent(event) {
   const updates = parseUpdates(text);
 
   if (updates.length === 0) {
-    await postReply(botToken, event.channel,
-      "I didn't see any `LMR-XX: <update>` lines in your message.\n\n" +
-      "Examples:\n" +
-      "• `LMR-83: finished cutover, going live tomorrow`\n" +
-      "• `LMR-84: done`\n" +
-      "• `LMR-119: in progress`\n\n" +
-      "Type one ticket per line. Multiple tickets in one message work fine."
-    );
+    // No Jira ticket lines -> treat the message as Team To-Dos input.
+    await handleTodos(event, text, botToken);
     return;
   }
 
@@ -190,6 +203,78 @@ function parseUpdates(text) {
     }
   }
   return updates;
+}
+
+// Handle a DM as Team To-Dos input. Sender is identified by Slack ID; Lakshay
+// may target anyone by starting the message with a name ("chetna: draft post").
+async function handleTodos(event, text, botToken) {
+  const sender = SLACK_TO_PERSON[event.user];
+  if (!sender) {
+    await postReply(botToken, event.channel,
+      "Hi! I handle Jira updates (`LMR-83: ...`) and the Team To-Dos board, but I don't " +
+      "recognize you as part of the marketing team, so I can't change to-dos.");
+    return;
+  }
+  if (!redisConfigured()) {
+    await postReply(botToken, event.channel,
+      ":warning: The to-do board isn't connected to its database yet. (Admin: add the Upstash integration in Vercel.)");
+    return;
+  }
+
+  let target = sender;
+  let body = String(text || '').trim();
+
+  // Lakshay can target anyone: "chetna: ..." / "@chetna ..."
+  const tm = body.match(/^@?(swadhin|lakshay|chetna|plash)\b[:\-]?\s*([\s\S]*)$/i);
+  if (tm && sender === 'lakshay') {
+    target = tm[1].toLowerCase();
+    body = tm[2].trim();
+  }
+
+  const all = await getTodos();
+  let list = Array.isArray(all[target]) ? all[target] : [];
+  const lines = body.split(/\r?\n/).map(function (s) { return s.trim(); }).filter(Boolean);
+  const first = (lines[0] || '').toLowerCase();
+  let note = '';
+
+  if (!lines.length || first === 'list' || first === 'todos' || first === 'my todos') {
+    note = '';                                   // just show the current list
+  } else if (first === 'clear') {
+    list = [];
+    note = 'Cleared. ';
+  } else if (/^(done|wip|prog|in[\s-]?progress|add)\s+/i.test(lines[0])) {
+    lines.forEach(function (ln) {
+      const m = ln.match(/^(done|wip|prog|in[\s-]?progress|add)\s+(.+)$/i);
+      if (!m) return;
+      const op = m[1].toLowerCase().replace(/[\s-]/g, '');
+      const arg = m[2].trim();
+      if (op === 'add') {
+        list.push({ id: todoId(), title: arg, status: 'todo', due: '', jira: '', comments: [] });
+      } else {
+        const idx = resolveTodoIndex(list, arg);
+        if (idx >= 0) list[idx].status = (op === 'done' ? 'done' : 'prog');
+      }
+    });
+    note = 'Updated. ';
+  } else {
+    // plain lines => set (replace) today's list
+    list = lines.map(function (t) { return { id: todoId(), title: t, status: 'todo', due: '', jira: '', comments: [] }; });
+    note = 'Set ' + (target === sender ? 'your' : capName(target) + "'s") + ' to-dos. ';
+  }
+
+  all[target] = list;
+  await saveTodos(all);
+
+  const heading = (target === sender ? 'Your' : capName(target) + "'s") + ' to-dos:';
+  let reply = note + ':memo: ' + heading + '\n';
+  reply += list.length
+    ? list.map(function (t, i) { return (i + 1) + '. ' + todoStatusIcon(t.status) + ' ' + t.title; }).join('\n')
+    : '(empty)';
+  reply += '\n\n_Send lines to set them · `add <task>` · `done <n>` · `wip <n>` · `clear` · `list`_';
+  if (sender === 'lakshay' && target === sender) {
+    reply += '\n_(You can also update others: start with their name, e.g. `chetna: draft post`)_';
+  }
+  await postReply(botToken, event.channel, reply);
 }
 
 async function slackApi(method, token, body) {
