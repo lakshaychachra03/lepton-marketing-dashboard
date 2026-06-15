@@ -318,6 +318,29 @@
   .pt-comment { background: #f7f8fc; border-radius: 8px; padding: 7px 10px; font-size: 12.5px; color: #172b4d; }
   .pt-comment .m { font-size: 10.5px; color: #6b778c; margin-top: 3px; }
   .pt-empty { font-size: 13.5px; color: #94a3b8; padding: 10px 2px; }
+  .tc-actions { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
+  .tc-editbtn { font-size: 12.5px; font-weight: 700; border: 1.5px solid #c7d2fe; background: #eef2ff; color: #3730a3; border-radius: 9px; padding: 8px 13px; cursor: pointer; }
+  .tc-editbtn:hover { background: #e0e7ff; }
+  .ed-row { border: 1px solid #e8ebf0; border-radius: 10px; padding: 10px 12px; margin-top: 8px; background: #fff; }
+  .ed-line { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
+  .ed-row input[type=text], .ed-row input[type=date] { padding: 7px 10px; border: 1.5px solid #e8ebf0; border-radius: 8px; font-size: 13.5px; font-family: inherit; }
+  .ed-title { flex: 1; min-width: 160px; }
+  .ed-jira { width: 100px; }
+  .ed-status { font-size: 11px; font-weight: 700; padding: 6px 11px; border-radius: 20px; border: 0; cursor: pointer; white-space: nowrap; }
+  .ed-del { margin-left: auto; border: 0; background: #fee2e2; color: #b91c1c; border-radius: 8px; padding: 6px 10px; cursor: pointer; font-weight: 700; font-size: 12px; }
+  .ed-cmt { margin-top: 7px; }
+  .ed-cmt input { width: 100%; padding: 7px 10px; border: 1.5px solid #e8ebf0; border-radius: 8px; font-size: 13px; font-family: inherit; box-sizing: border-box; }
+  .ed-actions { display: flex; gap: 8px; margin-top: 14px; flex-wrap: wrap; }
+  .ed-save { background: #16a34a; color: #fff; border: 0; border-radius: 9px; padding: 9px 16px; font-weight: 700; cursor: pointer; }
+  .ed-add { background: #eef2ff; color: #3730a3; border: 1.5px solid #c7d2fe; border-radius: 9px; padding: 9px 14px; font-weight: 700; cursor: pointer; }
+  .ed-cancel { background: #f1f5f9; color: #475569; border: 0; border-radius: 9px; padding: 9px 14px; font-weight: 700; cursor: pointer; }
+  .pin-box { background: #f8fafc; border: 1px solid #e8ebf0; border-radius: 10px; padding: 14px; margin-top: 12px; max-width: 460px; }
+  .pin-box input { padding: 9px 12px; border: 1.5px solid #e8ebf0; border-radius: 8px; font-size: 14px; font-family: inherit; }
+  .pin-box button { background: #0052cc; color: #fff; border: 0; border-radius: 8px; padding: 9px 14px; font-weight: 700; cursor: pointer; }
+  .pin-err { color: #dc2626; font-size: 12.5px; margin-top: 8px; }
+  .setup-grid { display: grid; grid-template-columns: 90px 1fr; gap: 10px 12px; align-items: center; margin: 12px 0; max-width: 420px; }
+  .setup-grid label { font-weight: 700; font-size: 13.5px; color: #374151; }
+  .setup-grid input { width: 100%; box-sizing: border-box; }
 </style>
 <div class="section" id="todos-section">
   <h2>📝 Team To-Dos <span style="font-size: 12px; font-weight: normal; color: #6b778c; margin-left: 10px;">manually set here · not from Jira</span></h2>
@@ -1668,6 +1691,9 @@
   ];
 
   var currentId = 'swadhin';
+  var pinsSet = false, editing = false, draft = [];
+  var nameOf = {}; PEOPLE.forEach(function (pp) { nameOf[pp.id] = pp.name; });
+  var NEXT = { todo: 'prog', prog: 'done', done: 'todo' };
   var peopleEl = document.getElementById('todos-people');
   var contentEl = document.getElementById('todos-content');
   if (!peopleEl || !contentEl) return;
@@ -1693,22 +1719,37 @@
     });
   }
 
-  function showPerson(id) {
-    var p = PEOPLE.filter(function (x) { return x.id === id; })[0];
-    if (!p) return;
-    currentId = id;
-    renderPeople(id);
-    var items = T[id] || [];
-    var html =
-      '<div class="tc-head">' +
-        '<div class="tc-who"><span class="tp-av" style="background:' + p.color + '">' + initials(p.name) + '</span>' +
-        '<h3>' + p.name + ' — to-dos for today</h3></div>' +
+  function byId(id) { return PEOPLE.filter(function (x) { return x.id === id; })[0]; }
+
+  function api(action, payload) {
+    return fetch('/api/todos', {
+      method: 'POST', headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(Object.assign({ action: action }, payload || {}))
+    }).then(function (r) { return r.json(); });
+  }
+  function storedPin(id) { try { return localStorage.getItem('lmr_admin_pin') || localStorage.getItem('lmr_pin_' + id) || ''; } catch (e) { return ''; } }
+  function rememberPin(id, pin, admin) { try { if (admin) localStorage.setItem('lmr_admin_pin', pin); else localStorage.setItem('lmr_pin_' + id, pin); } catch (e) {} }
+  function forgetPin(id) { try { localStorage.removeItem('lmr_pin_' + id); localStorage.removeItem('lmr_admin_pin'); } catch (e) {} }
+
+  function headHtml(p, editLabel) {
+    return '<div class="tc-head">' +
+      '<div class="tc-who"><span class="tp-av" style="background:' + p.color + '">' + initials(p.name) + '</span>' +
+      '<h3>' + esc(p.name) + ' — to-dos for today</h3></div>' +
+      '<div class="tc-actions">' +
         '<div class="tc-jira">' +
           '<a class="open" href="' + openUrl(p.acc) + '" target="_blank" rel="noopener">📋 Open tickets</a>' +
           '<a class="prog" href="' + progUrl(p.acc) + '" target="_blank" rel="noopener">🚧 In progress</a>' +
         '</div>' +
-      '</div>';
+        (editLabel ? '<button class="tc-editbtn" id="tc-edit">' + editLabel + '</button>' : '') +
+      '</div></div>';
+  }
 
+  function showPerson(id) {
+    var p = byId(id); if (!p) return;
+    currentId = id; editing = false;
+    renderPeople(id);
+    var items = T[id] || [];
+    var html = headHtml(p, pinsSet ? '✏️ Edit' : '🔒 Set up editing');
     if (!items.length) {
       html += '<div class="pt-empty">No to-dos set yet for ' + esc(p.name) + '.</div>';
     } else {
@@ -1738,6 +1779,167 @@
         if (c) c.style.display = (c.style.display === 'none' ? 'flex' : 'none');
       });
     });
+    var eb = document.getElementById('tc-edit');
+    if (eb) eb.addEventListener('click', onEditClick);
+  }
+
+  function onEditClick() {
+    if (!pinsSet) { renderSetup(); return; }
+    var pin = storedPin(currentId);
+    if (pin) {
+      api('verify', { person: currentId, pin: pin }).then(function (r) {
+        if (r.ok) { rememberPin(currentId, pin, r.admin); enterEdit(); }
+        else { forgetPin(currentId); renderPinPrompt('Your saved passcode no longer works — enter it again.'); }
+      });
+    } else { renderPinPrompt(''); }
+  }
+
+  function renderPinPrompt(msg) {
+    var p = byId(currentId);
+    var html = headHtml(p, '');
+    html += '<div class="pin-box">' +
+      '<div style="font-weight:700;margin-bottom:8px;">Enter passcode to edit ' + esc(p.name) + "'s to-dos</div>" +
+      '<div style="display:flex;gap:8px;align-items:center;">' +
+      '<input type="password" id="pin-input" placeholder="Passcode" autocomplete="off">' +
+      '<button id="pin-go">Unlock</button></div>' +
+      (msg ? '<div class="pin-err">' + esc(msg) + '</div>' : '') +
+      '<div style="font-size:11.5px;color:#6b778c;margin-top:8px;">Tip: Lakshay\'s passcode can edit anyone.</div>' +
+      '</div>';
+    contentEl.innerHTML = html;
+    var inp = document.getElementById('pin-input');
+    var go = document.getElementById('pin-go');
+    function submit() {
+      var pin = (inp.value || '').trim(); if (!pin) return;
+      api('verify', { person: currentId, pin: pin }).then(function (r) {
+        if (r.ok) { rememberPin(currentId, pin, r.admin); enterEdit(); }
+        else { renderPinPrompt('Wrong passcode. Try again.'); }
+      });
+    }
+    go.addEventListener('click', submit);
+    inp.addEventListener('keydown', function (e) { if (e.key === 'Enter') submit(); });
+    inp.focus();
+  }
+
+  function enterEdit() {
+    editing = true;
+    draft = JSON.parse(JSON.stringify(T[currentId] || []));
+    renderEditor();
+  }
+
+  function statusBtnStyle(st) {
+    var bg = st === 'done' ? '#dcfce7' : st === 'prog' ? '#fef3c7' : '#f1f5f9';
+    var fg = st === 'done' ? '#15803d' : st === 'prog' ? '#b45309' : '#475569';
+    return 'background:' + bg + ';color:' + fg + ';';
+  }
+
+  function rowHtml(t, i) {
+    var st = (t.status || 'todo'); if (!LBL[st]) st = 'todo';
+    var cmts = (t.comments || []);
+    var cmtHtml = cmts.map(function (c) { return '<div class="pt-comment">' + esc(c.t) + '<div class="m">' + esc(c.by || '') + (c.when ? ' · ' + esc(c.when) : '') + '</div></div>'; }).join('');
+    return '<div class="ed-row" data-idx="' + i + '" data-cmts="' + esc(JSON.stringify(cmts)) + '">' +
+      '<div class="ed-line">' +
+        '<input type="text" class="ed-title" value="' + esc(t.title || '') + '" placeholder="Task">' +
+        '<button type="button" class="ed-status" data-status="' + st + '" style="' + statusBtnStyle(st) + '">' + LBL[st] + '</button>' +
+        '<input type="date" class="ed-due" value="' + esc(t.due || '') + '">' +
+        '<input type="text" class="ed-jira" value="' + esc(t.jira || '') + '" placeholder="LMR-…">' +
+        '<button type="button" class="ed-del">✕</button>' +
+      '</div>' +
+      (cmtHtml ? '<div style="margin-top:7px;">' + cmtHtml + '</div>' : '') +
+      '<div class="ed-cmt"><input type="text" class="ed-newcmt" placeholder="Add a comment (optional)"></div>' +
+      '</div>';
+  }
+
+  function renderEditor() {
+    var p = byId(currentId);
+    var html = headHtml(p, '');
+    html += '<p style="font-size:12px;color:#6b778c;margin:2px 0 4px;">Editing ' + esc(p.name) + "'s to-dos. Change anything, then press Save.</p>";
+    html += '<div id="ed-list">';
+    draft.forEach(function (t, i) { html += rowHtml(t, i); });
+    html += '</div>';
+    html += '<div class="ed-actions"><button class="ed-add" id="ed-add">+ Add to-do</button>' +
+      '<button class="ed-save" id="ed-save">✓ Save</button>' +
+      '<button class="ed-cancel" id="ed-cancel">Cancel</button></div>';
+    contentEl.innerHTML = html;
+    wireEditor();
+  }
+
+  function syncDraft() {
+    var out = [];
+    contentEl.querySelectorAll('.ed-row').forEach(function (row) {
+      var cmts = [];
+      try { cmts = JSON.parse(row.getAttribute('data-cmts') || '[]'); } catch (e) { cmts = []; }
+      out.push({
+        title: row.querySelector('.ed-title').value.trim(),
+        status: row.querySelector('.ed-status').getAttribute('data-status'),
+        due: row.querySelector('.ed-due').value,
+        jira: row.querySelector('.ed-jira').value.trim().toUpperCase(),
+        comments: cmts
+      });
+    });
+    draft = out;
+  }
+
+  function collectNewComments() {
+    contentEl.querySelectorAll('.ed-row').forEach(function (row, idx) {
+      var nc = row.querySelector('.ed-newcmt');
+      var v = nc ? nc.value.trim() : '';
+      if (v && draft[idx]) draft[idx].comments = (draft[idx].comments || []).concat([{ t: v, by: nameOf[currentId], when: 'today' }]);
+    });
+  }
+
+  function wireEditor() {
+    contentEl.querySelectorAll('.ed-status').forEach(function (b) {
+      b.addEventListener('click', function () {
+        var ns = NEXT[b.getAttribute('data-status')] || 'todo';
+        b.setAttribute('data-status', ns); b.textContent = LBL[ns]; b.setAttribute('style', statusBtnStyle(ns));
+      });
+    });
+    contentEl.querySelectorAll('.ed-del').forEach(function (b) {
+      b.addEventListener('click', function () {
+        syncDraft();
+        var idx = parseInt(b.parentNode.parentNode.getAttribute('data-idx'), 10);
+        draft.splice(idx, 1); renderEditor();
+      });
+    });
+    var add = document.getElementById('ed-add');
+    if (add) add.addEventListener('click', function () { syncDraft(); draft.push({ title: '', status: 'todo', due: '', jira: '', comments: [] }); renderEditor(); });
+    var cancel = document.getElementById('ed-cancel');
+    if (cancel) cancel.addEventListener('click', function () { editing = false; showPerson(currentId); });
+    var save = document.getElementById('ed-save');
+    if (save) save.addEventListener('click', function () {
+      syncDraft(); collectNewComments();
+      draft = draft.filter(function (t) { return t.title; });
+      save.textContent = 'Saving…'; save.disabled = true;
+      var pin = storedPin(currentId);
+      api('save', { person: currentId, pin: pin, todos: draft }).then(function (r) {
+        if (r.ok) { T[currentId] = (r.todos && r.todos[currentId]) || draft; editing = false; showPerson(currentId); }
+        else { save.textContent = '✓ Save'; save.disabled = false; if (/passcode/i.test(r.error || '')) forgetPin(currentId); alert(r.error || 'Save failed.'); }
+      }).catch(function () { save.textContent = '✓ Save'; save.disabled = false; alert('Save failed (network).'); });
+    });
+  }
+
+  function renderSetup() {
+    var p = byId(currentId);
+    var html = headHtml(p, '');
+    html += '<div class="pin-box"><div style="font-weight:700;margin-bottom:6px;">Set up editing (one-time)</div>' +
+      '<div style="font-size:12.5px;color:#6b778c;margin-bottom:4px;">Pick a passcode for each person. Each person uses theirs to edit their own to-dos. Lakshay\'s passcode can edit everyone.</div>' +
+      '<div class="setup-grid">' +
+        '<label>Swadhin</label><input type="text" id="su-swadhin" placeholder="passcode">' +
+        '<label>Lakshay</label><input type="text" id="su-lakshay" placeholder="passcode (admin)">' +
+        '<label>Chetna</label><input type="text" id="su-chetna" placeholder="passcode">' +
+        '<label>Plash</label><input type="text" id="su-plash" placeholder="passcode">' +
+      '</div>' +
+      '<button id="su-go">Save passcodes</button>' +
+      '<div class="pin-err" id="su-err" style="display:none;"></div></div>';
+    contentEl.innerHTML = html;
+    document.getElementById('su-go').addEventListener('click', function () {
+      function val(id) { return (document.getElementById(id).value || '').trim(); }
+      var pins = { swadhin: val('su-swadhin'), lakshay: val('su-lakshay'), chetna: val('su-chetna'), plash: val('su-plash') };
+      api('setup', { pins: pins }).then(function (r) {
+        if (r.ok) { pinsSet = true; showPerson(currentId); }
+        else { var e = document.getElementById('su-err'); e.style.display = 'block'; e.textContent = r.error || 'Could not save.'; }
+      });
+    });
   }
 
   function boot() {
@@ -1760,13 +1962,14 @@
             merged[p.id] = (db && db.length) ? db : (fileT[p.id] || []);
           });
           T = merged;
+          if (d && d.configured) pinsSet = !!d.pinsSet;
           if (cb) cb();
         })
         .catch(function () { if (cb) cb(); });
     } catch (e) { if (cb) cb(); }
   }
   loadLive(boot);
-  setInterval(function () { loadLive(function () { showPerson(currentId); }); }, 45000); // keep the board fresh
+  setInterval(function () { loadLive(function () { if (!editing) showPerson(currentId); }); }, 45000); // keep the board fresh (not while editing)
 })();
 </script>
 </body></html>
