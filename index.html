@@ -1667,6 +1667,7 @@
     { id: 'plash',   name: 'Plash',   color: '#14b8a6', acc: '712020:7d2a8edd-cd85-447a-8953-ec9fa7333218' }
   ];
 
+  var currentId = 'swadhin';
   var peopleEl = document.getElementById('todos-people');
   var contentEl = document.getElementById('todos-content');
   if (!peopleEl || !contentEl) return;
@@ -1695,6 +1696,7 @@
   function showPerson(id) {
     var p = PEOPLE.filter(function (x) { return x.id === id; })[0];
     if (!p) return;
+    currentId = id;
     renderPeople(id);
     var items = T[id] || [];
     var html =
@@ -1738,8 +1740,21 @@
     });
   }
 
-  renderPeople(null);
-  showPerson('swadhin'); // open the first person by default
+  function boot() {
+    renderPeople(null);
+    showPerson(currentId); // open a person by default
+  }
+  // Prefer live data from the database (api/todos); fall back to static todos-data.js.
+  function loadLive(cb) {
+    try {
+      fetch('/api/todos', { cache: 'no-store' })
+        .then(function (r) { return r.json(); })
+        .then(function (d) { if (d && d.ok && d.todos) T = d.todos; if (cb) cb(); })
+        .catch(function () { if (cb) cb(); });
+    } catch (e) { if (cb) cb(); }
+  }
+  loadLive(boot);
+  setInterval(function () { loadLive(function () { showPerson(currentId); }); }, 45000); // keep the board fresh
 })();
 </script>
 </body></html>
