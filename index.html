@@ -341,6 +341,11 @@
   .setup-grid { display: grid; grid-template-columns: 90px 1fr; gap: 10px 12px; align-items: center; margin: 12px 0; max-width: 420px; }
   .setup-grid label { font-weight: 700; font-size: 13.5px; color: #374151; }
   .setup-grid input { width: 100%; box-sizing: border-box; }
+  .ed-duelabel { font-size: 11px; font-weight: 700; color: #6b778c; }
+  .tt-tabs { display: flex; gap: 6px; margin: 14px 0 8px; }
+  .tt-tab { font-size: 12px; font-weight: 700; border: 1.5px solid #e8ebf0; background: #fff; color: #64748b; border-radius: 20px; padding: 6px 14px; cursor: pointer; font-family: inherit; }
+  .tt-tab:hover { background: #f8fafc; }
+  .tt-tab.active { background: #0052cc; color: #fff; border-color: #0052cc; }
 </style>
 <div class="section" id="todos-section">
   <h2>📝 Team To-Dos <span style="font-size: 12px; font-weight: normal; color: #6b778c; margin-left: 10px;">manually set here · not from Jira</span></h2>
@@ -1692,6 +1697,7 @@
 
   var currentId = 'swadhin';
   var pinsSet = false, editing = false, draft = [];
+  var viewFilter = 'active';
   var nameOf = {}; PEOPLE.forEach(function (pp) { nameOf[pp.id] = pp.name; });
   var NEXT = { todo: 'prog', prog: 'done', done: 'todo' };
   var peopleEl = document.getElementById('todos-people');
@@ -1714,7 +1720,7 @@
       b.style.borderColor = (p.id === activeId ? p.color : '#e8ebf0');
       b.innerHTML = '<span class="tp-av" style="background:' + p.color + '">' + initials(p.name) + '</span>' +
         '<span>' + p.name + '</span><span class="tp-count">' + open + ' open</span>';
-      b.addEventListener('click', function () { showPerson(p.id); });
+      b.addEventListener('click', function () { viewFilter = 'active'; showPerson(p.id); });
       peopleEl.appendChild(b);
     });
   }
@@ -1749,30 +1755,42 @@
     currentId = id; editing = false;
     renderPeople(id);
     var items = T[id] || [];
+    var activeCount = items.filter(function (t) { return (t.status || 'todo') !== 'done'; }).length;
+    var doneCount = items.length - activeCount;
     var html = headHtml(p, pinsSet ? '✏️ Edit' : '🔒 Set up editing');
-    if (!items.length) {
-      html += '<div class="pt-empty">No to-dos set yet for ' + esc(p.name) + '.</div>';
-    } else {
-      items.forEach(function (t, i) {
-        var st = (t.status || 'todo').toLowerCase(); if (!LBL[st]) st = 'todo';
-        var over = t.due && t.due < TODAY && st !== 'done';
-        var jb = t.jira ? '<a class="pt-jira" href="' + JIRA + '/browse/' + encodeURIComponent(t.jira) + '" target="_blank" rel="noopener" onclick="event.stopPropagation()">🔗 ' + esc(t.jira) + '</a>' : '';
-        var due = t.due ? '<span class="pt-due' + (over ? ' over' : '') + '">' + fmtDue(t.due) + '</span>' : '';
-        html += '<div class="pt-item ' + st + '" data-i="' + i + '">' +
-          '<span class="pt-dot" style="background:' + DOT[st] + '"></span>' +
-          '<span class="pt-title">' + esc(t.title) + '</span>' + jb +
-          '<span class="pt-pill ' + st + '">' + LBL[st] + '</span>' + due + '</div>';
-        if (t.comments && t.comments.length) {
-          html += '<div class="pt-comments" data-for="' + i + '" style="display:none;">';
-          t.comments.forEach(function (c) {
-            html += '<div class="pt-comment">' + esc(c.t) + '<div class="m">' + esc(c.by || '') + (c.when ? ' · ' + esc(c.when) : '') + '</div></div>';
-          });
-          html += '</div>';
-        }
-      });
+    html += '<div class="tt-tabs">' +
+      '<button class="tt-tab' + (viewFilter === 'active' ? ' active' : '') + '" data-f="active">📋 To-do (' + activeCount + ')</button>' +
+      '<button class="tt-tab' + (viewFilter === 'done' ? ' active' : '') + '" data-f="done">✅ Done (' + doneCount + ')</button>' +
+      '</div>';
+    var shownAny = false;
+    items.forEach(function (t, i) {
+      var st = (t.status || 'todo').toLowerCase(); if (!LBL[st]) st = 'todo';
+      var isDone = st === 'done';
+      if (viewFilter === 'done' ? !isDone : isDone) return;
+      shownAny = true;
+      var over = t.due && t.due < TODAY && st !== 'done';
+      var jb = t.jira ? '<a class="pt-jira" href="' + JIRA + '/browse/' + encodeURIComponent(t.jira) + '" target="_blank" rel="noopener" onclick="event.stopPropagation()">🔗 ' + esc(t.jira) + '</a>' : '';
+      var due = t.due ? '<span class="pt-due' + (over ? ' over' : '') + '">Due ' + fmtDue(t.due) + '</span>' : '';
+      html += '<div class="pt-item ' + st + '" data-i="' + i + '">' +
+        '<span class="pt-dot" style="background:' + DOT[st] + '"></span>' +
+        '<span class="pt-title">' + esc(t.title) + '</span>' + jb +
+        '<span class="pt-pill ' + st + '">' + LBL[st] + '</span>' + due + '</div>';
+      if (t.comments && t.comments.length) {
+        html += '<div class="pt-comments" data-for="' + i + '" style="display:none;">';
+        t.comments.forEach(function (c) {
+          html += '<div class="pt-comment">' + esc(c.t) + '<div class="m">' + esc(c.by || '') + (c.when ? ' · ' + esc(c.when) : '') + '</div></div>';
+        });
+        html += '</div>';
+      }
+    });
+    if (!shownAny) {
+      html += '<div class="pt-empty">' + (viewFilter === 'done' ? 'No completed to-dos yet.' : 'No active to-dos for ' + esc(p.name) + '.') + '</div>';
     }
     contentEl.innerHTML = html;
     contentEl.style.display = 'block';
+    contentEl.querySelectorAll('.tt-tab').forEach(function (b) {
+      b.addEventListener('click', function () { viewFilter = b.getAttribute('data-f'); showPerson(currentId); });
+    });
     contentEl.querySelectorAll('.pt-item').forEach(function (row) {
       row.addEventListener('click', function () {
         var c = contentEl.querySelector('.pt-comments[data-for="' + row.getAttribute('data-i') + '"]');
@@ -1840,7 +1858,8 @@
       '<div class="ed-line">' +
         '<input type="text" class="ed-title" value="' + esc(t.title || '') + '" placeholder="Task">' +
         '<button type="button" class="ed-status" data-status="' + st + '" style="' + statusBtnStyle(st) + '">' + LBL[st] + '</button>' +
-        '<input type="date" class="ed-due" value="' + esc(t.due || '') + '">' +
+        '<span class="ed-duelabel">Due</span>' +
+        '<input type="date" class="ed-due" title="Due date" value="' + esc(t.due || '') + '">' +
         '<input type="text" class="ed-jira" value="' + esc(t.jira || '') + '" placeholder="LMR-…">' +
         '<button type="button" class="ed-del">✕</button>' +
       '</div>' +
