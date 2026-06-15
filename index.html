@@ -1744,12 +1744,24 @@
     renderPeople(null);
     showPerson(currentId); // open a person by default
   }
-  // Prefer live data from the database (api/todos); fall back to static todos-data.js.
+  // Per person: show their database to-dos if they've used Slack, otherwise fall
+  // back to the manually-typed ones in todos-data.js. So typed to-dos show now,
+  // and anyone who DMs the bot has theirs take over automatically.
   function loadLive(cb) {
     try {
       fetch('/api/todos', { cache: 'no-store' })
         .then(function (r) { return r.json(); })
-        .then(function (d) { if (d && d.ok && d.todos) T = d.todos; if (cb) cb(); })
+        .then(function (d) {
+          var fileT = window.TEAM_TODOS || {};
+          var dbT = (d && d.ok && d.todos) ? d.todos : {};
+          var merged = {};
+          PEOPLE.forEach(function (p) {
+            var db = dbT[p.id] || [];
+            merged[p.id] = (db && db.length) ? db : (fileT[p.id] || []);
+          });
+          T = merged;
+          if (cb) cb();
+        })
         .catch(function () { if (cb) cb(); });
     } catch (e) { if (cb) cb(); }
   }
