@@ -101,7 +101,7 @@ async function sendBotDM(botToken, userId, text) {
 
 function buildMessage(name, accountId, openCount, baseUrl) {
   const openUrl =
-    `https://${baseUrl}/issues?jql=` +
+    `https://${baseUrl}/issues/?jql=` +
     encodeURIComponent(`project = LMR AND assignee = "${accountId}" AND statusCategory != Done ORDER BY priority DESC, duedate ASC`);
 
   return `Hi ${name} :wave:\n\n` +
