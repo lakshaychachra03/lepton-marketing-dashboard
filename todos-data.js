@@ -31,6 +31,7 @@ window.TEAM_TODOS = {
     { title: 'Update Jira + marketing dashboard & fix changes', status: 'todo', due: '', jira: '', comments: [] },
     { title: 'Run testing task + final verdict to Swadhin', status: 'todo', due: '', jira: 'LMR-208', comments: [] },
     { title: 'Learn GA4 + GSC; work on TraffiCure strategy (with Swadhin)', status: 'todo', due: '', jira: '', comments: [] },
+    { title: 'Brevo email campaigns', status: 'todo', due: '', jira: '', comments: [] },
   ],
 
   chetna: [
