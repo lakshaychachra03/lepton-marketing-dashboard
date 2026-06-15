@@ -16,24 +16,21 @@
 //    jira     'LMR-83'                 OPTIONAL — links this to-do to a Jira ticket.
 //                                                 Leave '' for a normal to-do (no Jira).
 //    comments [ { t:'note text', by:'Name', when:'9 AM' }, ... ]   OPTIONAL
+//
+//  EXAMPLE (for reference — copy this shape when adding real to-dos):
+//    swadhin: [
+//      { title: 'Shoot one Smart Market reel', status: 'prog', due: '2026-06-15', jira: '', comments: [] },
+//    ],
 // =============================================================================
 
 window.TEAM_TODOS = {
 
-  swadhin: [
-    { title: 'Shoot one Smart Market reel', status: 'prog', due: '2026-06-15', jira: '', comments: [] },
-  ],
+  swadhin: [],
 
-  lakshay: [
-    { title: 'Update Jira priorities for the week', status: 'prog', due: '2026-06-15', jira: '', comments: [] },
-  ],
+  lakshay: [],
 
-  chetna: [
-    { title: 'Draft LinkedIn post #5', status: 'todo', due: '2026-06-15', jira: '', comments: [] },
-  ],
+  chetna: [],
 
-  plash: [
-    { title: 'Design Smart Market reveal creative', status: 'prog', due: '2026-06-15', jira: '', comments: [] },
-  ],
+  plash: [],
 
 };
