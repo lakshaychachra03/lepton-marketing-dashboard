@@ -65,7 +65,11 @@ window.TEAM_TODOS = {
       { title: 'SmartMarket IG & LinkedIn page', status: 'done', due: '', jira: '', comments: [] },
     ],
     '2026-06-16': [
-      { title: 'NetworkAccess carousel — content creation', status: 'prog', due: '', jira: '', comments: [] },
+      { title: 'GMP API One Pager — refine & submit', status: 'todo', due: '', jira: '', comments: [] },
+      { title: 'NetworkAccess carousels — designing & compiling', status: 'todo', due: '', jira: '', comments: [] },
+      { title: "TraffiCure's carousel — designing & compiling", status: 'todo', due: '', jira: '', comments: [] },
+      { title: "Repurpose TraffiCure's carousel on LinkedIn", status: 'todo', due: '', jira: '', comments: [] },
+      { title: "Post new carousel on TraffiCure's IG page", status: 'todo', due: '', jira: '', comments: [] },
     ],
   },
 
