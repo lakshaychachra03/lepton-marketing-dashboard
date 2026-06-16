@@ -23,7 +23,20 @@
 
 window.TEAM_TODOS = {
 
-  swadhin: {},
+  swadhin: {
+    '2026-06-15': [
+      { title: 'Lepton LinkedIn post', status: 'done', due: '', jira: '', comments: [] },
+      { title: 'Google Workspace accounts to be removed', status: 'done', due: '', jira: '', comments: [] },
+      { title: 'Lepton LinkedIn post', status: 'done', due: '', jira: '', comments: [] },
+      { title: 'Website feedback', status: 'prog', due: '', jira: '', comments: [] },
+      { title: 'Umang LinkedIn', status: 'shifted', due: '', jira: '', comments: [{ t: 'Shifted to 16 Jun', by: 'Lakshay', when: '' }] },
+      { title: 'TraffiCure LinkedIn', status: 'shifted', due: '', jira: '', comments: [{ t: 'Shifted to 16 Jun', by: 'Lakshay', when: '' }] },
+    ],
+    '2026-06-16': [
+      { title: 'Umang LinkedIn', status: 'todo', due: '', jira: '', comments: [{ t: 'Shifted from 15 Jun', by: 'Lakshay', when: '' }] },
+      { title: 'TraffiCure LinkedIn', status: 'todo', due: '', jira: '', comments: [{ t: 'Shifted from 15 Jun', by: 'Lakshay', when: '' }] },
+    ],
+  },
 
   lakshay: {
     '2026-06-15': [

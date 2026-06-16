@@ -27,7 +27,7 @@ function cleanList(arr) {
   return arr.slice(0, 100).map(function (t) {
     return {
       title: String(t.title || '').slice(0, 300),
-      status: ['todo', 'prog', 'done'].indexOf(t.status) >= 0 ? t.status : 'todo',
+      status: ['todo', 'prog', 'done', 'shifted'].indexOf(t.status) >= 0 ? t.status : 'todo',
       due: typeof t.due === 'string' && /^\d{4}-\d{2}-\d{2}$/.test(t.due) ? t.due : '',
       jira: String(t.jira || '').slice(0, 20),
       comments: Array.isArray(t.comments) ? t.comments.slice(0, 50).map(function (c) {
