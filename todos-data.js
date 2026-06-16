@@ -40,15 +40,14 @@ window.TEAM_TODOS = {
 
   lakshay: {
     '2026-06-15': [
-      { title: 'Update Jira + marketing dashboard & fix changes', status: 'todo', due: '', jira: '', comments: [] },
-      { title: 'Run testing task + final verdict to Swadhin', status: 'todo', due: '', jira: 'LMR-208', comments: [] },
-      { title: 'Learn GA4 + GSC; work on TraffiCure strategy (with Swadhin)', status: 'todo', due: '', jira: '', comments: [] },
-      { title: 'Brevo email campaigns', status: 'todo', due: '', jira: '', comments: [] },
+      { title: 'Update Jira + marketing dashboard & fix changes', status: 'done', due: '', jira: '', comments: [] },
+      { title: 'Run testing task + final verdict to Swadhin', status: 'done', due: '', jira: 'LMR-208', comments: [] },
+      { title: 'Email plan for NetworkAccess', status: 'done', due: '', jira: '', comments: [] },
+      { title: 'Brevo email campaigns', status: 'shifted', due: '', jira: '', comments: [{ t: 'Shifted to 16 Jun', by: 'Lakshay', when: '' }] },
     ],
     '2026-06-16': [
-      { title: 'Update Jira + marketing dashboard & fix changes', status: 'todo', due: '', jira: '', comments: [] },
-      { title: 'Run testing task + final verdict to Swadhin', status: 'todo', due: '', jira: 'LMR-208', comments: [] },
-      { title: 'Brevo email campaigns to go out', status: 'todo', due: '', jira: '', comments: [] },
+      { title: 'Brevo email campaigns to go out', status: 'todo', due: '', jira: '', comments: [{ t: 'Shifted from 15 Jun', by: 'Lakshay', when: '' }] },
+      { title: 'Testing — clean list & give final verdict to Swadhin', status: 'todo', due: '', jira: 'LMR-208', comments: [] },
     ],
   },
 
