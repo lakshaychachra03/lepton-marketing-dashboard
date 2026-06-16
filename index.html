@@ -346,6 +346,11 @@
   .tt-tab { font-size: 12px; font-weight: 700; border: 1.5px solid #e8ebf0; background: #fff; color: #64748b; border-radius: 20px; padding: 6px 14px; cursor: pointer; font-family: inherit; }
   .tt-tab:hover { background: #f8fafc; }
   .tt-tab.active { background: #0052cc; color: #fff; border-color: #0052cc; }
+  .date-nav { display: flex; align-items: center; gap: 8px; margin: 12px 0 2px; }
+  .dn-btn { width: 30px; height: 30px; border: 1.5px solid #e8ebf0; background: #fff; color: #475569; border-radius: 8px; cursor: pointer; font-size: 12px; font-weight: 700; }
+  .dn-btn:hover { background: #f1f5f9; }
+  .dn-label { font-size: 13.5px; font-weight: 700; color: #172b4d; min-width: 150px; }
+  .dn-today { font-size: 11.5px; font-weight: 700; border: 1.5px solid #c7d2fe; background: #eef2ff; color: #3730a3; border-radius: 8px; padding: 5px 10px; cursor: pointer; }
 </style>
 <div class="section" id="todos-section">
   <h2>📝 Team To-Dos <span style="font-size: 12px; font-weight: normal; color: #6b778c; margin-left: 10px;">manually set here · not from Jira</span></h2>
@@ -1682,7 +1687,24 @@
 // ---- Team To-Dos: pick a person → show their to-dos + Jira links --------------
 // To-dos are manual (todos-data.js). The two Jira buttons just link out to Jira.
 (function () {
-  var T = window.TEAM_TODOS || {};
+  var FILE = window.TEAM_TODOS || {};   // manually-managed, date-wise: FILE[person][date] = [..]
+  var DB = {};                          // live edits from the database, normalized to date-maps
+  function normMap(v) { if (Array.isArray(v)) return { '2026-06-15': v }; if (v && typeof v === 'object') return v; return {}; }
+  function listFor(pid, date) { var d = (DB[pid] || {})[date]; if (d && d.length) return d; var f = (FILE[pid] || {})[date]; return f ? f.slice() : []; }
+  function ymd(d) { return d.getFullYear() + '-' + String(d.getMonth() + 1).padStart(2, '0') + '-' + String(d.getDate()).padStart(2, '0'); }
+  function todayStr() { return ymd(new Date()); }
+  function shiftDate(s, n) { var a = s.split('-'); var d = new Date(+a[0], +a[1] - 1, +a[2]); d.setDate(d.getDate() + n); return ymd(d); }
+  function dateLabel(s) { var a = s.split('-'); var d = new Date(+a[0], +a[1] - 1, +a[2]); return d.toLocaleDateString('en-IN', { weekday: 'short', day: 'numeric', month: 'short' }); }
+  function dateNavHtml() {
+    var isToday = selectedDate === todayStr();
+    return '<div class="date-nav">' +
+      '<button class="dn-btn" id="dn-prev" title="Previous day">◀</button>' +
+      '<span class="dn-label">' + dateLabel(selectedDate) + (isToday ? ' · Today' : '') + '</span>' +
+      '<button class="dn-btn" id="dn-next" title="Next day">▶</button>' +
+      (isToday ? '' : '<button class="dn-today" id="dn-today">Jump to today</button>') +
+      '</div>';
+  }
+  var selectedDate = todayStr();
   var LBL = { todo: 'To-do', prog: 'In progress', done: 'Done' };
   var DOT = { todo: '#94a3b8', prog: '#f59e0b', done: '#22c55e' };
   var TODAY = new Date().toISOString().slice(0, 10);
@@ -1714,7 +1736,7 @@
   function renderPeople(activeId) {
     peopleEl.innerHTML = '';
     PEOPLE.forEach(function (p) {
-      var open = (T[p.id] || []).filter(function (t) { return (t.status || 'todo') !== 'done'; }).length;
+      var open = listFor(p.id, selectedDate).filter(function (t) { return (t.status || 'todo') !== 'done'; }).length;
       var b = document.createElement('button');
       b.className = 'tp-btn' + (p.id === activeId ? ' active' : '');
       b.style.borderColor = (p.id === activeId ? p.color : '#e8ebf0');
@@ -1754,10 +1776,11 @@
     var p = byId(id); if (!p) return;
     currentId = id; editing = false;
     renderPeople(id);
-    var items = T[id] || [];
+    var items = listFor(id, selectedDate);
     var activeCount = items.filter(function (t) { return (t.status || 'todo') !== 'done'; }).length;
     var doneCount = items.length - activeCount;
     var html = headHtml(p, pinsSet ? '✏️ Edit' : '🔒 Set up editing');
+    html += dateNavHtml();
     html += '<div class="tt-tabs">' +
       '<button class="tt-tab' + (viewFilter === 'active' ? ' active' : '') + '" data-f="active">📋 To-do (' + activeCount + ')</button>' +
       '<button class="tt-tab' + (viewFilter === 'done' ? ' active' : '') + '" data-f="done">✅ Done (' + doneCount + ')</button>' +
@@ -1791,6 +1814,9 @@
     contentEl.querySelectorAll('.tt-tab').forEach(function (b) {
       b.addEventListener('click', function () { viewFilter = b.getAttribute('data-f'); showPerson(currentId); });
     });
+    var dpv = document.getElementById('dn-prev'); if (dpv) dpv.addEventListener('click', function () { selectedDate = shiftDate(selectedDate, -1); showPerson(currentId); });
+    var dnx = document.getElementById('dn-next'); if (dnx) dnx.addEventListener('click', function () { selectedDate = shiftDate(selectedDate, 1); showPerson(currentId); });
+    var dtd = document.getElementById('dn-today'); if (dtd) dtd.addEventListener('click', function () { selectedDate = todayStr(); showPerson(currentId); });
     contentEl.querySelectorAll('.pt-item').forEach(function (row) {
       row.addEventListener('click', function () {
         var c = contentEl.querySelector('.pt-comments[data-for="' + row.getAttribute('data-i') + '"]');
@@ -1840,7 +1866,7 @@
 
   function enterEdit() {
     editing = true;
-    draft = JSON.parse(JSON.stringify(T[currentId] || []));
+    draft = JSON.parse(JSON.stringify(listFor(currentId, selectedDate)));
     renderEditor();
   }
 
@@ -1871,7 +1897,7 @@
   function renderEditor() {
     var p = byId(currentId);
     var html = headHtml(p, '');
-    html += '<p style="font-size:12px;color:#6b778c;margin:2px 0 4px;">Editing ' + esc(p.name) + "'s to-dos. Change anything, then press Save.</p>";
+    html += '<p style="font-size:12px;color:#6b778c;margin:2px 0 4px;">Editing ' + esc(p.name) + "'s to-dos for <b>" + dateLabel(selectedDate) + '</b>. Change anything, then press Save.</p>';
     html += '<div id="ed-list">';
     draft.forEach(function (t, i) { html += rowHtml(t, i); });
     html += '</div>';
@@ -1930,8 +1956,8 @@
       draft = draft.filter(function (t) { return t.title; });
       save.textContent = 'Saving…'; save.disabled = true;
       var pin = storedPin(currentId);
-      api('save', { person: currentId, pin: pin, todos: draft }).then(function (r) {
-        if (r.ok) { T[currentId] = (r.todos && r.todos[currentId]) || draft; editing = false; showPerson(currentId); }
+      api('save', { person: currentId, pin: pin, date: selectedDate, todos: draft }).then(function (r) {
+        if (r.ok) { DB[currentId] = normMap(r.todos && r.todos[currentId]); editing = false; showPerson(currentId); }
         else { save.textContent = '✓ Save'; save.disabled = false; if (/passcode/i.test(r.error || '')) forgetPin(currentId); alert(r.error || 'Save failed.'); }
       }).catch(function () { save.textContent = '✓ Save'; save.disabled = false; alert('Save failed (network).'); });
     });
@@ -1973,14 +1999,9 @@
       fetch('/api/todos', { cache: 'no-store' })
         .then(function (r) { return r.json(); })
         .then(function (d) {
-          var fileT = window.TEAM_TODOS || {};
-          var dbT = (d && d.ok && d.todos) ? d.todos : {};
-          var merged = {};
-          PEOPLE.forEach(function (p) {
-            var db = dbT[p.id] || [];
-            merged[p.id] = (db && db.length) ? db : (fileT[p.id] || []);
-          });
-          T = merged;
+          var raw = (d && d.ok && d.todos) ? d.todos : {};
+          DB = {};
+          PEOPLE.forEach(function (p) { DB[p.id] = normMap(raw[p.id]); });
           if (d && d.configured) pinsSet = !!d.pinsSet;
           if (cb) cb();
         })

@@ -93,8 +93,14 @@ export default async function handler(req, res) {
 
       if (action === 'save') {
         if (!allowed) return res.status(401).json({ ok: false, error: 'Wrong passcode.' });
+        const date = String(body.date || '').trim();
+        if (!/^\d{4}-\d{2}-\d{2}$/.test(date)) return res.status(400).json({ ok: false, error: 'Missing or invalid date.' });
         const todos = await getTodos();
-        todos[person] = cleanList(body.todos);
+        let pm = todos[person];
+        if (Array.isArray(pm)) pm = { '2026-06-15': pm };       // migrate legacy flat list
+        if (!pm || typeof pm !== 'object') pm = {};
+        pm[date] = cleanList(body.todos);
+        todos[person] = pm;
         await saveTodos(todos);
         return res.status(200).json({ ok: true, todos });
       }
