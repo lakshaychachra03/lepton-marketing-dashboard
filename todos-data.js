@@ -94,6 +94,9 @@ window.TEAM_TODOS = {
       { title: "Repurpose TraffiCure's carousel on LinkedIn", status: 'todo', due: '', jira: '', comments: [] },
       { title: "Post new carousel on TraffiCure's IG page", status: 'todo', due: '', jira: '', comments: [] },
     ],
+    '2026-06-17': [
+      { title: "Post new carousel on TraffiCure's IG page", status: 'todo', due: '', jira: '', comments: [{ t: 'Shifted from 16 Jun', by: 'Lakshay', when: '' }] },
+    ],
   },
 
 };
