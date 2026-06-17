@@ -34,9 +34,9 @@ For each of the 4 people below, click **+ Add step** → **Send a message** → 
 Good morning Swadhin :sunny:
 
 Your top priorities for today:
-👉 <https://leptonsoftware-team.atlassian.net/issues?jql=project%20%3D%20LMR%20AND%20assignee%20%3D%20%22712020%3A262e57bb-d008-4e8f-973a-734d3b19e12e%22%20AND%20statusCategory%20%21%3D%20Done%20AND%20priority%20in%20%28Highest%2C%20High%29%20ORDER%20BY%20priority%20DESC%2C%20duedate%20ASC|Open my top priorities in Jira>
+👉 <https://leptonsoftware-team.atlassian.net/issues/?jql=project%20%3D%20LMR%20AND%20assignee%20%3D%20%22712020%3A262e57bb-d008-4e8f-973a-734d3b19e12e%22%20AND%20statusCategory%20%21%3D%20Done%20AND%20priority%20in%20%28Highest%2C%20High%29%20ORDER%20BY%20priority%20DESC%2C%20duedate%20ASC|Open my top priorities in Jira>
 
-📋 All open tickets: <https://leptonsoftware-team.atlassian.net/issues?jql=project%20%3D%20LMR%20AND%20assignee%20%3D%20%22712020%3A262e57bb-d008-4e8f-973a-734d3b19e12e%22%20AND%20statusCategory%20%21%3D%20Done%20ORDER%20BY%20priority%20DESC%2C%20duedate%20ASC|Open in Jira>
+📋 All open tickets: <https://leptonsoftware-team.atlassian.net/issues/?jql=project%20%3D%20LMR%20AND%20assignee%20%3D%20%22712020%3A262e57bb-d008-4e8f-973a-734d3b19e12e%22%20AND%20statusCategory%20%21%3D%20Done%20ORDER%20BY%20priority%20DESC%2C%20duedate%20ASC|Open in Jira>
 
 📊 Team dashboard: <https://lepton-marketing-dashboard.vercel.app|Live view>
 
@@ -53,9 +53,9 @@ Tip: update tickets directly from Slack with `/jira comment LMR-XX <your update>
 Good morning Lakshay :sunny:
 
 Your top priorities for today:
-👉 <https://leptonsoftware-team.atlassian.net/issues?jql=project%20%3D%20LMR%20AND%20assignee%20%3D%20%22712020%3Ac30d55c4-5bfe-4564-847a-df50d29665a3%22%20AND%20statusCategory%20%21%3D%20Done%20AND%20priority%20in%20%28Highest%2C%20High%29%20ORDER%20BY%20priority%20DESC%2C%20duedate%20ASC|Open my top priorities in Jira>
+👉 <https://leptonsoftware-team.atlassian.net/issues/?jql=project%20%3D%20LMR%20AND%20assignee%20%3D%20%22712020%3Ac30d55c4-5bfe-4564-847a-df50d29665a3%22%20AND%20statusCategory%20%21%3D%20Done%20AND%20priority%20in%20%28Highest%2C%20High%29%20ORDER%20BY%20priority%20DESC%2C%20duedate%20ASC|Open my top priorities in Jira>
 
-📋 All open tickets: <https://leptonsoftware-team.atlassian.net/issues?jql=project%20%3D%20LMR%20AND%20assignee%20%3D%20%22712020%3Ac30d55c4-5bfe-4564-847a-df50d29665a3%22%20AND%20statusCategory%20%21%3D%20Done%20ORDER%20BY%20priority%20DESC%2C%20duedate%20ASC|Open in Jira>
+📋 All open tickets: <https://leptonsoftware-team.atlassian.net/issues/?jql=project%20%3D%20LMR%20AND%20assignee%20%3D%20%22712020%3Ac30d55c4-5bfe-4564-847a-df50d29665a3%22%20AND%20statusCategory%20%21%3D%20Done%20ORDER%20BY%20priority%20DESC%2C%20duedate%20ASC|Open in Jira>
 
 📊 Team dashboard: <https://lepton-marketing-dashboard.vercel.app|Live view>
 
@@ -72,9 +72,9 @@ Tip: update tickets directly from Slack with `/jira comment LMR-XX <your update>
 Good morning Chetna :sunny:
 
 Your top priorities for today:
-👉 <https://leptonsoftware-team.atlassian.net/issues?jql=project%20%3D%20LMR%20AND%20assignee%20%3D%20%22712020%3A1a3f2ee1-53d8-44de-91f6-b088ef327f3e%22%20AND%20statusCategory%20%21%3D%20Done%20AND%20priority%20in%20%28Highest%2C%20High%29%20ORDER%20BY%20priority%20DESC%2C%20duedate%20ASC|Open my top priorities in Jira>
+👉 <https://leptonsoftware-team.atlassian.net/issues/?jql=project%20%3D%20LMR%20AND%20assignee%20%3D%20%22712020%3A1a3f2ee1-53d8-44de-91f6-b088ef327f3e%22%20AND%20statusCategory%20%21%3D%20Done%20AND%20priority%20in%20%28Highest%2C%20High%29%20ORDER%20BY%20priority%20DESC%2C%20duedate%20ASC|Open my top priorities in Jira>
 
-📋 All open tickets: <https://leptonsoftware-team.atlassian.net/issues?jql=project%20%3D%20LMR%20AND%20assignee%20%3D%20%22712020%3A1a3f2ee1-53d8-44de-91f6-b088ef327f3e%22%20AND%20statusCategory%20%21%3D%20Done%20ORDER%20BY%20priority%20DESC%2C%20duedate%20ASC|Open in Jira>
+📋 All open tickets: <https://leptonsoftware-team.atlassian.net/issues/?jql=project%20%3D%20LMR%20AND%20assignee%20%3D%20%22712020%3A1a3f2ee1-53d8-44de-91f6-b088ef327f3e%22%20AND%20statusCategory%20%21%3D%20Done%20ORDER%20BY%20priority%20DESC%2C%20duedate%20ASC|Open in Jira>
 
 📊 Team dashboard: <https://lepton-marketing-dashboard.vercel.app|Live view>
 
@@ -91,9 +91,9 @@ Tip: update tickets directly from Slack with `/jira comment LMR-XX <your update>
 Good morning Plash :sunny:
 
 Your top priorities for today:
-👉 <https://leptonsoftware-team.atlassian.net/issues?jql=project%20%3D%20LMR%20AND%20assignee%20%3D%20%22712020%3A7d2a8edd-cd85-447a-8953-ec9fa7333218%22%20AND%20statusCategory%20%21%3D%20Done%20AND%20priority%20in%20%28Highest%2C%20High%29%20ORDER%20BY%20priority%20DESC%2C%20duedate%20ASC|Open my top priorities in Jira>
+👉 <https://leptonsoftware-team.atlassian.net/issues/?jql=project%20%3D%20LMR%20AND%20assignee%20%3D%20%22712020%3A7d2a8edd-cd85-447a-8953-ec9fa7333218%22%20AND%20statusCategory%20%21%3D%20Done%20AND%20priority%20in%20%28Highest%2C%20High%29%20ORDER%20BY%20priority%20DESC%2C%20duedate%20ASC|Open my top priorities in Jira>
 
-📋 All open tickets: <https://leptonsoftware-team.atlassian.net/issues?jql=project%20%3D%20LMR%20AND%20assignee%20%3D%20%22712020%3A7d2a8edd-cd85-447a-8953-ec9fa7333218%22%20AND%20statusCategory%20%21%3D%20Done%20ORDER%20BY%20priority%20DESC%2C%20duedate%20ASC|Open in Jira>
+📋 All open tickets: <https://leptonsoftware-team.atlassian.net/issues/?jql=project%20%3D%20LMR%20AND%20assignee%20%3D%20%22712020%3A7d2a8edd-cd85-447a-8953-ec9fa7333218%22%20AND%20statusCategory%20%21%3D%20Done%20ORDER%20BY%20priority%20DESC%2C%20duedate%20ASC|Open in Jira>
 
 📊 Team dashboard: <https://lepton-marketing-dashboard.vercel.app|Live view>
 
@@ -130,7 +130,7 @@ Hi <NAME> :wave:
 
 Time to update your tickets before EOD. Please mark Done or add a status comment on each open item.
 
-📋 Your open tickets: <https://leptonsoftware-team.atlassian.net/issues?jql=project%20%3D%20LMR%20AND%20assignee%20%3D%20%22<ACCOUNT_ID>%22%20AND%20statusCategory%20%21%3D%20Done%20ORDER%20BY%20priority%20DESC%2C%20duedate%20ASC|Open in Jira>
+📋 Your open tickets: <https://leptonsoftware-team.atlassian.net/issues/?jql=project%20%3D%20LMR%20AND%20assignee%20%3D%20%22<ACCOUNT_ID>%22%20AND%20statusCategory%20%21%3D%20Done%20ORDER%20BY%20priority%20DESC%2C%20duedate%20ASC|Open in Jira>
 
 Quick ways to update from Slack:
 • `/jira transition LMR-XX` → change status
