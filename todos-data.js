@@ -36,6 +36,9 @@ window.TEAM_TODOS = {
       { title: 'Umang LinkedIn', status: 'todo', due: '', jira: '', comments: [{ t: 'Shifted from 15 Jun', by: 'Lakshay', when: '' }] },
       { title: 'TraffiCure LinkedIn', status: 'todo', due: '', jira: '', comments: [{ t: 'Shifted from 15 Jun', by: 'Lakshay', when: '' }] },
     ],
+    '2026-06-17': [
+      { title: "TraffiCure post — Delhi's proposed 4 km elevated corridor (newspaper report)", status: 'todo', due: '', jira: 'LMR-215', comments: [{ t: 'P0 priority. Owner: Swadhin · Co-owner: Chetna', by: 'Lakshay', when: '' }] },
+    ],
   },
 
   lakshay: {
@@ -67,6 +70,9 @@ window.TEAM_TODOS = {
       { title: "IMC'26 — initial findings & opportunities", status: 'todo', due: '', jira: '', comments: [] },
       { title: '[BAU] Call PR people to learn about Organic PR', status: 'todo', due: '', jira: '', comments: [] },
       { title: '[BAU] Find Sponsored PR opportunities', status: 'todo', due: '', jira: '', comments: [] },
+    ],
+    '2026-06-17': [
+      { title: "TraffiCure post — Delhi's proposed 4 km elevated corridor (newspaper report)", status: 'todo', due: '', jira: 'LMR-215', comments: [{ t: 'P0 priority. Co-owner: Chetna · Owner: Swadhin', by: 'Lakshay', when: '' }] },
     ],
   },
 
