@@ -96,6 +96,9 @@ window.TEAM_TODOS = {
     ],
     '2026-06-17': [
       { title: "Post new carousel on TraffiCure's IG page", status: 'todo', due: '', jira: '', comments: [{ t: 'Shifted from 16 Jun', by: 'Lakshay', when: '' }] },
+      { title: 'Event cards compilation', status: 'todo', due: '', jira: '', comments: [] },
+      { title: 'TraffiCure confession carousel — design', status: 'todo', due: '', jira: '', comments: [] },
+      { title: 'Talking head video — workflow identification', status: 'todo', due: '', jira: '', comments: [] },
     ],
   },
 
