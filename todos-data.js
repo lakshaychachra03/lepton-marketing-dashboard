@@ -33,11 +33,16 @@ window.TEAM_TODOS = {
       { title: 'TraffiCure LinkedIn', status: 'shifted', due: '', jira: '', comments: [{ t: 'Shifted to 16 Jun', by: 'Lakshay', when: '' }] },
     ],
     '2026-06-16': [
-      { title: 'Umang LinkedIn', status: 'todo', due: '', jira: '', comments: [{ t: 'Shifted from 15 Jun', by: 'Lakshay', when: '' }] },
-      { title: 'TraffiCure LinkedIn', status: 'todo', due: '', jira: '', comments: [{ t: 'Shifted from 15 Jun', by: 'Lakshay', when: '' }] },
+      { title: 'Umang LinkedIn', status: 'done', due: '', jira: '', comments: [{ t: 'Shifted from 15 Jun', by: 'Lakshay', when: '' }] },
+      { title: 'TraffiCure LinkedIn', status: 'done', due: '', jira: '', comments: [{ t: 'Shifted from 15 Jun', by: 'Lakshay', when: '' }] },
     ],
     '2026-06-17': [
       { title: "TraffiCure post — Delhi's proposed 4 km elevated corridor (newspaper report)", status: 'todo', due: '', jira: 'LMR-215', comments: [{ t: 'P0 priority. Owner: Swadhin · Co-owner: Chetna', by: 'Lakshay', when: '' }] },
+      { title: 'Lepton LinkedIn post', status: 'todo', due: '', jira: '', comments: [] },
+      { title: 'Rajeev sir LinkedIn post', status: 'todo', due: '', jira: '', comments: [] },
+      { title: "Clean up Neo360 code + check ex-employees' email backups for hints (coordinate with Padam)", status: 'todo', due: '', jira: '', comments: [] },
+      { title: 'Coordinate with Manish for GMP content', status: 'todo', due: '', jira: '', comments: [] },
+      { title: 'Coordinate with Nikhil for SmartMarket content', status: 'todo', due: '', jira: '', comments: [] },
     ],
   },
 
