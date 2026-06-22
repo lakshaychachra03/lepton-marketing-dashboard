@@ -106,6 +106,11 @@ window.TEAM_TODOS = {
       { title: 'TraffiCure confession carousel — design', status: 'todo', due: '', jira: '', comments: [] },
       { title: 'Talking head video — workflow identification', status: 'todo', due: '', jira: '', comments: [] },
     ],
+    '2026-06-22': [
+      { title: "Post TraffiCure's carousel on Instagram", status: 'todo', due: '2026-06-22', jira: 'LMR-226', comments: [] },
+      { title: 'Research about Instagram B2B page growing strategy', status: 'todo', due: '2026-06-22', jira: 'LMR-224', comments: [] },
+      { title: 'NetworkAccess explainer videos creation', status: 'todo', due: '2026-06-22', jira: 'LMR-225', comments: [] },
+    ],
   },
 
 };
