@@ -57,6 +57,12 @@ window.TEAM_TODOS = {
       { title: 'Brevo email campaigns to go out', status: 'todo', due: '', jira: '', comments: [{ t: 'Shifted from 15 Jun', by: 'Lakshay', when: '' }] },
       { title: 'Testing — clean list & give final verdict to Swadhin', status: 'todo', due: '', jira: 'LMR-208', comments: [] },
     ],
+    '2026-06-22': [
+      { title: 'Sit with Deepinder for NA feedback', status: 'todo', due: '2026-06-22', jira: '', comments: [] },
+      { title: 'Give SmartMarket email plan to Swadhin', status: 'todo', due: '2026-06-22', jira: '', comments: [] },
+      { title: 'Give GMP email plan to Swadhin', status: 'todo', due: '2026-06-22', jira: '', comments: [] },
+      { title: 'Send out Middle East campaigns for NA', status: 'todo', due: '2026-06-22', jira: '', comments: [] },
+    ],
   },
 
   chetna: {
