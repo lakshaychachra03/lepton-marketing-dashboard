@@ -1694,7 +1694,7 @@
   var FILE = window.TEAM_TODOS || {};   // manually-managed, date-wise: FILE[person][date] = [..]
   var DB = {};                          // live edits from the database, normalized to date-maps
   function normMap(v) { if (Array.isArray(v)) return { '2026-06-15': v }; if (v && typeof v === 'object') return v; return {}; }
-  function listFor(pid, date) { var f = (FILE[pid] || {})[date]; return f ? f.slice() : []; }  // file-only: to-dos managed in todos-data.js (Slack bot/DB no longer drives the board)
+  function listFor(pid, date) { var d = (DB[pid] || {})[date]; if (d && d.length) return d; var f = (FILE[pid] || {})[date]; return f ? f.slice() : []; }  // database (dashboard edits) first, else file (todos-data.js)
   function ymd(d) { return d.getFullYear() + '-' + String(d.getMonth() + 1).padStart(2, '0') + '-' + String(d.getDate()).padStart(2, '0'); }
   function todayStr() { return ymd(new Date()); }
   function shiftDate(s, n) { var a = s.split('-'); var d = new Date(+a[0], +a[1] - 1, +a[2]); d.setDate(d.getDate() + n); return ymd(d); }
