@@ -63,6 +63,12 @@ window.TEAM_TODOS = {
       { title: 'Give GMP email plan to Swadhin', status: 'todo', due: '2026-06-22', jira: '', comments: [] },
       { title: 'Send out Middle East campaigns for NA', status: 'todo', due: '2026-06-22', jira: '', comments: [] },
     ],
+    '2026-06-29': [
+      { title: 'ME NA campaign', status: 'todo', due: '2026-06-29', jira: '', comments: [] },
+      { title: 'Africa NA campaign', status: 'todo', due: '2026-06-29', jira: '', comments: [] },
+      { title: 'Google Cloud partner data for ME and Bangladesh', status: 'todo', due: '2026-06-29', jira: '', comments: [] },
+      { title: 'Images refinement — first draft for Website', status: 'todo', due: '2026-06-29', jira: '', comments: [] },
+    ],
   },
 
   chetna: {
