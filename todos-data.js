@@ -69,6 +69,12 @@ window.TEAM_TODOS = {
       { title: 'Google Cloud partner data for ME and Bangladesh', status: 'todo', due: '2026-06-29', jira: '', comments: [] },
       { title: 'Images refinement — first draft for Website', status: 'todo', due: '2026-06-29', jira: '', comments: [] },
     ],
+    '2026-07-16': [
+      { title: 'Meet Sita maam regarding Uttarakhand campaigns', status: 'todo', due: '2026-07-16', jira: 'LMR-244', comments: [] },
+      { title: 'Enrich railway data for Amit sir', status: 'todo', due: '2026-07-16', jira: 'LMR-245', comments: [] },
+      { title: 'Complete the marketing team proof memo (since Swadhin took over)', status: 'prog', due: '2026-07-16', jira: 'LMR-10', comments: [] },
+      { title: 'Run an email campaign for NetworkAccess', status: 'todo', due: '2026-07-16', jira: 'LMR-246', comments: [] },
+    ],
   },
 
   chetna: {
