@@ -174,6 +174,16 @@ window.TEAM_TODOS = {
       { title: 'AmbitionBox — recurring', status: 'todo', due: '2026-07-07', jira: '', comments: [] },
       { title: 'Glassdoor — recurring', status: 'todo', due: '2026-07-07', jira: '', comments: [] },
     ],
+    '2026-07-16': [
+      { title: 'Post the MBP 3.0 carousel on LinkedIn', status: 'todo', due: '2026-07-16', jira: 'LMR-259', comments: [] },
+      { title: 'Update Crunchbase profiles (Umang, Amit Garg, Manish Gupta, Satyajeet, Sita, Aditya, Rohit Sharma, Nisha Bhugra)', status: 'todo', due: '2026-07-16', jira: 'LMR-260', comments: [] },
+      { title: 'Coordinate payments for City Gas and IMC', status: 'todo', due: '2026-07-16', jira: 'LMR-261', comments: [] },
+      { title: 'Prepare for the City Gas event', status: 'todo', due: '2026-07-16', jira: 'LMR-262', comments: [] },
+      { title: 'Follow up on the Indonesia event', status: 'todo', due: '2026-07-16', jira: 'LMR-263', comments: [] },
+      { title: 'Follow up on TEPC payment', status: 'todo', due: '2026-07-16', jira: 'LMR-264', comments: [] },
+      { title: "Address validation and shipping coordination for TraffiCure (with Sita ma'am)", status: 'todo', due: '2026-07-16', jira: 'LMR-265', comments: [] },
+      { title: 'Follow up on Convergence Expo', status: 'todo', due: '2026-07-16', jira: 'LMR-266', comments: [] },
+    ],
   },
 
   plash: {
