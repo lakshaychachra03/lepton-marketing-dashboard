@@ -215,6 +215,12 @@ window.TEAM_TODOS = {
       { title: 'Produce the TraffiCure feature video', status: 'todo', due: '2026-07-16', jira: 'LMR-257', comments: [] },
       { title: "Produce Deepinder's video (if he shares the material today)", status: 'todo', due: '2026-07-16', jira: 'LMR-258', comments: [] },
     ],
+    '2026-07-17': [
+      { title: 'SmartMarket webpage finalization', status: 'todo', due: '2026-07-17', jira: 'LMR-256', comments: [] },
+      { title: 'TraffiCure feature videos production', status: 'todo', due: '2026-07-17', jira: 'LMR-257', comments: [] },
+      { title: "Make TraffiCure cover letter for Sita ma'am", status: 'todo', due: '2026-07-17', jira: 'LMR-267', comments: [] },
+      { title: 'Connect with Deependra for DepthSure video', status: 'todo', due: '2026-07-17', jira: 'LMR-258', comments: [] },
+    ],
   },
 
 };
