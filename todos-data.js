@@ -55,6 +55,18 @@ window.TEAM_TODOS = {
       { title: 'Send two post-event emails (thank-you + follow-up to non-attendees)', status: 'done', due: '2026-07-16', jira: 'LMR-254', comments: [] },
       { title: 'Get corporate deck update from Plash and review with Rajeev sir', status: 'todo', due: '2026-07-16', jira: 'LMR-255', comments: [] },
     ],
+    '2026-07-17': [
+      { title: 'Create the MBP 3.0 report', status: 'todo', due: '2026-07-17', jira: 'LMR-268', comments: [] },
+      { title: 'LinkedIn post - Umang', status: 'todo', due: '2026-07-17', jira: 'LMR-269', comments: [] },
+      { title: 'LinkedIn post - TraffiCure', status: 'todo', due: '2026-07-17', jira: 'LMR-270', comments: [] },
+      { title: 'LinkedIn post - Rajeev sir', status: 'todo', due: '2026-07-17', jira: 'LMR-271', comments: [] },
+      { title: 'Charter plan', status: 'todo', due: '2026-07-17', jira: 'LMR-272', comments: [] },
+      { title: 'Apollo - add 1K credits', status: 'todo', due: '2026-07-17', jira: 'LMR-273', comments: [] },
+      { title: 'TraffiCure new blog', status: 'todo', due: '2026-07-17', jira: 'LMR-274', comments: [] },
+      { title: 'Pipedrive deal study', status: 'todo', due: '2026-07-17', jira: 'LMR-249', comments: [] },
+      { title: 'NetworkAccess webinar', status: 'todo', due: '2026-07-17', jira: 'LMR-275', comments: [] },
+      { title: 'Email inbox scraping of sales', status: 'todo', due: '2026-07-17', jira: 'LMR-276', comments: [] },
+    ],
   },
 
   lakshay: {
