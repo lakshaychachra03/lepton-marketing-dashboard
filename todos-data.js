@@ -196,6 +196,16 @@ window.TEAM_TODOS = {
       { title: "Address validation and shipping coordination for TraffiCure (with Sita ma'am)", status: 'todo', due: '2026-07-16', jira: 'LMR-265', comments: [] },
       { title: 'Follow up on Convergence Expo', status: 'todo', due: '2026-07-16', jira: 'LMR-266', comments: [] },
     ],
+    '2026-07-21': [
+      { title: 'TraffiCure - Transport & Traffic Tech: new event findings', status: 'todo', due: '2026-07-21', jira: 'LMR-280', comments: [] },
+      { title: 'Coordinate IMC foreign delegates and City Gas event', status: 'todo', due: '2026-07-21', jira: 'LMR-281', comments: [] },
+      { title: 'LinkedIn use-case carousel: content + design (with Plash) and post caption', status: 'todo', due: '2026-07-21', jira: 'LMR-282', comments: [] },
+      { title: 'Booth content for City Gas event (all walls)', status: 'todo', due: '2026-07-21', jira: 'LMR-283', comments: [] },
+      { title: "NA webinar: coordinate with Sita ma'am for VSIS case study (Partner + Dialog) and speaker", status: 'todo', due: '2026-07-21', jira: 'LMR-284', comments: [] },
+      { title: 'Initial email and WhatsApp blast', status: 'todo', due: '2026-07-21', jira: 'LMR-285', comments: [] },
+      { title: 'Region-based email communication', status: 'todo', due: '2026-07-21', jira: 'LMR-286', comments: [] },
+      { title: 'Glassdoor, AmbitionBox & Google Reviews: connect with Shashvat', status: 'todo', due: '2026-07-21', jira: 'LMR-287', comments: [] },
+    ],
   },
 
   plash: {
