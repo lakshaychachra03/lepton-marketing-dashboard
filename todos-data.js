@@ -107,6 +107,11 @@ window.TEAM_TODOS = {
       { title: 'Marketing dashboard changes - initial build', status: 'done', due: '2026-07-17', jira: 'LMR-293', comments: [] },
       { title: 'Railway DB enrichment', status: 'done', due: '2026-07-17', jira: 'LMR-245', comments: [{ t: 'Shifted from 16 Jul', by: 'Lakshay', when: '' }] },
     ],
+    '2026-07-21': [
+      { title: 'Marketing final pipeline build on inside-sales pipeline', status: 'done', due: '2026-07-21', jira: 'LMR-297', comments: [] },
+      { title: 'Inside sales demo for dashboard', status: 'done', due: '2026-07-21', jira: 'LMR-298', comments: [] },
+      { title: 'Sales demo for dashboard', status: 'done', due: '2026-07-21', jira: 'LMR-299', comments: [] },
+    ],
     '2026-07-22': [
       { title: 'Marketing dashboard - final changes and testing', status: 'done', due: '2026-07-22', jira: 'LMR-294', comments: [] },
       { title: "Enrich Shraddha's DB", status: 'shifted', due: '2026-07-22', jira: 'LMR-295', comments: [{ t: 'Shifted to 23 Jul', by: 'Lakshay', when: '' }] },
