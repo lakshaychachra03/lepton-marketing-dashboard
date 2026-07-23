@@ -230,11 +230,11 @@ window.TEAM_TODOS = {
       { title: 'Glassdoor, AmbitionBox & Google Reviews: connect with Shashvat', status: 'todo', due: '2026-07-21', jira: 'LMR-287', comments: [] },
     ],
     '2026-07-22': [
-      { title: 'NA webinar alignment - Satyajeet & KC', status: 'todo', due: '2026-07-22', jira: 'LMR-300', comments: [] },
-      { title: 'NA webinar - Communication R1 + set up communication (thank-you email + pop-up content)', status: 'todo', due: '2026-07-22', jira: 'LMR-301', comments: [] },
-      { title: 'NA webinar - landing page + design', status: 'todo', due: '2026-07-22', jira: 'LMR-302', comments: [] },
-      { title: 'Support list to share with Swadhin for NA webinar', status: 'todo', due: '2026-07-22', jira: 'LMR-303', comments: [] },
-      { title: 'LinkedIn post (22 Jul) - design + communication', status: 'todo', due: '2026-07-22', jira: 'LMR-304', comments: [] },
+      { title: 'NA webinar alignment - Satyajeet & KC', status: 'done', due: '2026-07-22', jira: 'LMR-300', comments: [] },
+      { title: 'NA webinar - Communication R1 + set up communication (thank-you email + pop-up content)', status: 'done', due: '2026-07-22', jira: 'LMR-301', comments: [] },
+      { title: 'NA webinar - landing page + design', status: 'done', due: '2026-07-22', jira: 'LMR-302', comments: [] },
+      { title: 'Support list to share with Swadhin for NA webinar', status: 'done', due: '2026-07-22', jira: 'LMR-303', comments: [] },
+      { title: 'LinkedIn post (22 Jul) - design + communication', status: 'done', due: '2026-07-22', jira: 'LMR-304', comments: [] },
     ],
   },
 
