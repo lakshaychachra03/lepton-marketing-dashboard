@@ -98,9 +98,14 @@ window.TEAM_TODOS = {
     ],
     '2026-07-16': [
       { title: 'Meet Sita maam regarding Uttarakhand campaigns', status: 'todo', due: '2026-07-16', jira: 'LMR-244', comments: [] },
-      { title: 'Enrich railway data for Amit sir', status: 'todo', due: '2026-07-16', jira: 'LMR-245', comments: [] },
+      { title: 'Enrich railway data for Amit sir', status: 'shifted', due: '2026-07-16', jira: 'LMR-245', comments: [{ t: 'Shifted to 17 Jul (done)', by: 'Lakshay', when: '' }] },
       { title: 'Complete the marketing team proof memo (since Swadhin took over)', status: 'prog', due: '2026-07-16', jira: 'LMR-10', comments: [] },
       { title: 'Run an email campaign for NetworkAccess', status: 'todo', due: '2026-07-16', jira: 'LMR-246', comments: [] },
+    ],
+    '2026-07-17': [
+      { title: 'Sakshi phone data enrichment', status: 'done', due: '2026-07-17', jira: 'LMR-292', comments: [] },
+      { title: 'Marketing dashboard changes - initial build', status: 'done', due: '2026-07-17', jira: 'LMR-293', comments: [] },
+      { title: 'Railway DB enrichment', status: 'done', due: '2026-07-17', jira: 'LMR-245', comments: [{ t: 'Shifted from 16 Jul', by: 'Lakshay', when: '' }] },
     ],
   },
 
